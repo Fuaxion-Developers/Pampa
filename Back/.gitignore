@@ -3,6 +3,10 @@
 /node_modules
 /build
 
+#dotenv
+/.env.development
+/.env
+
 #package-lock
 package-lock.json
 
