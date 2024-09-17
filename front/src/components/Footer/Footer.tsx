@@ -1,11 +1,44 @@
-import React from 'react'
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 const Footer = () => {
   return (
-    <div>
-      Este es el footer
+    <div className="bg-greenD-100 text-whiteD-100">
+      <div className="p-12 flex justify-between">
+        <div className="flex gap-12">
+          <div>
+            <h2 className="text-2xl">Información</h2>
+            <Link href="/about">
+              {' '}
+              <p>Sobre Nosotros</p>
+            </Link>
+            <Link href="#">
+              {' '}
+              <p>Contacto</p>
+            </Link>
+            <p>Buscar</p>
+          </div>
+          <div>
+            <h2 className="text-2xl">Contacto</h2>
+            <p>decosellospampa@gmail.com</p>
+          </div>
+        </div>
+        <div>
+          <Image
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726584312/2_j7tn9a.svg"
+            alt="Logo"
+            width={200}
+            height={200}
+          />
+        </div>
+      </div>
+      <div className="border-t-2 p-12">
+        &copy; 2024 - <Link href="/"> PAMPA </Link>
+        <Link href="#"> Hecho por Fuaxion </Link>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
