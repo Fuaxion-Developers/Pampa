@@ -1,5 +1,5 @@
-import { UUID } from 'crypto';
 import { OrderDetails } from 'src/order-detail/order-detail.entity';
+import { v4 as uuid } from 'uuid';
 import {
   Column,
   Entity,
@@ -12,7 +12,7 @@ import {
 @Entity()
 export class Orders {
   @PrimaryGeneratedColumn('uuid')
-  id: UUID;
+  id: uuid;
 
   // @ManyToOne(() => Users, (user) => user.orders))
   // user_id: UUID;
