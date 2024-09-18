@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="bg-greenD-100 text-whiteD-100">
+    <div className="bg-brownD-100 text-whiteD-100">
       <div className="p-12 flex justify-between">
         <div className="flex gap-12">
           <div>
@@ -26,7 +26,7 @@ const Footer = () => {
         </div>
         <div>
           <Image
-            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726584312/2_j7tn9a.svg"
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726586139/5_aldjn1.svg"
             alt="Logo"
             width={200}
             height={200}
@@ -34,8 +34,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="border-t-2 p-12">
-        &copy; 2024 - <Link href="/"> PAMPA </Link>
-        <Link href="#"> Hecho por Fuaxion </Link>
+        <Link href="/"> PAMPA </Link>
+        &copy; 2024 -<Link href="#"> Hecho por Fuaxion </Link>
       </div>
     </div>
   );

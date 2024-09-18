@@ -17,11 +17,11 @@ const Carousel = () => {
   return (
     <div
       id="indicators-carousel"
-      className="relative w-full"
+      className="relative w-full my-8"
       data-carousel="static"
     >
       {/* Carousel wrapper */}
-      <div className="h-48 md:h-72 overflow-hidden">
+      <div className="h-48 sm:h-64 md:h-80 lg:h-96 xl:h-[30rem] overflow-hidden">
         {/* Item 1 */}
         <div
           className={`absolute block w-full transition-opacity duration-700 ease-in-out ${
@@ -30,8 +30,8 @@ const Carousel = () => {
           data-carousel-item="active"
         >
           <Image
-            className="relative mx-auto my-auto h-48 md:h-72"
-            src="/imagenes/banner1.png"
+            className="relative mx-auto my-auto h-48 sm:h-64 md:h-80 lg:h-96 xl:h-[30rem]"
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726583177/cld-sample-3.jpg"
             alt="Producto 1"
             width={1300}
             height={1300}
@@ -45,8 +45,8 @@ const Carousel = () => {
           data-carousel-item="active"
         >
           <Image
-            className="relative mx-auto my-auto h-48 md:h-72"
-            src="/imagenes/banner.png"
+            className="relative mx-auto my-auto h-48 sm:h-64 md:h-80 lg:h-96 xl:h-[30rem]"
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726674829/1-slide-1647530355888-2467814382-5beb5cb29ac9cfde7671b5d42441d8451647530372-1920-1920_x7fqno.webp"
             alt="Producto 2"
             width={1300}
             height={1300}
@@ -60,8 +60,8 @@ const Carousel = () => {
           data-carousel-item="active"
         >
           <Image
-            className="relative mx-auto my-auto h-48 md:h-72"
-            src="/imagenes/portada3.png"
+            className="relative mx-auto my-auto h-48 sm:h-64 md:h-80 lg:h-96 xl:h-[30rem]"
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726583175/samples/balloons.jpg"
             alt="Producto 3"
             width={1300}
             height={1300}
@@ -73,14 +73,14 @@ const Carousel = () => {
       <div className="flex justify-center mt-4">
         <button
           type="button"
-          className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 border rounded-full bg-gray-200 border-gray-300 mx-2"
+          className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 border rounded-full bg-brownD-100 border-gray-300 mx-2"
           onClick={() =>
             setActiveIndex((activeIndex - 1 + totalSlides) % totalSlides)
           }
           data-carousel-prev
         >
           <svg
-            className="w-3 h-3 md:w-4 md:h-4 text-white dark:text-gray-800 rtl:rotate-180"
+            className="w-3 h-3 md:w-4 md:h-4 text-white rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -98,12 +98,12 @@ const Carousel = () => {
         </button>
         <button
           type="button"
-          className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 border rounded-full bg-gray-200 border-gray-300 mx-2"
+          className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 border rounded-full bg-brownD-100 border-gray-300 mx-2"
           onClick={() => setActiveIndex((activeIndex + 1) % totalSlides)}
           data-carousel-next
         >
           <svg
-            className="w-3 h-3 md:w-4 md:h-4 text-white dark:text-gray-800 rtl:rotate-180"
+            className="w-3 h-3 md:w-4 md:h-4 text-white  rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -122,7 +122,7 @@ const Carousel = () => {
       </div>
 
       {/* Indicadores del slider */}
-      <div className="absolute z-30 flex space-x-3 bottom-5 left-1/2 transform -translate-x-1/2">
+      <div className="absolute z-30 flex space-x-3 bottom-16 left-1/2 transform -translate-x-1/2">
         {[...Array(totalSlides)].map((_, index) => (
           <button
             key={index}
