@@ -8,6 +8,8 @@ import { OrderDetailService } from './order-detail/order-detail.service';
 import { OrderDetailModule } from './order-detail/order-detail.module';
 import { ProductsModule } from './products/products.module';
 import typeormConfig from './config/typeormConfig';
+import { ProductsTypesModule } from './products/productType/products-types/products-types.module';
+import { OrderModule } from './orders/order/order.module';
 
 @Module({
   imports: [
@@ -20,10 +22,12 @@ import typeormConfig from './config/typeormConfig';
       useFactory: (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
+    OrderModule,
     OrderDetailModule,
     ProductsModule,
+    ProductsTypesModule,
   ],
-  controllers: [AppController, OrderDetailController],
-  providers: [AppService, OrderDetailService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

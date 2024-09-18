@@ -1,18 +1,26 @@
-import { UUID } from 'crypto';
 import { Orders } from 'src/orders/order/order.entity';
-import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Products } from 'src/products/product.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 @Entity()
 export class OrderDetails {
   @PrimaryGeneratedColumn('uuid')
-  id: UUID;
+  id: uuid;
 
   @ManyToOne(() => Orders, (order) => order.id)
-  order: UUID;
+  order: uuid;
 
-  // @ManyToOne(()=> Products, (product) => product.order_detail)
-  // product: UUID;
+  @ManyToOne(() => Products, (product) => product.id)
+  product: uuid;
 
+  @Column()
   quantity: number;
 
   // total: number; //? Por ahora nose si se guarda en la db ya q es un dato calculable

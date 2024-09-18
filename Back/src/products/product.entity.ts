@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 import { ProductsTypes } from './productType/products-types/products-types.entity';
 
@@ -11,6 +17,7 @@ export class Products {
   name: string;
 
   @ManyToOne(() => ProductsTypes, (productType) => productType.id)
+  @JoinColumn({ name: 'category' })
   category: UUID;
 
   @Column({ type: 'float' })
