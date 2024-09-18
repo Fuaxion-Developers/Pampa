@@ -1,0 +1,31 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Orders } from './order.entity';
+import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
+import { OrderDto } from './order.dto';
+
+@Injectable()
+export class OrderRepository {
+  constructor(@InjectRepository(Orders) private order: Repository<Orders>) {}
+
+  async getAll() {
+    return await this.order.find();
+  }
+
+  async getById(id: uuid) {
+    return await this.order.findOne({ where: { id } });
+  }
+
+  async create(order: OrderDto) {
+    return await this.order.save(order);
+  }
+
+  async update(id: uuid, order: OrderDto) {
+    return await this.order.update({ id }, order);
+  }
+
+  async delete(id: uuid) {
+    return await this.order.delete({ id });
+  }
+}
