@@ -34,7 +34,7 @@ const Navbar = () => {
           <p>Inicio</p>
         </Link>
         <Link
-          href="/productos"
+          href="/products"
           className={`${styles.navLink} ${
             pathname === '/productos' ? styles.active : ''
           }`}
