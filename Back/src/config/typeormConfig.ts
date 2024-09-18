@@ -10,7 +10,7 @@ const config = {
   username: env.db.username,
   password: env.db.pass,
   // dropSchema: true,
-  // synchronize: true,
+  synchronize: true,
   // logging: true,
   // ssl: true,
   autoLoadEntities: true,
