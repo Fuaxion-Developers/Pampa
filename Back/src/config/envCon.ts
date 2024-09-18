@@ -12,4 +12,5 @@ export const env = {
     pass: process.env.DB_PASSWORD || 'test',
     name: process.env.DB_NAME || 'test',
   },
+  jwt_secret: process.env.JWT_SECRET || 'clavesecreta',
 };
