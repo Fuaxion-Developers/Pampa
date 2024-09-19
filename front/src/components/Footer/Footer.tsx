@@ -24,14 +24,14 @@ const Footer = () => {
         </div>
         <div className="mt-6 md:mt-0 flex justify-center md:justify-end">
           <Image
-            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726586139/5_aldjn1.svg"
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726763595/Pampa_chico_2_a64puq.svg"
             alt="Logo"
             width={200}
             height={200}
           />
         </div>
       </div>
-      <div className="flex justify-center md:justify-end gap-4 mt-6 md:mt-0 mr-0 md:mr-[8%] mb-4">
+      <div className="flex justify-center md:justify-end gap-4 mt-6 md:mt-0 mr-0 md:mr-[6%] mb-4">
         <Image
           src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677834/icons8-facebook_fnzvbg.svg"
           alt="Facebook Logo"
@@ -44,10 +44,16 @@ const Footer = () => {
           width={30}
           height={30}
         />
+        <Image
+          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677999/icons8-gmail-nuevo_x5z5gn.svg"
+          alt="Instagram Logo"
+          width={30}
+          height={30}
+        />
       </div>
       <div className="border-t-2 p-6 md:p-12 flex flex-col md:flex-row justify-center md:justify-between items-center">
         <p className="mt-2 md:mt-0">
-        <Link href="/">PAMPA </Link>
+          <Link href="/">PAMPA </Link>
           &copy; 2024 - <Link href="#">Hecho por Fuaxion</Link>
         </p>
       </div>
