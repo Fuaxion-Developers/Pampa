@@ -18,7 +18,7 @@ const Navbar = () => {
       </div>
       <div className="flex justify-center items-center">
         <Image
-          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726586140/7_ynd5ia.svg"
+          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726763511/Pampa_chico_1_bwdcha.svg"
           alt="Logo-Pampa"
           width={200}
           height={200}
