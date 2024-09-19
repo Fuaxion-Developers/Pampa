@@ -17,10 +17,6 @@ const Footer = () => {
             </Link>
             <p>Buscar</p>
           </div>
-          <div>
-            <h2 className="text-xl md:text-2xl">Contacto</h2>
-            <p>decosellospampa@gmail.com</p>
-          </div>
         </div>
         <div className="mt-6 md:mt-0 flex justify-center md:justify-end">
           <Image
@@ -32,24 +28,34 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex justify-center md:justify-end gap-4 mt-6 md:mt-0 mr-0 md:mr-[6%] mb-4">
-        <Image
-          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677834/icons8-facebook_fnzvbg.svg"
-          alt="Facebook Logo"
-          width={30}
-          height={30}
-        />
-        <Image
-          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677909/icons8-instagram_agiq0v.svg"
-          alt="Instagram Logo"
-          width={30}
-          height={30}
-        />
-        <Image
-          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677999/icons8-gmail-nuevo_x5z5gn.svg"
-          alt="Instagram Logo"
-          width={30}
-          height={30}
-        />
+        <Link href="#" rel="noopener noreferrer" target="_blank">
+          <Image
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677834/icons8-facebook_fnzvbg.svg"
+            alt="Facebook Logo"
+            width={30}
+            height={30}
+          />
+        </Link>
+        <Link href="#" rel="noopener noreferrer" target="_blank">
+          <Image
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677909/icons8-instagram_agiq0v.svg"
+            alt="Instagram Logo"
+            width={30}
+            height={30}
+          />
+        </Link>
+        <Link
+          href="mailto:decosellospampa@gmail.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Image
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677999/icons8-gmail-nuevo_x5z5gn.svg"
+            alt="Gmail Logo"
+            width={30}
+            height={30}
+          />
+        </Link>
       </div>
       <div className="border-t-2 p-6 md:p-12 flex flex-col md:flex-row justify-center md:justify-between items-center">
         <p className="mt-2 md:mt-0">
