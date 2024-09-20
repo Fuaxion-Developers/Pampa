@@ -4,11 +4,11 @@ import React from 'react';
 const Recomendations = () => {
   return (
     <div>
-      <h2  className='m-8 mb-16 font-semibold text-xl border-b border-black'>Nuestros clientes nos recomiendan</h2>
+      <h2 className="m-8 mb-16 font-semibold text-xl border-b border-black">
+        Nuestros clientes nos recomiendan
+      </h2>
       <div className="grid grid-cols-4 gap-8 justify-center m-8">
         <div className=" bg-whiteD-200 p-3 relative">
-          {' '}
-          {/* Posición relativa al contenedor */}
           <Image
             className="rounded-full absolute left-1/2 transform -translate-x-1/2 -top-10" // Centrar imagen
             width="100"
@@ -24,42 +24,19 @@ const Recomendations = () => {
               Veritatis nostrum cupiditate quas tempora vero velit dicta.
             </p>
             <div className="flex justify-center">
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
+              {[...Array(5)].map((_, starIndex) => (
+                <Image
+                  key={starIndex}
+                  width="20"
+                  height="20"
+                  src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
+                  alt={`Estrella ${starIndex}`}
+                />
+              ))}
             </div>
           </div>
         </div>
         <div className=" bg-whiteD-200 p-3 relative">
-          {' '}
-          {/* Posición relativa al contenedor */}
           <Image
             className="rounded-full absolute left-1/2 transform -translate-x-1/2 -top-10" // Centrar imagen
             width="100"
@@ -75,42 +52,19 @@ const Recomendations = () => {
               Veritatis nostrum cupiditate quas tempora vero velit dicta.
             </p>
             <div className="flex justify-center">
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
+              {[...Array(5)].map((_, starIndex) => (
+                <Image
+                  key={starIndex}
+                  width="20"
+                  height="20"
+                  src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
+                  alt={`Estrella ${starIndex}`}
+                />
+              ))}
             </div>
           </div>
         </div>
         <div className=" bg-whiteD-200 p-3 relative">
-          {' '}
-          {/* Posición relativa al contenedor */}
           <Image
             className="rounded-full absolute left-1/2 transform -translate-x-1/2 -top-10" // Centrar imagen
             width="100"
@@ -126,42 +80,19 @@ const Recomendations = () => {
               Veritatis nostrum cupiditate quas tempora vero velit dicta.
             </p>
             <div className="flex justify-center">
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
+              {[...Array(5)].map((_, starIndex) => (
+                <Image
+                  key={starIndex}
+                  width="20"
+                  height="20"
+                  src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
+                  alt={`Estrella ${starIndex}`}
+                />
+              ))}
             </div>
           </div>
         </div>
         <div className=" bg-whiteD-200 p-3 relative">
-          {' '}
-          {/* Posición relativa al contenedor */}
           <Image
             className="rounded-full absolute left-1/2 transform -translate-x-1/2 -top-10" // Centrar imagen
             width="100"
@@ -177,36 +108,15 @@ const Recomendations = () => {
               Veritatis nostrum cupiditate quas tempora vero velit dicta.
             </p>
             <div className="flex justify-center">
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
-              <Image
-                width="20"
-                height="200"
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
-                alt=""
-              />
+              {[...Array(5)].map((_, starIndex) => (
+                <Image
+                  key={starIndex}
+                  width="20"
+                  height="20"
+                  src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg"
+                  alt={`Estrella ${starIndex}`}
+                />
+              ))}
             </div>
           </div>
         </div>
