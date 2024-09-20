@@ -13,7 +13,6 @@
     "next-cloudinary": "^6.13.0",
     "react": "^18",
     "react-dom": "^18"
-    
   },
   "devDependencies": {
     "@types/node": "^20",

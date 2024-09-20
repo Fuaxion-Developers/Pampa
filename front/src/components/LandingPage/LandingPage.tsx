@@ -1,16 +1,13 @@
-import React from 'react'
-import Footer from '../Footer/Footer'
-import Navbar from '../Navbar/Navbar'
-import Carousel from '../carousel/carousel'
-import Recomendations from '../Recomendations/Recomendations'
+import Carousel from '../carousel/carousel';
+import Recomendations from '../Recomendations/Recomendations';
 
 const LandingPage = () => {
   return (
     <div>
-     <Carousel/>
-     <Recomendations/>
+      <Carousel />
+      <Recomendations />
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;
