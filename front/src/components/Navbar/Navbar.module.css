@@ -1,3 +1,4 @@
+
 .navLink {
   position: relative;
   text-decoration: none;
@@ -13,7 +14,7 @@
   height: 2px;
   bottom: 0;
   left: 50%;
-  background-color: brown; /* Color por defecto del subrayado */
+  background-color: #927363;; /* Color por defecto del subrayado */
   transition: all 0.3s ease-out;
   transform: translateX(-50%);
 }
@@ -25,16 +26,16 @@
 }
 
 .navLink:hover {
-  color: brown; /* Cambia el color del texto al pasar el mouse */
+  color: #927363; /* Cambia el color del texto al pasar el mouse */
 }
 
 .active {
-  color: brown; /* Cambia el color del texto cuando está en la página activa */
+  color: #927363; /* Cambia el color del texto cuando está en la página activa */
 }
 
 .active::after {
   width: 100%;
   left: 0;
   transform: translateX(0);
-  background-color: brown; /* Cambia el color del subrayado cuando está en la página activa */
+  background-color: #927363; /* Cambia el color del subrayado cuando está en la página activa */
 }

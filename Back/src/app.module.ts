@@ -10,6 +10,10 @@ import { ProductsModule } from './products/products.module';
 import typeormConfig from './config/typeormConfig';
 import { ProductsTypesModule } from './products/productType/products-types/products-types.module';
 import { OrderModule } from './orders/order/order.module';
+import { JwtModule } from '@nestjs/jwt';
+import { env } from './config/envCon';
+import { UsersModule } from './users/users.module';
+import { InfoUsersModule } from './infoUsers/infoUsers.module';
 
 @Module({
   imports: [
@@ -26,6 +30,16 @@ import { OrderModule } from './orders/order/order.module';
     OrderDetailModule,
     ProductsModule,
     ProductsTypesModule,
+    UsersModule,
+    InfoUsersModule,
+
+    JwtModule.register({
+      global: true,
+      secret: env.jwt_secret,
+      signOptions: {
+        expiresIn: '1h',
+      }
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
