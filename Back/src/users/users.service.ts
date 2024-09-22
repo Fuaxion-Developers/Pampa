@@ -4,7 +4,7 @@ import { User } from './users.entity';
 import { InfoUser } from 'src/infoUsers/infoUsers.entity';
 import { InfoUsersService } from 'src/infoUsers/infoUsers.service';
 import { Hash } from 'src/utils/hash';
-import { Roles } from './roles.enum';
+import { Roles } from './enums/roles.enum';
 import { ComparePass } from 'src/utils/comparePass';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
@@ -18,8 +18,17 @@ export class UsersService {
     private readonly configService: ConfigService,
   ) {}
 
-  async getAllUsers({ page, limit }: { page: number, limit: number}): Promise<User[]> {
-    const limitUsers: User[] = await this.usersRepository.getAllUsers({ page, limit});
+  async getAllUsers({
+    page,
+    limit,
+  }: {
+    page: number;
+    limit: number;
+  }): Promise<User[]> {
+    const limitUsers: User[] = await this.usersRepository.getAllUsers({
+      page,
+      limit,
+    });
     return limitUsers;
   }
 
@@ -31,10 +40,20 @@ export class UsersService {
     return this.usersRepository.getUserByCuitl(cuitl);
   }
 
-  async signUp(user: Omit<User, 'id' | 'resetPasswordToken' | 'resetPasswordExpires' | 'deletedDate' | 'role' | 'info_user'>, infoUser: Omit<InfoUser, 'id'>) {
-    const userByEmailExist: User = await this.getUserByEmail(
-      user.email,
-    );
+  async signUp(
+    user: Omit<
+      User,
+      | 'id'
+      | 'resetPasswordToken'
+      | 'resetPasswordExpires'
+      | 'deleteDate'
+      | 'role'
+      | 'status'
+      | 'info_user'
+    >,
+    infoUser: Omit<InfoUser, 'id'>,
+  ) {
+    const userByEmailExist: User = await this.getUserByEmail(user.email);
     if (userByEmailExist)
       throw new BadRequestException(`El email ${user.email} ya existe.`);
 
@@ -47,53 +66,130 @@ export class UsersService {
 
     const role = Roles.CLIENT;
 
-    const info_user: InfoUser = await this.infoUsersService.createInfoUser(infoUser);
+    const info_user: InfoUser =
+      await this.infoUsersService.createInfoUser(infoUser);
 
     user.password = await Hash(user.password);
-    const newUser: User = await this.usersRepository.signUp({ ...user, role, info_user });
+    const newUser: User = await this.usersRepository.signUp({
+      ...user,
+      role,
+      info_user,
+    });
 
     return newUser;
   }
 
-  async signIn(signInInfo: Omit<User, 'id' | 'resetPasswordToken' | 'resetPasswordExpires' | 'deletedDate' | 'role' | 'info_user'>) {
-    const userByEmailExist: User = await this.getUserByEmail(
-      signInInfo.email,
-    );
-    if(!userByEmailExist) throw new BadRequestException('Credenciales de acceso inválidas');
-    if(userByEmailExist.deletedDate !== null) throw new BadRequestException('Credenciales de acceso inválidas');
+  async signIn(
+    signInInfo: Omit<
+      User,
+      | 'id'
+      | 'resetPasswordToken'
+      | 'resetPasswordExpires'
+      | 'deleteDate'
+      | 'role'
+      | 'status'
+      | 'info_user'
+    >,
+  ) {
+    const userByEmailExist: User = await this.getUserByEmail(signInInfo.email);
+    if (!userByEmailExist)
+      throw new BadRequestException('Credenciales de acceso inválidas');
+    if (userByEmailExist.deleteDate !== null)
+      throw new BadRequestException('Credenciales de acceso inválidas');
 
-    const isPassCorrect: boolean = await ComparePass(signInInfo.password, userByEmailExist.password);
-    if(!isPassCorrect) throw new BadRequestException('Credenciales de acceso inválidas');
+    const isPassCorrect: boolean = await ComparePass(
+      signInInfo.password,
+      userByEmailExist.password,
+    );
+    if (!isPassCorrect)
+      throw new BadRequestException('Credenciales de acceso inválidas');
 
     const userPayload = {
       id: userByEmailExist.id,
       email: userByEmailExist.email,
-      role: userByEmailExist.role
+      role: userByEmailExist.role,
     };
     const token = this.jwtService.sign(userPayload, {
       secret: this.configService.get<string>('JWT_SECRET'),
-    })
+    });
 
-    const { password, resetPasswordToken, resetPasswordExpires,...userInfoToReturn } = userByEmailExist
+    const {
+      password,
+      resetPasswordToken,
+      resetPasswordExpires,
+      ...userInfoToReturn
+    } = userByEmailExist;
 
     return { success: 'Acceso autorizado', token, userInfoToReturn };
   }
 
-  async changePass(newPass: { email: string, currentPass: string, newPass: string, confirmNewPass: string }): Promise<Omit<User, 'password' | 'resetPasswordToken' | 'resetPasswordExpires'>> {
+  async changePass(newPass: {
+    email: string;
+    currentPass: string;
+    newPass: string;
+    confirmNewPass: string;
+  }): Promise<
+    Omit<User, 'password' | 'resetPasswordToken' | 'resetPasswordExpires'>
+  > {
     const userToUpdate: User = await this.getUserByEmail(newPass.email);
-    
-    if (!userToUpdate) throw new BadRequestException('Credenciales de acceso inválidas.');
 
-    const isPassCorrect: boolean = await ComparePass(newPass.currentPass, userToUpdate.password);
-    if (!isPassCorrect) throw new BadRequestException('Credenciales de acceso inválidas.');
+    if (!userToUpdate)
+      throw new BadRequestException('Credenciales de acceso inválidas.');
+
+    const isPassCorrect: boolean = await ComparePass(
+      newPass.currentPass,
+      userToUpdate.password,
+    );
+    if (!isPassCorrect)
+      throw new BadRequestException('Credenciales de acceso inválidas.');
 
     if (newPass.newPass !== newPass.confirmNewPass)
-      throw new BadRequestException('La contraseña nueva debe ser igual a la confirmación de la contraseña.');
+      throw new BadRequestException(
+        'La contraseña nueva debe ser igual a la confirmación de la contraseña.',
+      );
 
-    userToUpdate.password = await Hash(newPass.newPass)
+    userToUpdate.password = await Hash(newPass.newPass);
+
+    const userUpdated: User =
+      await this.usersRepository.changePass(userToUpdate);
+    const {
+      password,
+      resetPasswordToken,
+      resetPasswordExpires,
+      ...userInfoToReturn
+    } = userUpdated;
+    return userInfoToReturn;
+  }
+
+  async deleteUser(userInfo: Partial<User>) {
+    const userToDelte: User = await this.getUserByEmail(userInfo.email);
+    if (!userToDelte)
+      throw new BadRequestException(
+        `No existe usuario registrado en email ${userInfo.email}.`,
+      );
+
+    if (!(await ComparePass(userInfo.password, userToDelte.password)))
+      throw new BadRequestException(
+        'Credenciales inválidas. No se pueden eliminar el usuario.',
+      );
+
+    return await this.usersRepository.deleteUser(userToDelte);
+  }
+
+  async restoreUser(userInfo: Partial<User>) {
+    const userToRestore: Partial<User> = await this.usersRepository.restoreUser(
+      userInfo.email,
+      userInfo.password,
+    );
     
-    const userUpdated: User = await this.usersRepository.changePass(userToUpdate);
-    const { password, resetPasswordToken, resetPasswordExpires,...userInfoToReturn } = userUpdated
+    const allUserInfo: User = await this.getUserByEmail(userToRestore.email);
+
+    const {
+      password,
+      resetPasswordToken,
+      resetPasswordExpires,
+      ...userInfoToReturn
+    } = allUserInfo;
     return userInfoToReturn;
   }
 }
