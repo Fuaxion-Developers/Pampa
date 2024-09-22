@@ -14,4 +14,9 @@ export class InfoUsersService {
     const newInfoUser: InfoUser = await this.infoUsersRepository.createInfoUser(infoUser);
     return newInfoUser;
   }
+
+  async updateInfoUser(infoUser: InfoUser): Promise<InfoUser> {
+    const updatedInfoUser: InfoUser = await this.infoUsersRepository.updateInfoUser(infoUser);
+    return updatedInfoUser;
+  }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Patch,
   Post,
@@ -114,5 +115,29 @@ export class UsersController {
   @ApiBadRequestResponse({ status: 400, description: 'Error en solicitud.' })
   changePass(@Body() newPass: UpdatePasswordDto) {
     return this.usersService.changePass(newPass);
+  }
+
+  @Delete('delete')
+  @ApiOperation({
+    summary:
+      'Eliminar un usuario. El cuerpo de la solicitud debte tener confirmPass.',
+  })
+  @ApiResponse({ status: 201, description: 'Acción confirmada.' })
+  @ApiBadRequestResponse({ status: 400, description: 'Error en solicitud.' })
+  @UseInterceptors(ConfirmPassInterceptor)
+  deleteUser(@Body() userInfo: SignInDto) {
+    return this.usersService.deleteUser(userInfo);
+  }
+
+  @Patch('restore')
+  @ApiOperation({
+    summary:
+      'Restaurar un usuario. El cuerpo de la solicitud debte tener confirmPass.',
+  })
+  @ApiResponse({ status: 201, description: 'Retorna el usuario restaurado.' })
+  @ApiBadRequestResponse({ status: 400, description: 'Error en solicitud.' })
+  @UseInterceptors(ConfirmPassInterceptor)
+  restoreUser(@Body() userInfo: SignInDto) {
+    return this.usersService.restoreUser(userInfo);
   }
 }
