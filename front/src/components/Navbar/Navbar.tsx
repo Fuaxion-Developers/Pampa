@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="bg-brownD-100 text-whiteD-100 p-2">
         <p className="text-center">
           Sellos decorativos-Plantillas-Accesorios | Compra mayorista a partir
-          de $80.000.-
+          de $80.000
         </p>
       </div>
 
@@ -118,14 +118,14 @@ const Navbar = () => {
       {/* Botones de sesión y registro para escritorio */}
       <div className="hidden md:flex gap-4 justify-center items-center">
         <div className="w-[10%]">
-          <Link href="#">
+          <Link href="/login">
             <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
               Iniciar sesión
             </div>
           </Link>
         </div>
         <div className="w-[10%]">
-          <Link href="#">
+          <Link href="/register">
             <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
               Registrarse
             </div>
