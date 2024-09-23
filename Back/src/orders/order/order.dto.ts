@@ -1,5 +1,17 @@
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumberString,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+
 export class OrderDto {
-  id: string;
-  // user_id: string;
+  @IsNumberString({ no_symbols: true })
+  @IsNotEmpty()
+  user_id: string;
+
+  @IsDateString()
+  @IsNotEmpty()
   date: Date;
 }
