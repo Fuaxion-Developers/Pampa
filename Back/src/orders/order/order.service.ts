@@ -1,13 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderRepository } from './order.repository';
-import { OrderDto } from './order.dto';
+import { OrderDto, OrderDtoPartial } from './order.dto';
 import { InfoUsersService } from '../../infoUsers/infoUsers.service';
+import { OrderDetailService } from 'src/order-detail/order-detail.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     private orderRepository: OrderRepository,
     private InfoUsersService: InfoUsersService,
+    private orderDetailService: OrderDetailService,
   ) {}
 
   async getAll() {
@@ -36,7 +38,7 @@ export class OrderService {
     }
   }
 
-  async update(id: string, order: OrderDto) {
+  async update(id: string, order: OrderDtoPartial) {
     const updatedOrder = await this.orderRepository.update(id, order);
     if (updatedOrder) return updatedOrder;
     else return 'Error updating order';
@@ -48,8 +50,9 @@ export class OrderService {
     else return 'Error deleting order';
   }
 
-  getByUserId(id: string) {
-    try {
-    } catch (error) {}
+  async getByUserId(id: string) {
+    const user = await this.InfoUsersService.getInfoUserByCUITL(id);
+    if (!user) throw new BadRequestException('User not found');
+    return await this.orderRepository.getAllByUserId(id);
   }
 }
