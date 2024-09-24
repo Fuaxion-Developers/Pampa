@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderDetails } from './order-detail.entity';
 import { Repository } from 'typeorm';
-import { OrderDetailDto } from './order-detail.dto';
+import { OrderDetailDto, OrderDetailDtoPartial } from './order-detail.dto';
 
 @Injectable()
 export class OrderDetailRepository {
@@ -32,7 +32,7 @@ export class OrderDetailRepository {
     return await this.order.save(order);
   }
 
-  async update(id: string, order: OrderDetailDto) {
+  async update(id: string, order: OrderDetailDtoPartial) {
     return await this.order.update({ id }, order);
   }
 
