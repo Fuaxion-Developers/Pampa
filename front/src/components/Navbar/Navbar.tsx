@@ -23,32 +23,21 @@ const Navbar = () => {
         </p>
       </div>
 
-      {/* Logo */}
-      <div className="flex justify-center items-center">
-        <Image
-          src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726763511/Pampa_chico_1_bwdcha.svg"
-          alt="Logo-Pampa"
-          width={200}
-          height={200}
-        />
-      </div>
-
-      {/* Menú hamburguesa en móvil */}
-      <div className="md:hidden flex justify-between items-center px-4">
-        <button onClick={toggleMenu} className="text-2xl">
+      {/* Logo y Menú hamburguesa */}
+      <div className="flex justify-between items-center px-4">
+        {/* Menú hamburguesa */}
+        <button onClick={toggleMenu} className="text-2xl md:hidden">
           ☰
         </button>
-        <div className="flex gap-4">
-          <Link href="#">
-            <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md">
-              Iniciar sesión
-            </div>
-          </Link>
-          <Link href="#">
-            <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md">
-              Registrarse
-            </div>
-          </Link>
+
+        {/* Logo */}
+        <div className="flex justify-center items-center m-auto">
+          <Image
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726763511/Pampa_chico_1_bwdcha.svg"
+            alt="Logo-Pampa"
+            width={200}
+            height={200}
+          />
         </div>
       </div>
 
@@ -70,7 +59,7 @@ const Navbar = () => {
         <Link
           href="/products"
           className={`${styles.navLink} ${
-            pathname === '/productos' ? styles.active : ''
+            pathname === '/products' ? styles.active : ''
           }`}
           onClick={toggleMenu}
         >
@@ -85,6 +74,20 @@ const Navbar = () => {
         >
           <p>Nosotros</p>
         </Link>
+
+        {/* Botones de iniciar sesión y registrarse en móvil */}
+        <div className="flex justify-center items-center gap-4 w-full">
+          <Link href="#">
+            <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md w-full">
+              Iniciar sesión
+            </div>
+          </Link>
+          <Link href="#">
+            <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md w-full">
+              Registrarse
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Menú de navegación para escritorio */}
