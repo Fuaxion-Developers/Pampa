@@ -1,9 +1,9 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
-import styles from '@/components/Navbar/Navbar.module.css';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+import styles from "@/components/Navbar/Navbar.module.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Estado para el menú hamburguesa
@@ -44,13 +44,13 @@ const Navbar = () => {
       {/* Menú de navegación (visible en móvil solo si el menú está abierto) */}
       <div
         className={`md:hidden flex flex-col items-center space-y-4 ${
-          isOpen ? 'block' : 'hidden'
+          isOpen ? "block" : "hidden"
         }`}
       >
         <Link
           href="/"
           className={`${styles.navLink} ${
-            pathname === '/' ? styles.active : ''
+            pathname === "/" ? styles.active : ""
           }`}
           onClick={toggleMenu}
         >
@@ -59,7 +59,9 @@ const Navbar = () => {
         <Link
           href="/products"
           className={`${styles.navLink} ${
+
             pathname === '/products' ? styles.active : ''
+
           }`}
           onClick={toggleMenu}
         >
@@ -68,7 +70,7 @@ const Navbar = () => {
         <Link
           href="/about"
           className={`${styles.navLink} ${
-            pathname === '/about' ? styles.active : ''
+            pathname === "/about" ? styles.active : ""
           }`}
           onClick={toggleMenu}
         >
@@ -95,7 +97,7 @@ const Navbar = () => {
         <Link
           href="/"
           className={`${styles.navLink} ${
-            pathname === '/' ? styles.active : ''
+            pathname === "/" ? styles.active : ""
           }`}
         >
           <p>Inicio</p>
@@ -103,7 +105,7 @@ const Navbar = () => {
         <Link
           href="/products"
           className={`${styles.navLink} ${
-            pathname === '/products' ? styles.active : ''
+            pathname === "/products" ? styles.active : ""
           }`}
         >
           <p>Productos</p>
@@ -111,7 +113,7 @@ const Navbar = () => {
         <Link
           href="/about"
           className={`${styles.navLink} ${
-            pathname === '/about' ? styles.active : ''
+            pathname === "/about" ? styles.active : ""
           }`}
         >
           <p>Nosotros</p>
@@ -121,14 +123,14 @@ const Navbar = () => {
       {/* Botones de sesión y registro para escritorio */}
       <div className="hidden md:flex gap-4 justify-center items-center">
         <div className="w-[10%]">
-          <Link href="#">
+          <Link href="/login">
             <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
               Iniciar sesión
             </div>
           </Link>
         </div>
         <div className="w-[10%]">
-          <Link href="#">
+          <Link href="/register">
             <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
               Registrarse
             </div>
