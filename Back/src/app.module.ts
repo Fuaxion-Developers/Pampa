@@ -3,18 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { OrderDetailController } from './order-detail/order-detail.controller';
-import { OrderDetailService } from './order-detail/order-detail.service';
 import { OrderDetailModule } from './order-detail/order-detail.module';
 import { ProductsModule } from './products/products.module';
 import typeormConfig from './config/typeormConfig';
-import { ProductsTypesModule } from './products/productType/products-types/products-types.module';
 import { OrderModule } from './orders/order/order.module';
 import { JwtModule } from '@nestjs/jwt';
 import { env } from './config/envCon';
 import { UsersModule } from './users/users.module';
 import { InfoUsersModule } from './infoUsers/infoUsers.module';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { CategoriesModule } from './products/categories/categories.module';
 
 @Module({
   imports: [
@@ -30,7 +28,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
     OrderModule,
     OrderDetailModule,
     ProductsModule,
-    ProductsTypesModule,
+    CategoriesModule,
     UsersModule,
     InfoUsersModule,
 
@@ -39,8 +37,8 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
       secret: env.jwt_secret,
       signOptions: {
         expiresIn: '1h',
-      }
-    })
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -49,6 +47,6 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL })
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
