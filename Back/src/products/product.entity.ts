@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
-import { ProductsTypes } from './productType/products-types/products-types.entity';
+import { Categories } from './categories/categories.entity';
 
 @Entity()
 export class Products {
@@ -16,7 +16,7 @@ export class Products {
   @Column({ type: 'varchar' })
   name: string;
 
-  @ManyToOne(() => ProductsTypes, (productType) => productType.id)
+  @ManyToOne(() => Categories, (categorie) => categorie.id)
   @JoinColumn({ name: 'category' })
   category: UUID;
 

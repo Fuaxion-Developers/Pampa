@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Products } from './product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UUID } from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
-import { productDto, productWhitTypeDto } from './product.dto';
+import { productWithTypePatchDto, productWhitTypeDto } from './product.dto';
 
 @Injectable()
 export class ProductsRepository {
@@ -28,7 +27,7 @@ export class ProductsRepository {
     return await this.product.save(product);
   }
 
-  async update(id: uuidv4, product: productWhitTypeDto) {
+  async update(id: uuidv4, product: productWithTypePatchDto) {
     return await this.product.update(id, product);
   }
 

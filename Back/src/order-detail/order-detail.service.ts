@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderDetailRepository } from './order-detail.repository';
-import { OrderDetailDto } from './order-detail.dto';
+import { OrderDetailDto, OrderDetailDtoPartial } from './order-detail.dto';
 import { ProductsRepository } from 'src/products/product.repository';
 
 @Injectable()
@@ -27,12 +27,17 @@ export class OrderDetailService {
   }
 
   async create(order: OrderDetailDto) {
-    const product = this.productRepo.getById(order.product);
+    const product = await this.productRepo.getById(order.product);
     if (!product) throw new BadRequestException('Product not found');
+    if (product.stock <= order.quantity) {
+      await this.productRepo.update(order.product, {
+        stock: product.stock - order.quantity,
+      });
+    } else throw new BadRequestException('Not enough stock');
     return await this.orderDetailRepository.create(order);
   }
 
-  async update(id: string, order: OrderDetailDto) {
+  async update(id: string, order: OrderDetailDtoPartial) {
     return await this.orderDetailRepository.update(id, order);
   }
 

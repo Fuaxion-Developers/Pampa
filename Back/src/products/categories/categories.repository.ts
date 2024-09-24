@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductsTypes } from './products-types.entity';
 import { Repository } from 'typeorm';
 import { UUID } from 'crypto';
-import { productTypeDto } from './products-types.dto';
+import { CategoriesDto } from './categories.dto';
+import { Categories } from './categories.entity';
 
 @Injectable()
-export class ProductsTypesRepository {
+export class CategoriesRepository {
   constructor(
-    @InjectRepository(ProductsTypes)
-    private productType: Repository<ProductsTypes>,
+    @InjectRepository(Categories)
+    private productType: Repository<Categories>,
   ) {}
 
   async getAll() {
@@ -24,11 +24,11 @@ export class ProductsTypesRepository {
     return await this.productType.findOneBy({ name });
   }
 
-  async create(productType: productTypeDto) {
+  async create(productType: CategoriesDto) {
     return await this.productType.save(productType);
   }
 
-  async update(id: UUID, productType: productTypeDto) {
+  async update(id: UUID, productType: CategoriesDto) {
     return await this.productType.update(id, productType);
   }
 

@@ -1,16 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ProductsRepository } from './product.repository';
 import { v4 as uuidv4 } from 'uuid';
-import { productDto, productWhitTypeDto } from './product.dto';
+import { productWithTypePatchDto, productWhitTypeDto } from './product.dto';
 import { EntityManager } from 'typeorm';
-import { ProductsTypesRepository } from './productType/products-types/products-types.repository';
 import { Products } from './product.entity';
+import { CategoriesService } from './categories/categories.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     private productsRepository: ProductsRepository,
-    private productTypeRepo: ProductsTypesRepository,
+    private CategoriesService: CategoriesService,
   ) {}
 
   async getAll() {
@@ -28,7 +28,7 @@ export class ProductsService {
   }
 
   async create(product: productWhitTypeDto) {
-    const category = await this.productTypeRepo.getByName(product.category);
+    const category = await this.CategoriesService.getByName(product.category);
     if (!category) {
       throw new BadRequestException('Category not found');
     }
@@ -40,7 +40,7 @@ export class ProductsService {
     });
   }
 
-  async update(id: uuidv4, product: productWhitTypeDto) {
+  async update(id: uuidv4, product: productWithTypePatchDto) {
     return await this.productsRepository.update(id, product);
   }
 
@@ -49,7 +49,7 @@ export class ProductsService {
   }
 
   async getByCategoryName(categoryName: string) {
-    const category = await this.productTypeRepo.getByName(categoryName);
+    const category = await this.CategoriesService.getByName(categoryName);
     if (!category) {
       throw new BadRequestException('Category not found');
     }

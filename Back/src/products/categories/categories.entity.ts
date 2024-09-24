@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UUID } from 'crypto';
 
 @Entity()
-export class ProductsTypes {
+export class Categories {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
 
