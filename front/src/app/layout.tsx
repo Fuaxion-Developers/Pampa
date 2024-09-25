@@ -4,9 +4,9 @@ import './globals.css';
 // import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 export const metadata: Metadata = {
-  title: 'DentAll',
+  title: 'PAMPA',
   description:
-    'DentAll es una clínica dental innovadora que pone a sus pacientes en el centro de la experiencia de atención. Con un enfoque en la comodidad y la eficiencia, DentAll ha desarrollado una plataforma en línea avanzada que transforma la manera en que los pacientes interactúan con su cuidado dental.',
+    'Sellos al por mayor',
 };
 
 export default function RootLayout({
