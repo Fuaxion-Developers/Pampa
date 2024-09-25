@@ -13,6 +13,7 @@ import { UsersModule } from './users/users.module';
 import { InfoUsersModule } from './infoUsers/infoUsers.module';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { CategoriesModule } from './products/categories/categories.module';
+import { OrderStatusModule } from './order-status/order-status.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { CategoriesModule } from './products/categories/categories.module';
     CategoriesModule,
     UsersModule,
     InfoUsersModule,
+    OrderStatusModule,
 
     JwtModule.register({
       global: true,

@@ -5,6 +5,7 @@ import * as cors from 'cors';
 import { json } from 'express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { precargasOrderStatus } from './utils/precargas';
 
 const version = require('../package.json').version;
 
@@ -31,6 +32,8 @@ async function bootstrap() {
       docExpansion: 'none',
     },
   });
+
+  precargasOrderStatus(app);
 
   await app.listen(env.port);
 }

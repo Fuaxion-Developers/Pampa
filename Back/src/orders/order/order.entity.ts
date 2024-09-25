@@ -10,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { InfoUser } from 'src/infoUsers/infoUsers.entity';
+import { OrderStatus } from 'src/order-status/order-status.entity';
 
 @Entity()
 export class Orders {
@@ -26,8 +27,11 @@ export class Orders {
   // @OneToOne(() => ModeShipment, (modeShipment) => modeShipment.order)
   // mode_shipment: UUID;
 
-  // @OneToOne(() => OrderStatus, (orderStatus) => orderStatus.order)
-  // order_status: UUID;
+  @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.id, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'order_status', referencedColumnName: 'id' })
+  order_status: uuid;
 
   // @OneToOne(() => paymentStatus, (paymentStatus) => paymentStatus.order)
   // payment_status: UUID;

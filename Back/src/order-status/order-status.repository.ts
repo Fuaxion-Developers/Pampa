@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Orders } from './order.entity';
+import { OrderStatus } from './order-status.entity';
 import { Repository } from 'typeorm';
+import { OrderStatusDto } from './order-status.dto';
 import { v4 as uuid } from 'uuid';
-import { OrderDto, OrderDtoPartial, OrderWithStatusDto } from './order.dto';
 
 @Injectable()
-export class OrderRepository {
-  constructor(@InjectRepository(Orders) private order: Repository<Orders>) {}
+export class OrderStatusRepository {
+  constructor(
+    @InjectRepository(OrderStatus) private order: Repository<OrderStatus>,
+  ) {}
 
   async getAll() {
     return await this.order.find();
@@ -17,15 +19,15 @@ export class OrderRepository {
     return await this.order.findOne({ where: { id } });
   }
 
-  async getAllByUserId(id: string) {
-    return await this.order.find({ where: { user_id: id } });
+  async getByName(name: string) {
+    return await this.order.findOne({ where: { status: name } });
   }
 
-  async create(order: OrderWithStatusDto) {
+  async create(order: OrderStatusDto) {
     return await this.order.save(order);
   }
 
-  async update(id: uuid, order: OrderDtoPartial) {
+  async update(id: string, order: OrderStatusDto) {
     return await this.order.update({ id }, order);
   }
 
