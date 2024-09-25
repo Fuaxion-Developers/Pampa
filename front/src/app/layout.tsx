@@ -1,41 +1,26 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import Whatsapp from "@/components/Whatsapp/Whatsapp";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import type { Metadata } from 'next';
+import ClientRouteHandler from '@/app/ClientRouteHandle';
+import './globals.css';
+// import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 export const metadata: Metadata = {
-  title: "PAMPA Sellos",
-  description: "Sellos",
+  title: 'DentAll',
+  description:
+    'DentAll es una clínica dental innovadora que pone a sus pacientes en el centro de la experiencia de atención. Con un enfoque en la comodidad y la eficiencia, DentAll ha desarrollado una plataforma en línea avanzada que transforma la manera en que los pacientes interactúan con su cuidado dental.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar />
-        {children}
-        <Whatsapp />
-        <Footer />
-      </body>
+      {/* <UserProvider> */}
+        <body>
+          <ClientRouteHandler>{children}</ClientRouteHandler>
+        </body>
+      {/* </UserProvider> */}
     </html>
   );
 }

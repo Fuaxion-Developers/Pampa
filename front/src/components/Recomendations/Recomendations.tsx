@@ -47,7 +47,7 @@ const clients = [
 
 const settings = {
   dots: true,
-  infinite: false,
+  infinite: true,
   slidesToShow: 4,
   slidesToScroll: 1,
   autoplay: true,
@@ -87,10 +87,10 @@ const Recomendations = () => {
       <h2 className="m-8 mb-16 font-semibold text-xl border-b border-black">
         Nuestros clientes nos recomiendan
       </h2>
-      <div className="m-8 gap-12">
+      <div className="m-8">
         <Slider {...settings}>
           {clients.map((client, index) => (
-            <div key={index} className="flex gap-8 justify-center m-12 p-4">
+            <div key={index} className="flex gap-8 justify-center p-4">
               <div className="bg-whiteD-200 p-3 relative">
                 <div className="border-4 border-white p-8 space-y-3">
                   <p className="text-center font-semibold text-xl">
