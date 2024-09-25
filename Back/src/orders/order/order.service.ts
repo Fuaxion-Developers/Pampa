@@ -3,18 +3,21 @@ import { OrderRepository } from './order.repository';
 import { OrderDto, OrderDtoPartial } from './order.dto';
 import { InfoUsersService } from '../../infoUsers/infoUsers.service';
 import { OrderDetailService } from 'src/order-detail/order-detail.service';
+import { OrderStatusService } from '../../order-status/order-status.service';
+import { EnumOrderStatus } from 'src/users/enums/roles.enum';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class OrderService {
   constructor(
     private orderRepository: OrderRepository,
     private InfoUsersService: InfoUsersService,
-    private orderDetailService: OrderDetailService,
+    private OrderStatusService: OrderStatusService,
   ) {}
 
   async getAll() {
     const orders = await this.orderRepository.getAll();
-    if (orders.length > 0) return orders;
+    if (orders.length > 0) return instanceToPlain(orders);
     else return 'No orders found';
   }
 
@@ -29,10 +32,16 @@ export class OrderService {
       const user = await this.InfoUsersService.getInfoUserByCUITL(
         order.user_id,
       );
-
       if (!user) throw new BadRequestException('User not found');
 
-      return await this.orderRepository.create(order);
+      const orderStatus = await this.OrderStatusService.getStatusByName(
+        EnumOrderStatus.PENDING,
+      );
+      if (!orderStatus) throw new BadRequestException('Order status not found');
+
+      order.order_status = orderStatus.id;
+
+      return instanceToPlain(await this.orderRepository.create(order));
     } catch (error) {
       throw new BadRequestException(error.message);
     }
