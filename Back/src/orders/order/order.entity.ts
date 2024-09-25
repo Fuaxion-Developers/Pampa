@@ -27,7 +27,10 @@ export class Orders {
   // @OneToOne(() => ModeShipment, (modeShipment) => modeShipment.order)
   // mode_shipment: UUID;
 
-  @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.id)
+  @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.id, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'order_status', referencedColumnName: 'id' })
   order_status: uuid;
 
   // @OneToOne(() => paymentStatus, (paymentStatus) => paymentStatus.order)
