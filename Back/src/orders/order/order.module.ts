@@ -9,12 +9,14 @@ import { InfoUsersRepository } from 'src/infoUsers/infoUsers.repository';
 import { InfoUsersModule } from 'src/infoUsers/infoUsers.module';
 import { OrderDetailController } from 'src/order-detail/order-detail.controller';
 import { OrderDetailModule } from 'src/order-detail/order-detail.module';
+import { OrderStatusModule } from 'src/order-status/order-status.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Orders]),
     InfoUsersModule,
     OrderDetailModule,
+    OrderStatusModule,
   ],
   providers: [OrderService, OrderRepository],
   controllers: [OrderController],
