@@ -4,8 +4,8 @@ import { OrderDto, OrderDtoPartial } from './order.dto';
 import { InfoUsersService } from '../../infoUsers/infoUsers.service';
 import { OrderDetailService } from 'src/order-detail/order-detail.service';
 import { OrderStatusService } from '../../order-status/order-status.service';
-import { EnumOrderStatus } from 'src/users/enums/roles.enum';
 import { instanceToPlain } from 'class-transformer';
+import { EnumOrderStatus } from 'src/users/enums/order-status.enum';
 
 @Injectable()
 export class OrderService {
