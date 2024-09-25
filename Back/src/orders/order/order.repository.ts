@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Orders } from './order.entity';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { OrderDto, OrderDtoPartial } from './order.dto';
+import { OrderDto, OrderDtoPartial, OrderWithStatusDto } from './order.dto';
 
 @Injectable()
 export class OrderRepository {
@@ -21,7 +21,7 @@ export class OrderRepository {
     return await this.order.find({ where: { user_id: id } });
   }
 
-  async create(order: OrderDto) {
+  async create(order: OrderWithStatusDto) {
     return await this.order.save(order);
   }
 
