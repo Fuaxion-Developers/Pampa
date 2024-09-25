@@ -95,19 +95,19 @@ const Register = () => {
   return (
     <div className="h-screen flex justify-center items-center bg-whiteD-200 relative">
       <div className="flex w-full h-full ">
-        <div className="w-2/3 flex flex-col items-center  p-8">
-          <div className="flex">
-            <a
-              href="/"
-              className="flex  justify-center items-center absolute top-4 left-4  gap-2"
-            >
-              <Image
-                src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727295377/arrow_back_24dp_927363_FILL0_wght400_GRAD0_opsz24_qepr5l.svg"
-                alt="Volver"
-                width={30}
-                height={30}
-              />
-            </a>
+        <a
+          href="/"
+          className="flex  justify-center items-center absolute top-4 left-4  gap-2"
+        >
+          <Image
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727295377/arrow_back_24dp_927363_FILL0_wght400_GRAD0_opsz24_qepr5l.svg"
+            alt="Volver"
+            width={30}
+            height={30}
+          />
+        </a>
+        <div className="w-[50%] flex flex-col items-center justify-center bg-whiteD-200  p-12">
+          <div className="flex flex-col items-start justify-start mb-8">
             <h2 className="text-[20px] font-semibold leading-normal  ">
               REGISTRARSE EN PAMPA
             </h2>
@@ -317,7 +317,7 @@ const Register = () => {
               <div className="w-full mt-4 flex justify-center">
                 <button
                   type="submit"
-                  className="flex w-[340px] h-[38px] px-[25px] py-[11px] justify-center items-center gap-[10px] bg-brownD-100 rounded-[5px]"
+                  className="flex w-full h-[38px] px-[25px] py-[11px] justify-center items-center gap-[10px] bg-brownD-100 rounded-[5px]"
                 >
                   <span className="text-whiteD-200 font-maven-pro text-[16px] font-semibold leading-normal">
                     Crear cuenta
@@ -327,7 +327,7 @@ const Register = () => {
             </form>
           </div>
         </div>
-        <div className="w-2/3 h-full relative">
+        <div className="w-[50%] h-full relative">
           <Image
             src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727294568/pexels-cottonbro-3838325_1_gwfks9.png"
             alt="Register Image"
