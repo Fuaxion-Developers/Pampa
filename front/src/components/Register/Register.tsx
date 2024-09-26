@@ -21,7 +21,7 @@ const Register = () => {
     address: '',
     city: '',
     location: '',
-    CodigoDeArea: '',
+    codigoDeArea: '',
     password: '',
     confirmPass: '',
   });
@@ -36,7 +36,7 @@ const Register = () => {
     address: '',
     city: '',
     location: '',
-    CodigoDeArea: '',
+    codigoDeArea: '',
     password: '',
     confirmPass: '',
   });
@@ -237,15 +237,15 @@ const Register = () => {
                   <input
                     className={inputClass}
                     placeholder="Código de área"
-                    value={dataUser.CodigoDeArea}
+                    value={dataUser.codigoDeArea}
                     type="text"
                     id="CodigoDeArea"
                     name="CodigoDeArea"
                     required
                     onChange={handleChange}
                   />
-                  {errorUser.CodigoDeArea && (
-                    <p className="text-red-500">{errorUser.CodigoDeArea}</p>
+                  {errorUser.codigoDeArea && (
+                    <p className="text-red-500">{errorUser.codigoDeArea}</p>
                   )}
                 </div>
               </div>
