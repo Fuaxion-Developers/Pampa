@@ -6,7 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ModeShipment } from './mode-shipment.entity';
 
 @Module({
-  providers: [ModeShipmentService],
+  imports: [TypeOrmModule.forFeature([ModeShipment])],
+  providers: [ModeShipmentService, ModeShipmentRepository],
   controllers: [ModeShipmentController],
+  exports: [ModeShipmentService],
 })
 export class ModeShipmentModule {}
