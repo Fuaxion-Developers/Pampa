@@ -18,7 +18,7 @@ export interface RegisterProps {
   address: string;
   city: string;
   location: string;
-  CodigoDeArea: string;
+  codigoDeArea: string;
   password: string;
   confirmPass: string;
 }
@@ -33,7 +33,7 @@ export interface RegisterErrorProps {
   address?: string;
   city?: string;
   location?: string;
-  CodigoDeArea?: string;
+  codigoDeArea?: string;
   password?: string;
   confirmPass?: string;
 }
