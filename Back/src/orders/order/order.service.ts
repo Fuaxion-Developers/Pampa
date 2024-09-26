@@ -6,6 +6,7 @@ import { OrderDetailService } from 'src/order-detail/order-detail.service';
 import { OrderStatusService } from '../../order-status/order-status.service';
 import { instanceToPlain } from 'class-transformer';
 import { EnumOrderStatus } from 'src/users/enums/order-status.enum';
+import { ModeShipmentService } from 'src/mode-shipment/mode-shipment.service';
 
 @Injectable()
 export class OrderService {
@@ -13,6 +14,7 @@ export class OrderService {
     private orderRepository: OrderRepository,
     private InfoUsersService: InfoUsersService,
     private OrderStatusService: OrderStatusService,
+    private ModeShipmentService: ModeShipmentService,
   ) {}
 
   async getAll() {
@@ -40,6 +42,12 @@ export class OrderService {
       if (!orderStatus) throw new BadRequestException('Order status not found');
 
       order.order_status = orderStatus.id;
+
+      const modeShipment = await this.ModeShipmentService.getById(
+        order.mode_shipment,
+      );
+      if (!modeShipment)
+        throw new BadRequestException('Mode shipment not found');
 
       return instanceToPlain(await this.orderRepository.create(order));
     } catch (error) {
