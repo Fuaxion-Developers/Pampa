@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -35,7 +36,7 @@ export class OrderStatusController {
   @ApiResponse({ status: 200, type: OrderStatusDto })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @Get(':id')
-  async getById(@Param('id') id: uuid) {
+  async getById(@Param('id', ParseUUIDPipe) id: uuid) {
     return await this.orderStatusService.getById(id);
   }
 
@@ -53,7 +54,10 @@ export class OrderStatusController {
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @ApiBody({ type: OrderStatusDto })
   @Patch(':id')
-  async update(@Param('id') id: uuid, @Body() order: OrderStatusDto) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: uuid,
+    @Body() order: OrderStatusDto,
+  ) {
     return await this.orderStatusService.update(id, order);
   }
 
@@ -61,7 +65,7 @@ export class OrderStatusController {
   @ApiResponse({ status: 200, type: OrderStatusDto })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @Delete(':id')
-  async delete(@Param('id') id: uuid) {
+  async delete(@Param('id', ParseUUIDPipe) id: uuid) {
     return await this.orderStatusService.delete(id);
   }
 }

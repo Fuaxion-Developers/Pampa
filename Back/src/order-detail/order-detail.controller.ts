@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { OrderDetailService } from './order-detail.service';
 import { OrderDetailDto, OrderDetailDtoPartial } from './order-detail.dto';
 import {
@@ -29,7 +37,7 @@ export class OrderDetailController {
   @ApiResponse({ status: 200, type: OrderDetails })
   @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
   @Get(':id')
-  async getById(@Param('id') id: string) {
+  async getById(@Param('id', ParseUUIDPipe) id: string) {
     return await this.orderDetailService.getById(id);
   }
 
@@ -38,7 +46,7 @@ export class OrderDetailController {
   @ApiResponse({ status: 200, type: [OrderDetails] })
   @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
   @Get('order/:id')
-  async getByOrder(@Param('id') id: string) {
+  async getByOrder(@Param('id', ParseUUIDPipe) id: string) {
     return await this.orderDetailService.getByOrder(id);
   }
 
@@ -67,7 +75,10 @@ export class OrderDetailController {
   @ApiBody({ type: OrderDetailDtoPartial })
   @ApiParam({ name: 'id', type: String })
   @Patch('update/:id')
-  async update(@Param('id') id: string, @Body() order: OrderDetailDtoPartial) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() order: OrderDetailDtoPartial,
+  ) {
     return await this.orderDetailService.update(id, order);
   }
 }

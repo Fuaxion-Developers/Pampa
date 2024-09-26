@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { InfoUser } from 'src/infoUsers/infoUsers.entity';
 import { OrderStatus } from 'src/order-status/order-status.entity';
+import { ModeShipment } from 'src/mode-shipment/mode-shipment.entity';
 
 @Entity()
 export class Orders {
@@ -24,8 +25,10 @@ export class Orders {
   @Column({ type: 'date' })
   date: Date;
 
-  // @OneToOne(() => ModeShipment, (modeShipment) => modeShipment.order)
-  // mode_shipment: UUID;
+  @ManyToOne(() => ModeShipment, (modeShipment) => modeShipment.id, {
+    eager: true,
+  })
+  mode_shipment: uuid;
 
   @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.id, {
     eager: true,

@@ -10,6 +10,7 @@ import { InfoUsersModule } from 'src/infoUsers/infoUsers.module';
 import { OrderDetailController } from 'src/order-detail/order-detail.controller';
 import { OrderDetailModule } from 'src/order-detail/order-detail.module';
 import { OrderStatusModule } from 'src/order-status/order-status.module';
+import { ModeShipmentModule } from 'src/mode-shipment/mode-shipment.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { OrderStatusModule } from 'src/order-status/order-status.module';
     InfoUsersModule,
     OrderDetailModule,
     OrderStatusModule,
+    ModeShipmentModule,
   ],
   providers: [OrderService, OrderRepository],
   controllers: [OrderController],

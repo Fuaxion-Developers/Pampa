@@ -26,6 +26,13 @@ export class OrderDto {
 
   @IsEmpty()
   order_status: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: uuid(),
+  })
+  mode_shipment: string;
 }
 
 export class OrderDtoPartial extends PartialType(OrderDto) {}

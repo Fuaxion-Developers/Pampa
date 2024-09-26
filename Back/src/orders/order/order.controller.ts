@@ -48,7 +48,7 @@ export class OrderController {
   @ApiBadRequestResponse({ status: 404, description: 'Not Found' })
   @ApiParam({ name: 'id', type: String })
   @Get('user/:id')
-  async getByUserId(@Param('id') id: string) {
+  async getByUserId(@Param('id', ParseUUIDPipe) id: string) {
     return await this.orderService.getByUserId(id);
   }
 
@@ -68,7 +68,10 @@ export class OrderController {
   @ApiParam({ name: 'id', type: String })
   @ApiBody({ type: OrderDto })
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() order: OrderDtoPartial) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() order: OrderDtoPartial,
+  ) {
     return await this.orderService.update(id, order);
   }
 
@@ -78,7 +81,7 @@ export class OrderController {
   @ApiBadRequestResponse({ status: 404, description: 'Not Found' })
   @ApiParam({ name: 'id', type: String })
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
     return await this.orderService.delete(id);
   }
 }
