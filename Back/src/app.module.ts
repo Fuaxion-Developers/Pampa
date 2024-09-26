@@ -14,6 +14,7 @@ import { InfoUsersModule } from './infoUsers/infoUsers.module';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { CategoriesModule } from './products/categories/categories.module';
 import { OrderStatusModule } from './order-status/order-status.module';
+import { ModeShipmentModule } from './mode-shipment/mode-shipment.module';
 
 @Module({
   imports: [
@@ -41,6 +42,8 @@ import { OrderStatusModule } from './order-status/order-status.module';
         expiresIn: '1h',
       },
     }),
+
+    ModeShipmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
