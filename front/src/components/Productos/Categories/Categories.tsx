@@ -10,46 +10,50 @@ import Link from 'next/link';
 const categories = [
   {
     categoria: 'Alto releive',
+    link: '/products/alto_relieve',
+  },
+  {
+    categoria: 'Bajo releive',
+    link: '/products/bajo_relieve',
+  },
+  {
+    categoria: 'Accesorios',
+    link: '/products/accesorios',
+  },
+  {
+    categoria: 'Navidad 24/25',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Vegetales(VG)',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Verduras (VD)',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Sets',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Sin stock',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Palafrases',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Numerador',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
+    categoria: 'Celebraciones',
     link: '#',
   },
   {
-    categoria: 'Alto releive',
-    link: '#',
-  },
-  {
-    categoria: 'Alto releive',
-    link: '#',
-  },
-  {
-    categoria: 'Alto releive',
+    categoria: 'Oron',
     link: '#',
   },
 ];
@@ -59,7 +63,7 @@ const settings = {
   infinite: false,
   slidesToShow: 4,
   slidesToScroll: 1,
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 1500,
   pauseOnHover: true,
   responsive: [
