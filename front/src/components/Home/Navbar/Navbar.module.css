@@ -1,0 +1,41 @@
+
+.navLink {
+  position: relative;
+  text-decoration: none;
+  color: black; /* Color por defecto */
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #927363;; /* Color por defecto del subrayado */
+  transition: all 0.3s ease-out;
+  transform: translateX(-50%);
+}
+
+.navLink:hover::after {
+  width: 100%;
+  left: 0;
+  transform: translateX(0);
+}
+
+.navLink:hover {
+  color: #927363; /* Cambia el color del texto al pasar el mouse */
+}
+
+.active {
+  color: #927363; /* Cambia el color del texto cuando está en la página activa */
+}
+
+.active::after {
+  width: 100%;
+  left: 0;
+  transform: translateX(0);
+  background-color: #927363; /* Cambia el color del subrayado cuando está en la página activa */
+}
