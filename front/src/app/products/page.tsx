@@ -1,9 +1,13 @@
+import BanerCategories from '@/components/Productos/BanerCategories/BanerCategories'
+
 import React from 'react'
+import Categories from '@/components/Productos/Categories/Categories'
 
 const page = () => {
   return (
     <div>
-      ESTA ES LA VISTA DE PRODUCTOS
+      <BanerCategories/>
+      <Categories/>
     </div>
   )
 }

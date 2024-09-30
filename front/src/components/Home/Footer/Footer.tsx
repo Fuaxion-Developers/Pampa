@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="p-6 md:p-12 flex flex-col md:flex-row justify-between">
         <div className="flex flex-col md:flex-row gap-6 md:gap-12">
           <div>
-            <h2 className="text-xl md:text-2xl">Información</h2>
+            <h2 className="text-xl md:text-3xl ">Información</h2>
             <Link href="/about">
               <p className="cursor-pointer">Sobre Nosotros</p>
             </Link>
