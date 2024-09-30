@@ -5,8 +5,8 @@ import React from 'react';
 const BanerCategories = () => {
   return (
     <div className="bg-brownD-100 flex justify-between p-4 text-whiteD-100 my-4">
-      <div className="">
-        <h2 className="text-3xl">PRODUCTOS</h2>
+      <div className="flex justify-center items-center m-8">
+        <h2 className="text-[50px] font-semibold ">PRODUCTOS</h2>
       </div>
       <div className='flex'>
         <Image
@@ -19,7 +19,7 @@ const BanerCategories = () => {
           alt="Imagen"
           src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727722911/Rectangle_9601_p4rj7z.png"
           width={500}
-          height={400}
+          height={500}
         />
       </div>
     </div>
