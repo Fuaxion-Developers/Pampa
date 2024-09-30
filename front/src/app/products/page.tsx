@@ -1,15 +1,7 @@
-import BanerCategories from '@/components/Productos/BanerCategories/BanerCategories'
-
-import React from 'react'
-import Categories from '@/components/Productos/Categories/Categories'
+import React from 'react';
 
 const page = () => {
-  return (
-    <div>
-      <BanerCategories/>
-      <Categories/>
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default page
+export default page;
