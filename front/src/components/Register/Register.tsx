@@ -90,7 +90,7 @@ const Register = () => {
 
   const inputClass =
     'h-[28px] p-5 items-center gap-[10px] self-stretch border border-gray-300 w-full ';
-  const labelClass = 'font-mulish text-[15px] font-medium leading-normal';
+  const labelClass = ' text-[15px] font-medium leading-normal';
 
   return (
     <div className="h-screen flex justify-center items-center bg-whiteD-200 relative">
@@ -275,7 +275,7 @@ const Register = () => {
                     value={dataUser.city}
                     type="text"
                     id="nationality"
-                    name="city" // Cambiado a "city"
+                    name="city"
                     required
                     onChange={handleChange}
                   />
