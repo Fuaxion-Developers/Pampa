@@ -86,7 +86,7 @@ const Login = () => {
 
  const inputClass =
    'h-[28px] p-5 items-center gap-[10px] self-stretch border border-gray-300 w-full';
- const labelClass = 'font-mulish text-[15px] font-medium leading-normal';
+ const labelClass = ' text-[15px] font-medium leading-normal';
 
   return (
     <div className="flex justify-center items-center h-[100vh]">
@@ -151,7 +151,7 @@ const Login = () => {
                 )}
               </div>
               <div className="w-full max-w-[100%] mt-2 flex justify-end">
-                <a href="#" className="font-mulish text-[15px]">
+                <a href="#" className=" text-[15px] text-brownD-100">
                   Olvidé mi contraseña
                 </a>
               </div>
@@ -170,7 +170,7 @@ const Login = () => {
 
           <div className="w-full max-w-[80%]  mt-8 flex flex-row items-center justify-center gap-4">
             <p className="">No tienes cuenta?</p>
-            <a href="/register">Regístrate</a>
+            <a href="/register" className='text-brownD-100'>Regístrate</a>
           </div>
         </div>
         <div className="w-[50%] h-full relative">
