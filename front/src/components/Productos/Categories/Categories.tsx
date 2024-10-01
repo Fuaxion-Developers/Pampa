@@ -61,8 +61,8 @@ const categories = [
 const settings = {
   dots: true,
   infinite: false,
-  slidesToShow: 4,
-  slidesToScroll: 1,
+  slidesToShow: 5,
+  slidesToScroll: 5,
   autoplay: false,
   autoplaySpeed: 1500,
   pauseOnHover: true,
@@ -103,7 +103,7 @@ const Categories = () => {
           {categories.map((category, index) => (
             <div key={index} className="flex gap-8 justify-center p-4">
               <Link href={category.link}>
-                <div className="bg-whiteD-200 p-3 relative rounded">
+                <div className="bg-brownD-200 p-3 relative rounded">
                   <p className="text-center font-semibold text-xl">
                     {category.categoria}
                   </p>
