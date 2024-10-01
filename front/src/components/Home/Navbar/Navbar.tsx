@@ -1,9 +1,9 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import styles from "@/components/Home/Navbar/Navbar.module.css";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
+import styles from '@/components/Home/Navbar/Navbar.module.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Estado para el menú hamburguesa
@@ -44,13 +44,13 @@ const Navbar = () => {
       {/* Menú de navegación (visible en móvil solo si el menú está abierto) */}
       <div
         className={`md:hidden flex flex-col items-center space-y-4 ${
-          isOpen ? "block" : "hidden"
+          isOpen ? 'block' : 'hidden'
         }`}
       >
         <Link
           href="/"
           className={`${styles.navLink} ${
-            pathname === "/" ? styles.active : ""
+            pathname === '/' ? styles.active : ''
           }`}
           onClick={toggleMenu}
         >
@@ -59,9 +59,7 @@ const Navbar = () => {
         <Link
           href="/products"
           className={`${styles.navLink} ${
-
-            pathname === '/products' ? styles.active : ''
-
+            pathname.startsWith('/products') ? styles.active : ''
           }`}
           onClick={toggleMenu}
         >
@@ -70,7 +68,7 @@ const Navbar = () => {
         <Link
           href="/about"
           className={`${styles.navLink} ${
-            pathname === "/about" ? styles.active : ""
+            pathname === '/about' ? styles.active : ''
           }`}
           onClick={toggleMenu}
         >
@@ -97,7 +95,7 @@ const Navbar = () => {
         <Link
           href="/"
           className={`${styles.navLink} ${
-            pathname === "/" ? styles.active : ""
+            pathname === '/' ? styles.active : ''
           }`}
         >
           <p>Inicio</p>
@@ -105,7 +103,7 @@ const Navbar = () => {
         <Link
           href="/products"
           className={`${styles.navLink} ${
-            pathname === "/products" ? styles.active : ""
+            pathname.startsWith('/products') ? styles.active : ''
           }`}
         >
           <p>Productos</p>
@@ -113,7 +111,7 @@ const Navbar = () => {
         <Link
           href="/about"
           className={`${styles.navLink} ${
-            pathname === "/about" ? styles.active : ""
+            pathname === '/about' ? styles.active : ''
           }`}
         >
           <p>Nosotros</p>

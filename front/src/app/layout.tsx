@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import ClientRouteHandler from '@/app/ClientRouteHandle';
 import './globals.css';
-// import { UserProvider } from '@auth0/nextjs-auth0/client';
+
 
 export const metadata: Metadata = {
   title: 'PAMPA',
@@ -16,11 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <UserProvider> */}
+   
         <body>
           <ClientRouteHandler>{children}</ClientRouteHandler>
         </body>
-      {/* </UserProvider> */}
+     
     </html>
   );
 }
