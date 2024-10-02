@@ -96,20 +96,9 @@ export function validateRegisterForm(
       "Surname must be between 2 and 50 characters and only contain letters and spaces";
   }
 
-if (!values.birthdate) {
-  errors.birthdate = "Birthdate is required";
-} else {
-  const fechaConvertida = convertirFecha(values.birthdate);
-  if (!regexValidations.fechaNacimiento.test(fechaConvertida)) {
-    errors.birthdate = "Birthdate must be in the format DD/MM/YYYY";
-  }
-}
 
-  if (!values.dni) {
-    errors.dni = "DNI is required";
-  } else if (!regexValidations.dni.test(values.dni)) {
-    errors.dni = "DNI must be a valid number with 7 or 8 digits";
-  }
+
+  
 
   if (!values.phone) {
     errors.phone = "Phone is required";
@@ -132,12 +121,6 @@ if (!values.birthdate) {
       "City must be between 2 and 50 characters and only contain letters and spaces";
   }
 
-  if (!values.nationality) {
-    errors.nationality = "Nationality is required";
-  } else if (!regexValidations.nacionalidad.test(values.nationality)) {
-    errors.nationality =
-      "Nationality must be between 2 and 50 characters and only contain letters and spaces";
-  }
 
   return errors;
 }
@@ -145,86 +128,7 @@ if (!values.birthdate) {
 
 
 
-  //REGISTER AUTH0//
-export function validateRegisterAuth0Form(
-  values: RegisterProps
-): RegisterErrorProps {
-  let errors: RegisterErrorProps = {};
 
-  if (!values.birthdate) {
-    errors.birthdate = "Birthdate is required";
-  } else {
-    const fechaConvertida = convertirFecha(values.birthdate);
-    if (!regexValidations.fechaNacimiento.test(fechaConvertida)) {
-      errors.birthdate = "Birthdate must be in the format DD/MM/YYYY";
-    }
-  }
-
-  if (!values.dni) {
-    errors.dni = "DNI is required";
-  } else if (!regexValidations.dni.test(values.dni)) {
-    errors.dni = "DNI must be a valid number with 7 or 8 digits";
-  }
-
-  if (!values.phone) {
-    errors.phone = "Phone is required";
-  } else if (!regexValidations.telefono.test(values.phone)) {
-    errors.phone =
-      "Phone number must be between 10 and 15 characters and can contain numbers, spaces, parentheses, and hyphens";
-  }
-
-  if (!values.address) {
-    errors.address = "Address is required";
-  } else if (!regexValidations.direccion.test(values.address)) {
-    errors.address =
-      "Address must be between 5 and 100 characters and can contain letters, numbers, and certain special characters (,.-)";
-  }
-
-  if (!values.location) {
-    errors.location = "City is required";
-  } else if (!regexValidations.localidad.test(values.location)) {
-    errors.location =
-      "City must be between 2 and 50 characters and only contain letters and spaces";
-  }
-
-  if (!values.nationality) {
-    errors.nationality = "Nationality is required";
-  } else if (!regexValidations.nacionalidad.test(values.nationality)) {
-    errors.nationality =
-      "Nationality must be between 2 and 50 characters and only contain letters and spaces";
-  }
-
-  return errors;
-}
-
-
-
-
-//SERVICE//
-export function validateNewServiceForm(values: NewServiceProps): NewServiceErrorProps {
-  let errors: NewServiceErrorProps = {};
-
-  if (!values.name) {
-    errors.name = "El nombre es requerido";
-  } else if (!regexValidations.nombre.test(values.name)) {
-    errors.name = "El nombre debe tener entre 2 y 50 caracteres";
-  }
-
-  if (!values.price) {
-    errors.price = "El precio es requerido";
-  } else if (!regexValidations.precio.test(values.price)) {
-    errors.price =
-      "Formato no valido";
-  }
-  if (!values.description) {
-    errors.description = "La descripción es requerida";
-  } else if (!regexValidations.descripcion.test(values.description)) {
-    errors.description =
-      "La descripción debe tener entre 20 y 200 caracteres";
-  }
-
-  return errors;
-}
 
 
     //UPDATE//
