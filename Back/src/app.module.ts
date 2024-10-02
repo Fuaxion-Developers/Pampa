@@ -15,6 +15,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { CategoriesModule } from './products/categories/categories.module';
 import { OrderStatusModule } from './order-status/order-status.module';
 import { ModeShipmentModule } from './mode-shipment/mode-shipment.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ModeShipmentModule } from './mode-shipment/mode-shipment.module';
     UsersModule,
     InfoUsersModule,
     OrderStatusModule,
+    MailModule,
 
     JwtModule.register({
       global: true,

@@ -14,12 +14,18 @@ async function bootstrap() {
   app.use(cors());
   app.use(json());
   app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      }
+    }),
   );
 
   const swaagerConfig = new DocumentBuilder()
     .setTitle('Pampa')
-    .setDescription('')
+    .setDescription('Fabricación y venta por mayor de sellos decorativos stencil y texturadores.')
     .setVersion(version)
     .addBearerAuth()
     .build();

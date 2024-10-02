@@ -13,4 +13,14 @@ export const env = {
     name: process.env.DB_NAME || 'test',
   },
   jwt_secret: process.env.JWT_SECRET || 'clavesecreta',
+  mailer: {
+    service: process.env.MAILER_SERVICE,
+    auth: {
+      type: process.env.MAILER_TYPE,
+      user: process.env.MAILER_USER,
+      clientId: process.env.MAILER_CLIENT_ID,
+      clientSecret: process.env.MAILER_CLIENT_SECRET,
+      refreshToken: process.env.MAILER_REFRESH_TOKEN,
+    }
+  }
 };
