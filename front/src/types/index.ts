@@ -75,34 +75,18 @@ export interface Service {
   isActive: boolean;
 }
 
-export interface VideoPlayerProps {
-  src: string;
-  type: string;
-  controls?: boolean;
-  loop?: boolean;
-  muted?: boolean;
+export interface IProduct {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  image: string;
+  categoryId: number;
 }
 
 
 
-
-
-
-export interface RegisterAuth0Props {
-  email: string;
-  password: string;
-  confirmPass: string;
-  first_name: string;
-  last_name: string;
-  birthdate: string;
-  dni: string;
-  phone: string;
-  address: string;
-  location: string;
-  nationality: string;
-  photo: string;
-  is_auth0: boolean;
-}
 
 
 export interface PersonInterface {
