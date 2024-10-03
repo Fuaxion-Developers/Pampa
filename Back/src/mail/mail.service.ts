@@ -10,9 +10,9 @@ export class MailService {
 
     async sendEmail(body: SendEmailDto){
         try {
-            const { from, subjectEmail, sendTo } = body;
+            const { subjectEmail, sendTo } = body;
             const html = this.getTemplate(body)
-            await this.mailProvider.sendEmail(from, subjectEmail, sendTo, html);
+            await this.mailProvider.sendEmail(subjectEmail, sendTo, html);
         } catch (error) {
             throw error;
         }
