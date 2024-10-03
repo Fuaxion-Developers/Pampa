@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Query,
@@ -27,6 +28,8 @@ import {
 import { CuitlDto, EmailDto, PaginationDto } from 'src/common/dto/common.dto';
 import { SignInDto } from './dtos/signIn.dto';
 import { UpdatePasswordDto } from './dtos/updatePassword.dto';
+import { RestorePasswordDto } from './dtos/restorePassword.dto';
+import { UserEmailDto } from './dtos/userEmail.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -109,6 +112,22 @@ export class UsersController {
     return this.usersService.signIn(signInInfo);
   }
 
+  @Post('request-restore-password')
+  @ApiOperation({ summary: 'Solicitud para restaurar contraseña.' })
+  @ApiResponse({ status: 201, description: 'Envía correo electrponico con link para restaurar contraseña.' })
+  @ApiBadRequestResponse({ status: 400, description: 'Error en la solicitud.' })
+  requestRestorePassword(@Body() email: UserEmailDto) {
+    return this.usersService.requestRestorePassword(email.email);
+  }
+
+  @Post('restore-password/:token')
+  @ApiOperation({ summary: 'Restaurar contraseña.' })
+  @ApiResponse({ status: 201, description: 'Contraseña restaurada.' })
+  @ApiBadRequestResponse({ status: 400, description: 'Error en la solicitud.' })
+  restorePassword(@Param('token') token: string, @Body() newPasswordInfo: RestorePasswordDto) {
+    return this.usersService.restorePassword(token, newPasswordInfo);
+  }
+
   @Patch('change-password')
   @ApiOperation({ summary: 'Cambiar contraseña.' })
   @ApiResponse({ status: 201, description: 'Contraseña actualizada con éxito.' })
@@ -132,7 +151,7 @@ export class UsersController {
   @Patch('restore')
   @ApiOperation({
     summary:
-      'Restaurar un usuario. El cuerpo de la solicitud debte tener confirmPass.',
+      'Restaurar un usuario. El cuerpo de la solicitud debe tener confirmPass.',
   })
   @ApiResponse({ status: 201, description: 'Retorna el usuario restaurado.' })
   @ApiBadRequestResponse({ status: 400, description: 'Error en solicitud.' })
