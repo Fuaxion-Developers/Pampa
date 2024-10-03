@@ -34,7 +34,7 @@ export class User {
   password: string;
 
   @Column({
-    type: Date,
+    type: 'varchar',
     nullable: true,
   })
   resetPasswordToken: string;
