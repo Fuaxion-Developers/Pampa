@@ -114,10 +114,10 @@ export function validateRegisterForm(
       "Address must be between 5 and 100 characters and can contain letters, numbers, and certain special characters (,.-)";
   }
 
-  if (!values.location) {
-    errors.location = "City is required";
-  } else if (!regexValidations.localidad.test(values.location)) {
-    errors.location =
+  if (!values.state) {
+    errors.state = "City is required";
+  } else if (!regexValidations.localidad.test(values.state)) {
+    errors.state =
       "City must be between 2 and 50 characters and only contain letters and spaces";
   }
 
@@ -176,12 +176,12 @@ export function updateRegisterForm(
       "Address must be between 5 and 100 characters and can contain letters, numbers, and certain special characters (,.-)";
   }
 
-  if (!values.location) {
-    errors.location = "City is required";
-  } else if (!regexValidations.localidad.test(values.location)) {
-    errors.location =
-      "City must be between 2 and 50 characters and only contain letters and spaces";
-  }
+  // if (!values.state) {
+  //   errors.state = "City is required";
+  // } else if (!regexValidations.localidad.test(values.state)) {
+  //   errors.state =
+  //     "City must be between 2 and 50 characters and only contain letters and spaces";
+  // }
 
   return errors;
 }

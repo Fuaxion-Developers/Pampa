@@ -9,19 +9,20 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import PasswordInput from '../../components/Password/PasswordImput';
 
+
 const Register = () => {
   const router = useRouter();
   const [dataUser, setDataUser] = useState<RegisterProps>({
     first_name: '',
     last_name: '',
-    cuil: '',
+    cuit_cuil: '',
     email: '',
-    empresa: '',
+    company: '',
     phone: '',
     address: '',
     city: '',
-    location: '',
-    codigoDeArea: '',
+    state: '',
+    zipCode: '',
     password: '',
     confirmPass: '',
   });
@@ -29,14 +30,14 @@ const Register = () => {
   const [errorUser, setErrorUser] = useState<RegisterErrorProps>({
     first_name: '',
     last_name: '',
-    cuil: '',
+    cuit_cuil: '',
     email: '',
-    empresa: '',
+    company: '',
     phone: '',
     address: '',
     city: '',
-    location: '',
-    codigoDeArea: '',
+    state: '',
+    zipCode: '',
     password: '',
     confirmPass: '',
   });
@@ -52,8 +53,9 @@ const Register = () => {
     event.preventDefault();
     const errors = validateRegisterForm(dataUser);
     setErrorUser(errors);
-
+    
     if (Object.keys(errors).length === 0) {
+      
       try {
         const response = await register(dataUser);
         Swal.fire({
@@ -154,15 +156,15 @@ const Register = () => {
                   <input
                     className={inputClass}
                     placeholder="0-12345678-5"
-                    value={dataUser.cuil}
+                    value={dataUser.cuit_cuil}
                     type="text"
-                    id="cuil"
-                    name="cuil"
+                    id="cuit_cuil"
+                    name="cuit_cuil"
                     required
                     onChange={handleChange}
                   />
-                  {errorUser.cuil && (
-                    <p className="text-red-500">{errorUser.cuil}</p>
+                  {errorUser.cuit_cuil && (
+                    <p className="text-red-500">{errorUser.cuit_cuil}</p>
                   )}
                 </div>
                 <div className="w-1/2">
@@ -203,15 +205,15 @@ const Register = () => {
                 <input
                   className={inputClass}
                   placeholder="Nombre de la empresa S.A"
-                  value={dataUser.empresa}
+                  value={dataUser.company}
                   type="text"
-                  id="empresa"
-                  name="empresa"
+                  id="company"
+                  name="company"
                   required
                   onChange={handleChange}
                 />
-                {errorUser.empresa && (
-                  <p className="text-red-500">{errorUser.empresa}</p>
+                {errorUser.company && (
+                  <p className="text-red-500">{errorUser.company}</p>
                 )}
               </div>
               <div className="w-full flex gap-4">
@@ -237,15 +239,15 @@ const Register = () => {
                   <input
                     className={inputClass}
                     placeholder="Código de área"
-                    value={dataUser.codigoDeArea}
+                    value={dataUser.zipCode}
                     type="text"
-                    id="CodigoDeArea"
-                    name="CodigoDeArea"
+                    id="zipCode"
+                    name="zipCode"
                     required
                     onChange={handleChange}
                   />
-                  {errorUser.codigoDeArea && (
-                    <p className="text-red-500">{errorUser.codigoDeArea}</p>
+                  {errorUser.zipCode && (
+                    <p className="text-red-500">{errorUser.zipCode}</p>
                   )}
                 </div>
               </div>
@@ -256,25 +258,25 @@ const Register = () => {
                   <input
                     className={inputClass}
                     placeholder="Lugar falso"
-                    value={dataUser.location}
+                    value={dataUser.state}
                     type="text"
-                    id="location"
-                    name="location"
+                    id="state"
+                    name="state"
                     required
                     onChange={handleChange}
                   />
-                  {errorUser.location && (
-                    <p className="text-red-500">{errorUser.location}</p>
+                  {errorUser.state && (
+                    <p className="text-red-500">{errorUser.state}</p>
                   )}
                 </div>
                 <div className="w-full">
-                  <label className={labelClass}>Nacionalidad</label>
+                  <label className={labelClass}>Ciudad</label>
                   <input
                     className={inputClass}
                     placeholder="País de origen"
                     value={dataUser.city}
                     type="text"
-                    id="nationality"
+                    id="city"
                     name="city"
                     required
                     onChange={handleChange}

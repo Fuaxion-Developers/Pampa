@@ -11,14 +11,14 @@ export interface LoginErrorProps {
 export interface RegisterProps {
   first_name: string;
   last_name: string;
-  cuil: string;
+  cuit_cuil: string;
   email: string;
-  empresa: string;
+  company: string;
   phone: string;
   address: string;
   city: string;
-  location: string;
-  codigoDeArea: string;
+  state: string;
+  zipCode: string;
   password: string;
   confirmPass: string;
 }
@@ -26,14 +26,14 @@ export interface RegisterProps {
 export interface RegisterErrorProps {
   first_name?: string;
   last_name?: string;
-  cuil?: string;
+  cuit_cuil?: string;
   email?: string;
-  empresa?: string;
+  company?: string;
   phone?: string;
   address?: string;
   city?: string;
-  location?: string;
-  codigoDeArea?: string;
+  state?: string;
+  zipCode?: string;
   password?: string;
   confirmPass?: string;
 }
