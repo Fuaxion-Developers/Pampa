@@ -79,6 +79,15 @@ export class UsersService {
       info_user,
     });
 
+    await this.mailService.sendEmail({
+      subjectEmail: 'Bienvenido/a',
+      sendTo: user.email,
+      template: 'welcome',
+      params: {
+        name: info_user.first_name,
+      }
+    });
+
     return newUser;
   }
 
