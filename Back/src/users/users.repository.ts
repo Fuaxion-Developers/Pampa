@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './users.entity';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { Roles } from './enums/roles.enum';
 import { ComparePass } from 'src/utils/comparePass';
 
@@ -27,6 +27,17 @@ export class UsersRepository {
       .take(limit);
 
     return await queryBuilder.getMany();
+  }
+
+  async getUserByToken(token: string) {
+    const user: User = await this.usersRepository.findOne({
+      where: {
+        resetPasswordToken: token,
+        resetPasswordExpires: MoreThan(new Date()),
+      }
+    })
+
+    return user;
   }
 
   async getUserByEmail(email: string): Promise<User> {
@@ -78,6 +89,20 @@ export class UsersRepository {
 
   async changePass(userToUpdate: User): Promise<User> {
     return this.usersRepository.save(userToUpdate);
+  }
+
+  async updateUser(userInfo: { id: string, email?: string, password?: string, resetPasswordToken?: string, resetPasswordExpires?: Date }) {
+    const user: User = await this.usersRepository.findOne({
+      where: {
+        id: userInfo.id,
+      }
+    })
+    if (!user) {
+      return;
+    }
+    
+    const userUpdated: User = await this.usersRepository.save(userInfo);
+    return userUpdated;
   }
 
   async deleteUser(userToDelete: User): Promise<string> {
