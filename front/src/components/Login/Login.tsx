@@ -46,14 +46,14 @@ const Login = () => {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await login(dataUser);
-        const { token, userData } = response;
+        const { token, userInfoToReturn } = response;
         localStorage.setItem(
           'userSession',
-          JSON.stringify({ token: token, userData })
+          JSON.stringify({ token: token, userInfoToReturn })
         );
         await Swal.fire({
           title: '¡Excelente!',
-          text: `${userData.first_name}, has iniciado sesión correctamente.`,
+          text: `${userInfoToReturn.first_name}, has iniciado sesión correctamente.`,
           icon: 'success',
           confirmButtonText: 'Aceptar',
           background: '#1D1D1D', // Cambia este valor al color de fondo que prefieras
