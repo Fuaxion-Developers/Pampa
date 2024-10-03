@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import PasswordInput from '../Password/PasswordImput';
-import { decodeJWT } from '../../helpers/decodeJwt';
+// import { decodeJWT } from '../../helpers/decodeJwt';
 // import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 
@@ -28,7 +28,6 @@ const Login = () => {
   useEffect(() => {
     const userSession = localStorage.getItem('userSession');
     if (userSession) {
-      
     }
   }, [router]);
 
@@ -65,7 +64,6 @@ const Login = () => {
             popup: 'text-white', // Cambia el color del texto del contenido
           },
         });
-       
       } catch (error: any) {
         Swal.fire({
           title: 'Error',
@@ -84,9 +82,9 @@ const Login = () => {
     }
   };
 
- const inputClass =
-   'h-[28px] p-5 items-center gap-[10px] self-stretch border border-gray-300 w-full';
- const labelClass = ' text-[15px] font-medium leading-normal';
+  const inputClass =
+    'h-[28px] p-5 items-center gap-[10px] self-stretch border border-gray-300 w-full';
+  const labelClass = ' text-[15px] font-medium leading-normal';
 
   return (
     <div className="flex justify-center items-center h-[100vh]">
@@ -105,13 +103,13 @@ const Login = () => {
         </a>
 
         <div className="w-[50%] flex flex-col items-center justify-center bg-whiteD-200  p-12">
-            <Image
-              className=" flex justify-center items-center" // Ajusta el tamaño según tus necesidades
-              src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726763511/Pampa_chico_1_bwdcha.svg"
-              alt="Volver"
-              width={300}
-              height={300}
-            />
+          <Image
+            className=" flex justify-center items-center" // Ajusta el tamaño según tus necesidades
+            src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726763511/Pampa_chico_1_bwdcha.svg"
+            alt="Volver"
+            width={300}
+            height={300}
+          />
           <div className="flex flex-col items-start justify-start mb-8">
             <h2 className=" text-[20px] font-semibold leading-normal mb-4">
               INICIA SESIÓN EN PAMPA
@@ -170,7 +168,9 @@ const Login = () => {
 
           <div className="w-full max-w-[80%]  mt-8 flex flex-row items-center justify-center gap-4">
             <p className="">No tienes cuenta?</p>
-            <a href="/register" className='text-brownD-100'>Regístrate</a>
+            <a href="/register" className="text-brownD-100">
+              Regístrate
+            </a>
           </div>
         </div>
         <div className="w-[50%] h-full relative">
