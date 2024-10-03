@@ -5,9 +5,10 @@ import { UsersController } from "./users.controller";
 import { UsersService } from "./users.service";
 import { UsersRepository } from "./users.repository";
 import { InfoUsersModule } from "src/infoUsers/infoUsers.module";
+import { MailModule } from "src/mail/mail.module";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User]), InfoUsersModule],
+    imports: [TypeOrmModule.forFeature([User]), InfoUsersModule, MailModule],
     controllers: [UsersController],
     providers: [UsersService, UsersRepository]
 })
