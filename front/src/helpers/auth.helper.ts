@@ -1,16 +1,16 @@
-import { IProduct, LoginProps, RegisterProps } from "@/types";
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
+import { env } from '@/config/evnCon';
+import { IProduct, LoginProps, RegisterProps } from '@/types';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 export async function register(userData: RegisterProps) {
   try {
-    const res = await fetch(`${apiUrl}/users/register`, {
-      method: "POST",
+    console.log(env.backUrl);
+    const res = await fetch(`${env.backUrl}/users/signup`, {
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
-        "ngrok-skip-browser-warning": "true",
+        'Content-type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
       },
       body: JSON.stringify(userData),
     });
@@ -18,32 +18,30 @@ export async function register(userData: RegisterProps) {
     if (res.ok) {
       return res.json();
     } else {
-        Swal.fire({
-          title: "¡Upps!",
-          text: "Hubo un error en el registro.",
-          icon: "error",
-          confirmButtonText: "Aceptar",
-          customClass: {
-            confirmButton:
-              "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-          },
-        });
-      throw new Error("Error en el registro");
+      Swal.fire({
+        title: '¡Upps!',
+        text: 'Hubo un error en el registro.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton:
+            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+        },
+      });
+      throw new Error('Error en el registro');
     }
   } catch (error: any) {
     throw new Error(error);
   }
 }
 
-
-
 export async function login(userData: LoginProps) {
   try {
-    const res = await fetch(`${apiUrl}/users/login`, {
-      method: "POST",
+    const res = await fetch(`${env.backUrl}/users/signin`, {
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
-        "ngrok-skip-browser-warning": "true",
+        'Content-type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
       },
       body: JSON.stringify(userData),
     });
@@ -51,17 +49,17 @@ export async function login(userData: LoginProps) {
     if (res.ok) {
       return res.json();
     } else {
-          Swal.fire({
-            title: "¡Upps!",
-            text: "Hubo un error al iniciar sesión.",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-            customClass: {
-              confirmButton:
-                "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-            },
-          });
-      throw new Error("Error al iniciar sesión");
+      Swal.fire({
+        title: '¡Upps!',
+        text: 'Hubo un error al iniciar sesión.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton:
+            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+        },
+      });
+      throw new Error('Error al iniciar sesión');
     }
   } catch (error: any) {
     throw new Error(error);
