@@ -4,10 +4,6 @@ import { Templates } from "../enums/templates.enum";
 export class SendEmailDto {
     @IsString()
     @IsNotEmpty()
-    from: string;
-
-    @IsString()
-    @IsNotEmpty()
     subjectEmail: string;
 
     @IsString()

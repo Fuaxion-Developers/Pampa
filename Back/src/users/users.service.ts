@@ -8,6 +8,8 @@ import { Roles } from './enums/roles.enum';
 import { ComparePass } from 'src/utils/comparePass';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { env } from '../config/envCon'
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +18,7 @@ export class UsersService {
     private readonly infoUsersService: InfoUsersService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly mailService: MailService,
   ) {}
 
   async getAllUsers({
@@ -159,6 +162,65 @@ export class UsersService {
       ...userInfoToReturn
     } = userUpdated;
     return userInfoToReturn;
+  }
+
+  async requestRestorePassword(email: string) {
+    const user: User = await this.getUserByEmail(email);
+    if(!user) {
+      return;
+    }
+
+    const authPayload = {
+      id: user.id,
+      email: user.email,
+    }
+
+    const token = this.jwtService.sign(authPayload, {
+      secret: this.configService.get<string>('JWT_SECRET'),
+    });
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = new Date(Date.now() + 3600000);
+    await this.usersRepository.updateUser(user);
+
+    const resetUrl: string = `${env.frontUrl}restore-password?token=${token}`;
+
+    await this.mailService.sendEmail({
+      subjectEmail: 'Restablecimiento de contraseña',
+      sendTo: user.email,
+      template: 'restorePassword',
+      params: {
+        resetUrl,
+      }
+    });
+
+    return 'Verifique su buzón de correo electrónico.'
+  }
+
+  async restorePassword(token: string, newPasswordInfo: { newPass: string, confirmNewPass: string }) {
+    const { newPass, confirmNewPass } = newPasswordInfo;
+
+    if(newPass !== confirmNewPass) {
+      throw new BadRequestException('La nueva contraseña y su confirmación deben ser iguales.')
+    }
+
+    const user: User = await this.usersRepository.getUserByToken(token);
+
+    if(!user) {
+      throw new BadRequestException('El token no es válido o ya expiró.')
+    }
+
+    user.password = await Hash(newPass);
+
+    const newUser: User = await this.usersRepository.updateUser({
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      resetPasswordToken: null,
+      resetPasswordExpires: null,
+    })
+
+    return 'Contraseña restablecida.'
   }
 
   async deleteUser(userInfo: Partial<User>) {

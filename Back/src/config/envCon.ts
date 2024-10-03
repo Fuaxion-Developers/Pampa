@@ -22,5 +22,6 @@ export const env = {
       clientSecret: process.env.MAILER_CLIENT_SECRET,
       refreshToken: process.env.MAILER_REFRESH_TOKEN,
     }
-  }
+  },
+  frontUrl: process.env.FRONT_URL,
 };
