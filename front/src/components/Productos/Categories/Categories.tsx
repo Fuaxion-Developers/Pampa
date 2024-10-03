@@ -101,7 +101,7 @@ const Categories = () => {
       <div className="m-8">
         <Slider {...settings}>
           {categories.map((category, index) => (
-            <div key={index} className="flex gap-8 justify-center p-4">
+            <div key={index} className="flex gap-8 justify-center p-4 text-whiteD-100">
               <Link href={category.link}>
                 <div className="bg-brownD-200 p-3 relative rounded">
                   <p className="text-center font-semibold text-xl">
