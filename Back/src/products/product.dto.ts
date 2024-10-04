@@ -1,6 +1,14 @@
-import { IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsDecimal,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUrl,
+  IsUUID,
+} from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { URL } from 'url';
+import { v4 as uuid } from 'uuid';
 
 export class productWhitTypeDto {
   @IsString()
@@ -25,12 +33,13 @@ export class productWhitTypeDto {
 
   @IsNotEmpty()
   @IsString()
+  @IsUrl()
   @ApiProperty({ example: 'https://example.com' })
-  image_url: URL;
+  image_url: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'Calendarios' })
+  @ApiProperty({ example: 'calendarios' })
   category: string;
 }
 
