@@ -4,7 +4,9 @@ import {
   IsDateString,
   IsEmpty,
   IsNotEmpty,
+  IsNumber,
   IsNumberString,
+  IsOptional,
   IsString,
   IsUUID,
 } from 'class-validator';
@@ -22,7 +24,7 @@ export class OrderDto {
   @ApiProperty({
     example: new Date(),
   })
-  date: Date;
+  date: string;
 
   @IsEmpty()
   order_status: string;
@@ -44,4 +46,20 @@ export class OrderWithStatusDto extends OrderDto {
     example: uuid(),
   })
   order_status: uuid;
+}
+
+export class getAllOrdersOptionsDto {
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 10,
+  })
+  limit: number;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 1,
+  })
+  page: number;
 }
