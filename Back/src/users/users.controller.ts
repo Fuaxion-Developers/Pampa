@@ -7,11 +7,13 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiOperation,
   ApiQuery,
   ApiResponse,
@@ -30,13 +32,20 @@ import { SignInDto } from './dtos/signIn.dto';
 import { UpdatePasswordDto } from './dtos/updatePassword.dto';
 import { RestorePasswordDto } from './dtos/restorePassword.dto';
 import { UserEmailDto } from './dtos/userEmail.dto';
+import { DRoles } from '../decorators/roles.decorator';
+import { Roles } from './enums/roles.enum';
+import { UsersGuard } from './guards/users.guard'
+import { RolesGuard } from '../guards/roles.guard'
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiBearerAuth()
   @Get()
+  @DRoles(Roles.ADMIN)
+  @UseGuards(UsersGuard, RolesGuard)
   @ApiOperation({
     summary: 'Obtener todos los usuarios, incluyendo inactivos',
   })
@@ -50,7 +59,10 @@ export class UsersController {
     return this.usersService.getAllUsers(paginationDto);
   }
 
+  @ApiBearerAuth()
   @Get('by-email')
+  @DRoles(Roles.ADMIN)
+  @UseGuards(UsersGuard, RolesGuard)
   @ApiOperation({
     summary: 'Obtener la información de un usuario, por su correo electrónico.',
   })
@@ -63,7 +75,10 @@ export class UsersController {
     return this.usersService.getUserByEmail(email.email);
   }
 
+  @ApiBearerAuth()
   @Get('by-cuitl')
+  @DRoles(Roles.ADMIN)
+  @UseGuards(UsersGuard, RolesGuard)
   @ApiOperation({
     summary:
       'Obtener la información de un usuario, por su número de CUIT/CUIL.',
@@ -112,9 +127,14 @@ export class UsersController {
     return this.usersService.signIn(signInInfo);
   }
 
+  
   @Post('request-restore-password')
   @ApiOperation({ summary: 'Solicitud para restaurar contraseña.' })
-  @ApiResponse({ status: 201, description: 'Envía correo electrponico con link para restaurar contraseña.' })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Envía correo electrponico con link para restaurar contraseña.',
+  })
   @ApiBadRequestResponse({ status: 400, description: 'Error en la solicitud.' })
   requestRestorePassword(@Body() email: UserEmailDto) {
     return this.usersService.requestRestorePassword(email.email);
@@ -124,19 +144,31 @@ export class UsersController {
   @ApiOperation({ summary: 'Restaurar contraseña.' })
   @ApiResponse({ status: 201, description: 'Contraseña restaurada.' })
   @ApiBadRequestResponse({ status: 400, description: 'Error en la solicitud.' })
-  restorePassword(@Param('token') token: string, @Body() newPasswordInfo: RestorePasswordDto) {
+  restorePassword(
+    @Param('token') token: string,
+    @Body() newPasswordInfo: RestorePasswordDto,
+  ) {
     return this.usersService.restorePassword(token, newPasswordInfo);
   }
 
+  @ApiBearerAuth()
   @Patch('change-password')
+  @DRoles(Roles.ADMIN, Roles.CLIENT)
+  @UseGuards(UsersGuard, RolesGuard)
   @ApiOperation({ summary: 'Cambiar contraseña.' })
-  @ApiResponse({ status: 201, description: 'Contraseña actualizada con éxito.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Contraseña actualizada con éxito.',
+  })
   @ApiBadRequestResponse({ status: 400, description: 'Error en solicitud.' })
   changePass(@Body() newPass: UpdatePasswordDto) {
     return this.usersService.changePass(newPass);
   }
 
+  @ApiBearerAuth()
   @Delete('delete')
+  @DRoles(Roles.ADMIN)
+  @UseGuards(UsersGuard, RolesGuard)
   @ApiOperation({
     summary:
       'Eliminar un usuario. El cuerpo de la solicitud debte tener confirmPass.',
