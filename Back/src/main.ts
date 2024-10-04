@@ -5,7 +5,11 @@ import * as cors from 'cors';
 import { json } from 'express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { precargasOrderStatus } from './utils/precargas';
+import {
+  precargaCategories,
+  precargaProducts,
+  precargasOrderStatus,
+} from './utils/precargas';
 
 const version = require('../package.json').version;
 
@@ -19,13 +23,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
       transformOptions: {
         enableImplicitConversion: true,
-      }
+      },
     }),
   );
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Pampa')
-    .setDescription('Fabricación y venta por mayor de sellos decorativos stencil y texturadores.')
+    .setDescription(
+      'Fabricación y venta por mayor de sellos decorativos stencil y texturadores.',
+    )
     .setVersion(version)
     .addBearerAuth()
     .build();
@@ -40,6 +46,8 @@ async function bootstrap() {
   });
 
   precargasOrderStatus(app);
+  await precargaCategories(app);
+  await precargaProducts(app);
 
   await app.listen(env.port);
 }
