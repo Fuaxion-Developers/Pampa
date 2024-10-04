@@ -2,7 +2,9 @@ import { Body, Controller, HttpStatus, Post, Res } from "@nestjs/common";
 import { Response } from "express";
 import { MailService } from "./mail.service";
 import { SendEmailDto } from "./dtos/sendEmail.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Mail')
 @Controller('mail')
 export class MailController {
     constructor(
