@@ -16,6 +16,7 @@ import { CategoriesModule } from './products/categories/categories.module';
 import { OrderStatusModule } from './order-status/order-status.module';
 import { ModeShipmentModule } from './mode-shipment/mode-shipment.module';
 import { MailModule } from './mail/mail.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { MailModule } from './mail/mail.module';
     InfoUsersModule,
     OrderStatusModule,
     MailModule,
+    FilesModule,
 
     JwtModule.register({
       global: true,
