@@ -8,11 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   productWithTypePatchDto,
   productWhitTypeDto,
-  getAllProductDto,
   getProductsOptions,
 } from './product.dto';
 import { CategoriesService } from './categories/categories.service';
 import { instanceToPlain } from 'class-transformer';
+import { getAllProductDto } from './product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -22,6 +22,12 @@ export class ProductsService {
   ) {}
 
   async getAll(options: getProductsOptions) {
+    if (options == undefined) {
+      const option = new getAllProductDto();
+      option.limit = 10;
+      option.page = 1;
+      options = option;
+    }
     options.page = options.limit * (options.page - 1);
     const products = await this.productsRepository.getAll(options);
     if (products.length === 0) return 'No products found';
@@ -37,6 +43,9 @@ export class ProductsService {
   }
 
   async create(product: productWhitTypeDto) {
+    if (!product.category) {
+      throw new BadRequestException('Category must be defined');
+    }
     const category = await this.CategoriesService.getByName(product.category);
     if (!category) {
       throw new BadRequestException('Category not found');
