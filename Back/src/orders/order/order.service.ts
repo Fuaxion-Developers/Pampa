@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderRepository } from './order.repository';
-import { OrderDto, OrderDtoPartial } from './order.dto';
+import { getAllOrdersOptionsDto, OrderDto, OrderDtoPartial } from './order.dto';
 import { InfoUsersService } from '../../infoUsers/infoUsers.service';
 import { OrderDetailService } from 'src/order-detail/order-detail.service';
 import { OrderStatusService } from '../../order-status/order-status.service';
@@ -17,8 +17,8 @@ export class OrderService {
     private ModeShipmentService: ModeShipmentService,
   ) {}
 
-  async getAll() {
-    const orders = await this.orderRepository.getAll();
+  async getAll(options: getAllOrdersOptionsDto) {
+    const orders = await this.orderRepository.getAll(options);
     if (orders.length > 0) return instanceToPlain(orders);
     else return 'No orders found';
   }
