@@ -7,10 +7,11 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { UUID } from 'crypto';
-import { CategoriesDto } from './categories.dto';
+import { CategoriesDto, getCategoriesOptionsDto } from './categories.dto';
 import { v4 as uuid } from 'uuid';
 import {
   ApiBadRequestResponse,
@@ -30,8 +31,10 @@ export class CategoriesController {
   @ApiResponse({ status: 200, type: [CategoriesDto] })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @Get()
-  async getAll() {
-    return await this.CategoriesService.getAll();
+  async getAll(@Query() options: getCategoriesOptionsDto) {
+    if (!options.limit) options.limit = 10;
+    if (!options.page) options.page = 1;
+    return await this.CategoriesService.getAll(options);
   }
 
   @ApiOperation({ summary: 'Get category by id' })

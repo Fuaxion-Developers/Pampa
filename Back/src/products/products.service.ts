@@ -1,10 +1,18 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { ProductsRepository } from './product.repository';
 import { v4 as uuidv4 } from 'uuid';
-import { productWithTypePatchDto, productWhitTypeDto } from './product.dto';
-import { EntityManager } from 'typeorm';
-import { Products } from './product.entity';
+import {
+  productWithTypePatchDto,
+  productWhitTypeDto,
+  getAllProductDto,
+  getProductsOptions,
+} from './product.dto';
 import { CategoriesService } from './categories/categories.service';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class ProductsService {
@@ -13,10 +21,11 @@ export class ProductsService {
     private CategoriesService: CategoriesService,
   ) {}
 
-  async getAll() {
-    const products = await this.productsRepository.getAll();
+  async getAll(options: getProductsOptions) {
+    options.page = options.limit * (options.page - 1);
+    const products = await this.productsRepository.getAll(options);
     if (products.length === 0) return 'No products found';
-    else return products;
+    else return instanceToPlain(products);
   }
 
   async getById(id: uuidv4) {
@@ -32,12 +41,15 @@ export class ProductsService {
     if (!category) {
       throw new BadRequestException('Category not found');
     }
-    return await this.productsRepository.create({
-      name: product.name,
-      price: product.price,
-      stock: product.stock,
-      category: category.id,
-    });
+    const existingProduct = await this.productsRepository.getByName(
+      product.name,
+    );
+    if (existingProduct) {
+      throw new ConflictException('Product already exists');
+    }
+    product.category = category.id;
+    await this.productsRepository.create(product);
+    return 'Product created';
   }
 
   async update(id: uuidv4, product: productWithTypePatchDto) {

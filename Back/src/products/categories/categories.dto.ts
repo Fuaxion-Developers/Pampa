@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class CategoriesDto {
   @IsString()
@@ -8,4 +14,20 @@ export class CategoriesDto {
     example: 'Calendarios',
   })
   name: string;
+}
+
+export class getCategoriesOptionsDto {
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 10,
+  })
+  limit: number;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 1,
+  })
+  page: number;
 }

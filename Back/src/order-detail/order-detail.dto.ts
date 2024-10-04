@@ -1,5 +1,11 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { v4 as uuidv4 } from 'uuid';
 export class OrderDetailDto {
   @IsUUID()
@@ -25,3 +31,19 @@ export class OrderDetailDto {
 }
 
 export class OrderDetailDtoPartial extends PartialType(OrderDetailDto) {}
+
+export class getAllOrderDetailsOptionsDto {
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 10,
+  })
+  limit: number;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 1,
+  })
+  page: number;
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UUID } from 'crypto';
-import { CategoriesDto } from './categories.dto';
+import { CategoriesDto, getCategoriesOptionsDto } from './categories.dto';
 import { Categories } from './categories.entity';
 
 @Injectable()
@@ -12,8 +12,11 @@ export class CategoriesRepository {
     private productType: Repository<Categories>,
   ) {}
 
-  async getAll() {
-    return await this.productType.find();
+  async getAll(options: getCategoriesOptionsDto) {
+    return await this.productType.find({
+      skip: options.page,
+      take: options.limit,
+    });
   }
 
   async getById(id: UUID) {

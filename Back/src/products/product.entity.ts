@@ -7,16 +7,23 @@ import {
 } from 'typeorm';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 import { Categories } from './categories/categories.entity';
+import { execArgv } from 'process';
 
 @Entity()
 export class Products {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', unique: true })
   name: string;
 
-  @ManyToOne(() => Categories, (categorie) => categorie.id)
+  @Column({ type: 'varchar' })
+  image_url: URL;
+
+  @Column({ type: 'varchar' })
+  description: string;
+
+  @ManyToOne(() => Categories, (categorie) => categorie.id, { eager: true })
   @JoinColumn({ name: 'category' })
   category: UUID;
 

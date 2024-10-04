@@ -3,14 +3,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Orders } from './order.entity';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { OrderDto, OrderDtoPartial, OrderWithStatusDto } from './order.dto';
+import {
+  getAllOrdersOptionsDto,
+  OrderDto,
+  OrderDtoPartial,
+  OrderWithStatusDto,
+} from './order.dto';
 
 @Injectable()
 export class OrderRepository {
   constructor(@InjectRepository(Orders) private order: Repository<Orders>) {}
 
-  async getAll() {
-    return await this.order.find();
+  async getAll(options: getAllOrdersOptionsDto) {
+    return await this.order.find({ skip: options.page, take: options.limit });
   }
 
   async getById(id: uuid) {

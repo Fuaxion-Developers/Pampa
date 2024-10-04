@@ -1,7 +1,21 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { v4 as uuidv4 } from 'uuid';
-import { productWithTypePatchDto, productWhitTypeDto } from './product.dto';
+import {
+  productWithTypePatchDto,
+  productWhitTypeDto,
+  getProductsOptions,
+} from './product.dto';
 import {
   ApiBadGatewayResponse,
   ApiBody,
@@ -21,8 +35,10 @@ export class ProductsController {
   @ApiResponse({ status: 200, type: [Products] })
   @ApiBadGatewayResponse({ description: 'Can not get products' })
   @Get()
-  async getAll() {
-    return await this.productsService.getAll();
+  async getAll(@Query() options: getProductsOptions) {
+    if (options.limit == undefined || options.limit < 0) options.limit = 10;
+    if (options.page == undefined || options.page < 0) options.page = 1;
+    return await this.productsService.getAll(options);
   }
 
   @ApiOperation({ summary: 'Get product by id' })
@@ -30,7 +46,7 @@ export class ProductsController {
   @ApiBadGatewayResponse({ description: 'Can not get product' })
   @ApiParam({ name: 'id', type: 'uuid' })
   @Get(':id')
-  async getById(@Param('id') id: uuidv4) {
+  async getById(@Param('id', ParseUUIDPipe) id: uuidv4) {
     return await this.productsService.getById(id);
   }
   @ApiOperation({ summary: 'Get product by name' })
@@ -67,7 +83,7 @@ export class ProductsController {
   @ApiBody({ type: productWithTypePatchDto })
   @Patch('update/:id')
   async update(
-    @Param('id') id: uuidv4,
+    @Param('id', ParseUUIDPipe) id: uuidv4,
     @Body() newProduct: productWithTypePatchDto,
   ) {
     return await this.productsService.update(id, newProduct);
@@ -77,8 +93,8 @@ export class ProductsController {
   @ApiResponse({ status: 200, type: Products })
   @ApiBadGatewayResponse({ description: 'Can not delete product' })
   @ApiParam({ name: 'id', type: 'uuid' })
-  @Get('delete/:id')
-  async delete(@Param('id') id: uuidv4) {
+  @Delete('delete/:id')
+  async delete(@Param('id', ParseUUIDPipe) id: uuidv4) {
     return await this.productsService.delete(id);
   }
 }

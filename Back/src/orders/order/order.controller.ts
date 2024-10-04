@@ -7,9 +7,10 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { OrderDto, OrderDtoPartial } from './order.dto';
+import { getAllOrdersOptionsDto, OrderDto, OrderDtoPartial } from './order.dto';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -28,8 +29,10 @@ export class OrderController {
   @ApiResponse({ status: 200, type: [OrderDto] })
   @ApiBadRequestResponse({ status: 400, description: 'Bad Request' })
   @Get()
-  async getAll() {
-    return await this.orderService.getAll();
+  async getAll(@Query() options: getAllOrdersOptionsDto) {
+    if (!options.limit || options.limit < 0) options.limit = 10;
+    if (!options.page || options.page < 0) options.page = 1;
+    return await this.orderService.getAll(options);
   }
 
   @ApiOperation({ summary: 'Get order by id' })

@@ -1,5 +1,6 @@
 import { IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { URL } from 'url';
 
 export class productWhitTypeDto {
   @IsString()
@@ -8,7 +9,7 @@ export class productWhitTypeDto {
   name: string;
 
   @IsNotEmpty()
-  @IsDecimal({ decimal_digits: '2' })
+  @IsNumber({ maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false })
   @ApiProperty({ example: 10.5 })
   price: number;
 
@@ -17,6 +18,16 @@ export class productWhitTypeDto {
   @ApiProperty({ example: 10 })
   stock: number;
 
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({ example: 'Calendario Pequeño' })
+  description: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({ example: 'https://example.com' })
+  image_url: URL;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ example: 'Calendarios' })
@@ -24,3 +35,15 @@ export class productWhitTypeDto {
 }
 
 export class productWithTypePatchDto extends PartialType(productWhitTypeDto) {}
+
+export class getAllProductDto {
+  @IsNumber()
+  @ApiProperty({ example: 1 })
+  page: number;
+
+  @IsNumber()
+  @ApiProperty({ example: 10 })
+  limit: number;
+}
+
+export class getProductsOptions extends PartialType(getAllProductDto) {}

@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderDetails } from './order-detail.entity';
 import { Repository } from 'typeorm';
-import { OrderDetailDto, OrderDetailDtoPartial } from './order-detail.dto';
+import {
+  getAllOrderDetailsOptionsDto,
+  OrderDetailDto,
+  OrderDetailDtoPartial,
+} from './order-detail.dto';
 
 @Injectable()
 export class OrderDetailRepository {
@@ -10,8 +14,12 @@ export class OrderDetailRepository {
     @InjectRepository(OrderDetails) private order: Repository<OrderDetails>,
   ) {}
 
-  async getAll() {
-    return await this.order.find({ relations: ['order', 'product'] });
+  async getAll(options: getAllOrderDetailsOptionsDto) {
+    return await this.order.find({
+      relations: ['order', 'product'],
+      skip: options.page,
+      take: options.limit,
+    });
   }
 
   async getById(id: string) {
@@ -21,10 +29,12 @@ export class OrderDetailRepository {
     });
   }
 
-  async getByOrder(id: string) {
+  async getByOrder(id: string, options: getAllOrderDetailsOptionsDto) {
     return await this.order.find({
       where: { order: { id } },
       relations: ['product'],
+      skip: options.page,
+      take: options.limit,
     });
   }
 
