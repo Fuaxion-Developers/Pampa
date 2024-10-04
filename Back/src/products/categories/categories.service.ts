@@ -6,7 +6,11 @@ import {
 import { CategoriesRepository } from './categories.repository';
 import { UUID } from 'crypto';
 import { EntityManager } from 'typeorm';
-import { CategoriesDto, getCategoriesOptionsDto } from './categories.dto';
+import {
+  CategoriesDto,
+  getAllCategoriesPartialDto,
+  getCategoriesOptionsDto,
+} from './categories.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -15,9 +19,14 @@ export class CategoriesService {
     private En: EntityManager,
   ) {}
 
-  async getAll(options: getCategoriesOptionsDto) {
-    if (!options.limit || options.limit < 0) options.limit = 10;
-    if (!options.page || options.page < 0) options.page = 1;
+  async getAll(options: getAllCategoriesPartialDto) {
+    if (options == undefined) {
+      return await this.CategoriesRepository.getAll(options);
+    }
+    if (options.limit == undefined || !options.limit || options.limit < 0)
+      options.limit = 10;
+    if (options.page == undefined || !options.page || options.page < 0)
+      options.page = 1;
     return await this.CategoriesRepository.getAll(options);
   }
 
