@@ -8,6 +8,10 @@ export interface LoginErrorProps {
   password?: string;
 }
 
+export interface RestorePassProps {
+  newPass: string;
+  confirmNewPass: string;
+}
 export interface RegisterProps {
   first_name: string;
   last_name: string;
@@ -64,8 +68,6 @@ export interface NewServiceErrorProps {
   img?: string;
 }
 
-
-
 export interface Service {
   id: string;
   name: string;
@@ -84,10 +86,6 @@ export interface IProduct {
   image: string;
   categoryId: number;
 }
-
-
-
-
 
 export interface PersonInterface {
   id: string;
