@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
@@ -31,3 +31,7 @@ export class getCategoriesOptionsDto {
   })
   page: number;
 }
+
+export class getAllCategoriesPartialDto extends PartialType(
+  getCategoriesOptionsDto,
+) {}
