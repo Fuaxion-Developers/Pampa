@@ -23,14 +23,14 @@ async function bootstrap() {
     }),
   );
 
-  const swaagerConfig = new DocumentBuilder()
+  const swaggerConfig = new DocumentBuilder()
     .setTitle('Pampa')
     .setDescription('Fabricación y venta por mayor de sellos decorativos stencil y texturadores.')
     .setVersion(version)
     .addBearerAuth()
     .build();
 
-  const document = SwaggerModule.createDocument(app, swaagerConfig);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
 
   SwaggerModule.setup('api', app, document, {
     explorer: true,
