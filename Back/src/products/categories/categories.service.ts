@@ -1,8 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { CategoriesRepository } from './categories.repository';
 import { UUID } from 'crypto';
 import { EntityManager } from 'typeorm';
-import { CategoriesDto } from './categories.dto';
+import { CategoriesDto, getCategoriesOptionsDto } from './categories.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -11,8 +15,10 @@ export class CategoriesService {
     private En: EntityManager,
   ) {}
 
-  async getAll() {
-    return await this.CategoriesRepository.getAll();
+  async getAll(options: getCategoriesOptionsDto) {
+    if (!options.limit || options.limit < 0) options.limit = 10;
+    if (!options.page || options.page < 0) options.page = 1;
+    return await this.CategoriesRepository.getAll(options);
   }
 
   async getById(id: UUID) {
@@ -26,12 +32,14 @@ export class CategoriesService {
   }
 
   async createProductType(productType: CategoriesDto) {
-    try {
-      await this.CategoriesRepository.create(productType);
-      return 'Product type created';
-    } catch (error) {
-      throw new BadRequestException("Can't create product type");
+    const categorie = await this.CategoriesRepository.getByName(
+      productType.name,
+    );
+    if (categorie) {
+      throw new ConflictException('Category already exists');
     }
+    await this.CategoriesRepository.create(productType);
+    return 'Product type created';
   }
 
   async update(id: UUID, productType: CategoriesDto) {
