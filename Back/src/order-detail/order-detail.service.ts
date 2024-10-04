@@ -1,6 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderDetailRepository } from './order-detail.repository';
-import { OrderDetailDto, OrderDetailDtoPartial } from './order-detail.dto';
+import {
+  getAllOrderDetailsOptionsDto,
+  OrderDetailDto,
+  OrderDetailDtoPartial,
+} from './order-detail.dto';
 import { ProductsRepository } from 'src/products/product.repository';
 
 @Injectable()
@@ -10,8 +14,8 @@ export class OrderDetailService {
     private productRepo: ProductsRepository,
   ) {}
 
-  async getAll() {
-    const orderDetail = await this.orderDetailRepository.getAll();
+  async getAll(options: getAllOrderDetailsOptionsDto) {
+    const orderDetail = await this.orderDetailRepository.getAll(options);
     if (orderDetail.length > 0) return orderDetail;
     else return 'No order detail found';
   }
@@ -20,8 +24,11 @@ export class OrderDetailService {
     return await this.orderDetailRepository.getById(id);
   }
 
-  async getByOrder(id: string) {
-    const orderDetail = await this.orderDetailRepository.getByOrder(id);
+  async getByOrder(id: string, options: getAllOrderDetailsOptionsDto) {
+    const orderDetail = await this.orderDetailRepository.getByOrder(
+      id,
+      options,
+    );
     if (orderDetail.length > 0) return orderDetail;
     else return 'No order detail found';
   }
@@ -34,14 +41,17 @@ export class OrderDetailService {
         stock: product.stock - order.quantity,
       });
     } else throw new BadRequestException('Not enough stock');
-    return await this.orderDetailRepository.create(order);
+    await this.orderDetailRepository.create(order);
+    return 'Order detail created';
   }
 
   async update(id: string, order: OrderDetailDtoPartial) {
-    return await this.orderDetailRepository.update(id, order);
+    await this.orderDetailRepository.update(id, order);
+    return 'Order detail updated';
   }
 
   async delete(id: string) {
-    return await this.orderDetailRepository.delete(id);
+    await this.orderDetailRepository.delete(id);
+    return 'Order detail deleted';
   }
 }
