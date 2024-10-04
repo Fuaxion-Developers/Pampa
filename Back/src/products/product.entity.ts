@@ -18,7 +18,7 @@ export class Products {
   name: string;
 
   @Column({ type: 'varchar' })
-  image_url: URL;
+  image_url: string;
 
   @Column({ type: 'varchar' })
   description: string;
