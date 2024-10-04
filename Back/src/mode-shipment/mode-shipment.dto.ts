@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsDecimal, IsNotEmpty, IsString } from 'class-validator';
+import { IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class ModeShipmentDto {
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class ModeShipmentDto {
   description: string;
 
   @IsNotEmpty()
-  @IsDecimal({ decimal_digits: '2' })
+  @IsNumber({ maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false })
   @ApiProperty({ example: 10.5 })
   price: number;
 }
