@@ -1,62 +1,13 @@
 'use client';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@/components/prueba.module.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
-
-const categories = [
-  {
-    categoria: 'Alto releive',
-    link: '/products/alto_relieve',
-  },
-  {
-    categoria: 'Bajo releive',
-    link: '/products/bajo_relieve',
-  },
-  {
-    categoria: 'Accesorios',
-    link: '/products/accesorios',
-  },
-  {
-    categoria: 'Navidad 24/25',
-    link: '#',
-  },
-  {
-    categoria: 'Vegetales(VG)',
-    link: '#',
-  },
-  {
-    categoria: 'Verduras (VD)',
-    link: '#',
-  },
-  {
-    categoria: 'Sets',
-    link: '#',
-  },
-  {
-    categoria: 'Sin stock',
-    link: '#',
-  },
-  {
-    categoria: 'Palafrases',
-    link: '#',
-  },
-  {
-    categoria: 'Numerador',
-    link: '#',
-  },
-  {
-    categoria: 'Celebraciones',
-    link: '#',
-  },
-  {
-    categoria: 'Oron',
-    link: '#',
-  },
-];
+import { getCategories } from '@/helpers/Categories.helper';
+import { Icategory } from '@/types';
 
 const settings = {
   dots: true,
@@ -95,17 +46,40 @@ const settings = {
 };
 
 const Categories = () => {
+const [category, setCategory] = useState<Icategory[]>([]);
+
+
+  useEffect(() => {
+    const getCategory = async () => {
+      const categories:Icategory[] = await getCategories();
+
+      const categoriesArray = categories.map((c: Icategory) => {
+       return(
+        {
+          id: c.id,
+          name: c.name
+        }
+       )
+      });
+      setCategory(categoriesArray);
+    };
+
+    getCategory();
+  }, []);
   return (
     <div>
       <h2 className="ml-12 font-semibold text-xl ">CATEGORÍAS</h2>
       <div className="m-8">
         <Slider {...settings}>
-          {categories.map((category, index) => (
-            <div key={index} className="flex gap-8 justify-center p-4 text-whiteD-100">
-              <Link href={category.link}>
+          {category.map((category, index) => (
+            <div
+              key={index}
+              className="flex gap-8 justify-center p-4 text-whiteD-100"
+            >
+              <Link href={`/products/${category.id}`}>
                 <div className="bg-brownD-200 p-3 relative rounded">
                   <p className="text-center font-semibold text-xl">
-                    {category.categoria}
+                    {category.name}
                   </p>
                 </div>
               </Link>
