@@ -5,7 +5,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 export async function register(userData: RegisterProps) {
   try {
-    console.log(env.backUrl);
+    
     const res = await fetch(`${env.backUrl}/users/signup`, {
       method: 'POST',
       headers: {
@@ -93,6 +93,7 @@ export async function requestRestorePassword(email: { email: string }) {
       throw new Error('Error al iniciar sesión');
     }
   } catch (error: any) {
+    
     throw new Error(error);
   }
 }

@@ -108,3 +108,9 @@ export interface PersonInterface {
     description: string;
   }[];
 }
+
+
+export interface Icategory{
+  id:string,
+  name:string
+}

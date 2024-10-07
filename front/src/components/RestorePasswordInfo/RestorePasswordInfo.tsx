@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import PasswordInput from "../PasswordImput";
 import { Suspense } from'react';
+import { restorePassword } from "@/helpers/auth.helper";
 
 const RestorePasswordSuspense = () => {
   return (
@@ -69,10 +70,7 @@ const RestorePasswordInfo = () => {
 
     try {
       const token = searchParams.split('=')[1];
-      const response = await axiosInstance.post(
-        `/auth/restore-password/${token}`,
-        passInfo,
-      );
+      const response = await restorePassword(passInfo, token);
       await Swal.fire({
         title: "¡Excelente!",
         text: response.data,
