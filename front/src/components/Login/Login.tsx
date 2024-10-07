@@ -11,6 +11,7 @@ import PasswordInput from '../Password/PasswordImput';
 // import { decodeJWT } from '../../helpers/decodeJwt';
 // import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
+import RestorePasswordModal from '../RestorePassword/RestorePassword';
 
 const Login = () => {
   const router = useRouter();
@@ -20,6 +21,11 @@ const Login = () => {
   });
   // const { user, error, isLoading } = useUser();
 
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+
   const [errorUser, setErrorUser] = useState<LoginErrorProps>({
     email: '',
     password: '',
@@ -28,6 +34,7 @@ const Login = () => {
   useEffect(() => {
     const userSession = localStorage.getItem('userSession');
     if (userSession) {
+      router.push('/');
     }
   }, [router]);
 
@@ -148,11 +155,16 @@ const Login = () => {
                   <p className="text-red-500">{errorUser.password}</p>
                 )}
               </div>
-              <div className="w-full max-w-[100%] mt-2 flex justify-end">
-                <a href="#" className=" text-[15px] text-brownD-100">
-                  Olvidé mi contraseña
-                </a>
+              <div
+                className="w-full max-w-[100%] mt-2 flex justify-end cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Olvidé mi contraseña
               </div>
+              <RestorePasswordModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+              />
               <div className="w-full  mt-4 flex justify-center">
                 <button
                   type="submit"
