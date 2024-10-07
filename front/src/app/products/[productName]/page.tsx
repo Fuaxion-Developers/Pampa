@@ -9,13 +9,14 @@ interface ProductPageProps {
 
 export async function generateStaticParams() {
   return productsToPreLoad.map(product => ({
-    productId: product.id.toString(),
+    productId: product.name,
   }));
 }
 
 const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
-  const productId = parseInt(params.productId);
-  const product = productsToPreLoad.find(p => p.id === productId);
+  const productName = (params.productId);
+  const product = productsToPreLoad.find(p => p.name === productName);
+  console.log(productName)
 
   return (
     <div>

@@ -229,7 +229,7 @@ export class UsersService {
       resetPasswordExpires: null,
     })
 
-    return 'Contraseña restablecida.'
+    return {message:'Contraseña restablecida.'}
   }
 
   async deleteUser(userInfo: Partial<User>) {
