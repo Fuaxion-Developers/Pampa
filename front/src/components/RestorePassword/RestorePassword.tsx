@@ -18,6 +18,7 @@ const RestorePasswordModal = ({
   });
 
   const handleInputChange = (e: any) => {
+  
     const { name, value } = e.target;
     setEmailInfo({
       email: value,
@@ -26,6 +27,7 @@ const RestorePasswordModal = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    
     const response = await requestRestorePassword(emailInfo);
     onClose();
     await Swal.fire({
@@ -49,10 +51,7 @@ const RestorePasswordModal = ({
         <h2 className="text-center text-xl font-semibold">
           Restaurar contraseña
         </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-lg p-6 space-y-4 flex flex-col justify-center items-center"
-        >
+        <form className="rounded-lg p-6 space-y-4 flex flex-col justify-center items-center">
           <div className="flex flex-col w-[80%]">
             <label> Correo electrónico:</label>
             <input
@@ -69,6 +68,7 @@ const RestorePasswordModal = ({
           <button
             className="rounded block px-4 py-2 text-l w-fit text-center text-black bg-greenD-500 cursor-pointer"
             type="submit"
+            onClick={handleSubmit}
           >
             Restaurar contraseña
           </button>
