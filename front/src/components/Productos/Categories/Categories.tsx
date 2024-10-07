@@ -1,13 +1,13 @@
+// app/components/Categories.tsx
+
 'use client';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import styles from '@/components/prueba.module.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
 import { getCategories } from '@/helpers/Categories.helper';
-import { Icategory } from '@/types';
+import { ICategory } from '@/types';
 
 const settings = {
   dots: true,
@@ -46,37 +46,28 @@ const settings = {
 };
 
 const Categories = () => {
-const [category, setCategory] = useState<Icategory[]>([]);
-
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
   useEffect(() => {
     const getCategory = async () => {
-      const categories:Icategory[] = await getCategories();
-
-      const categoriesArray = categories.map((c: Icategory) => {
-       return(
-        {
-          id: c.id,
-          name: c.name
-        }
-       )
-      });
-      setCategory(categoriesArray);
+      const categories: ICategory[] = await getCategories();
+      setCategories(categories);
     };
 
     getCategory();
   }, []);
+
   return (
     <div>
-      <h2 className="ml-12 font-semibold text-xl ">CATEGORÍAS</h2>
+      <h2 className="ml-12 font-semibold text-xl">CATEGORÍAS</h2>
       <div className="m-8">
         <Slider {...settings}>
-          {category.map((category, index) => (
+          {categories.map((category, index) => (
             <div
               key={index}
               className="flex gap-8 justify-center p-4 text-whiteD-100"
             >
-              <Link href={`/products/${category.id}`}>
+              <Link href={`/categories/${category.name}`}>
                 <div className="bg-brownD-200 p-3 relative rounded">
                   <p className="text-center font-semibold text-xl">
                     {category.name}
