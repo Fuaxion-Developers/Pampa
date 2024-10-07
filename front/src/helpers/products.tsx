@@ -1,13 +1,7 @@
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-  categoryId: number;
-  stock: number;
-}
-const productsToPreLoad: Product[] = [
+// src/helpers/products.ts
+import { IProduct } from '@/types';
+
+const productsToPreLoad: IProduct[] = [
   {
     id: 1,
     name: 'NVD 41',

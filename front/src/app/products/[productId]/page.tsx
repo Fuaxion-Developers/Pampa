@@ -1,5 +1,6 @@
+// app/products/[productId]/page.tsx
 import productsToPreLoad from '@/helpers/products'; // Asegúrate de tener la ruta correcta
-import ProductDetail from '@/components/Productos/ProductDetail/ProductDetail';
+import ProductDetail from '@/components/Productos/ProductDetail/ProductDetail'; // Asegúrate de que esta ruta es correcta
 
 interface ProductPageProps {
   params: {
@@ -9,14 +10,13 @@ interface ProductPageProps {
 
 export async function generateStaticParams() {
   return productsToPreLoad.map(product => ({
-    productId: product.name,
+    productId: product.id.toString(),
   }));
 }
 
 const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
-  const productName = (params.productId);
-  const product = productsToPreLoad.find(p => p.name === productName);
-  console.log(productName)
+  const productId = parseInt(params.productId);
+  const product = productsToPreLoad.find(p => p.id === productId);
 
   return (
     <div>

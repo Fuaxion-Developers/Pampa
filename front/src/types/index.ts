@@ -110,7 +110,8 @@ export interface PersonInterface {
 }
 
 
-export interface Icategory{
-  id:string,
-  name:string
+export interface ICategory {
+  id: string;
+  name: string;
+  slug?: string; // Agrega slug si es necesario
 }

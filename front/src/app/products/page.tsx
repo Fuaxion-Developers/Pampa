@@ -1,5 +1,5 @@
 'use client'
-import ProductList from '@/components/Productos/ProductsCards/ProductList';
+import ProductList from '@/components/Productos/ProductsCards/ProductCards';
 import productsToPreLoad from '@/helpers/products';
 import React, { useEffect } from 'react';
 const page = () => {
