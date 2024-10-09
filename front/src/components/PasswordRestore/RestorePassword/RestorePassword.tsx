@@ -23,26 +23,48 @@ const RestorePasswordModal = ({
       email: value,
     });
   };
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
+  try {
     const response = await requestRestorePassword(emailInfo);
     onClose();
+
+    // Aquí se puede verificar el éxito de la respuesta
+    if (response.success) {
+      await Swal.fire({
+        title: '¡Solicitud creada!',
+        text: 'Revise su buzón de correo electrónico',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar',
+        background: '#1D1D1D',
+        customClass: {
+          confirmButton:
+            'hover:scale-110 bg-greenD-500 text-black font-bold py-2 px-4 rounded',
+          title: 'text-greenD-500',
+          popup: 'text-white',
+        },
+      });
+    } else {
+      throw new Error('Error en la solicitud');
+    }
+  } catch (error) {
+    console.error(error);
     await Swal.fire({
-      title: '¡Solicitud creada!',
-      text: 'Revise su buzón de correo electrónico',
-      icon: 'warning',
+      title: 'Error',
+      text: 'Ocurrió un error al intentar restaurar la contraseña.',
+      icon: 'error',
       confirmButtonText: 'Aceptar',
-      background: '#1D1D1D', // Cambia este valor al color de fondo que prefieras
+      background: '#1D1D1D',
       customClass: {
         confirmButton:
-          'hover:scale-110 bg-greenD-500 text-black font-bold py-2 px-4 rounded',
-        title: 'text-greenD-500', // Cambia el color del texto del título
-        popup: 'text-white', // Cambia el color del texto del contenido
+          'hover:scale-110 bg-red-500 text-black font-bold py-2 px-4 rounded',
+        title: 'text-red-500',
+        popup: 'text-white',
       },
     });
-  };
+  }
+};
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
