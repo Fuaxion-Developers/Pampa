@@ -1,11 +1,17 @@
 import { env } from '@/config/evnCon';
-import { IProduct, LoginProps, RegisterProps, RestorePassProps } from '@/types';
-import Swal from 'sweetalert2';
+import { LoginProps, RegisterProps, RestorePassProps } from '@/types';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+// Función auxiliar para manejar errores de respuestas de fetch
+function handleResponseError(res: Response, defaultMessage: string) {
+  return res.text().then(message => {
+    throw new Error(message || defaultMessage);
+  });
+}
+
+// Función para el registro de usuarios
 export async function register(userData: RegisterProps) {
   try {
-    
     const res = await fetch(`${env.backUrl}/users/signup`, {
       method: 'POST',
       headers: {
@@ -15,26 +21,19 @@ export async function register(userData: RegisterProps) {
       body: JSON.stringify(userData),
     });
 
-    if (res.ok) {
-      return res.json();
-    } else {
-      Swal.fire({
-        title: '¡Upps!',
-        text: 'Hubo un error en el registro.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        customClass: {
-          confirmButton:
-            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-        },
-      });
-      throw new Error('Error en el registro');
+    if (!res.ok) {
+      return handleResponseError(res, 'Error en el registro');
     }
+
+    return await res.json();
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(
+      error.message || 'Ocurrió un error inesperado durante el registro'
+    );
   }
 }
 
+// Función para el inicio de sesión
 export async function login(userData: LoginProps) {
   try {
     const res = await fetch(`${env.backUrl}/users/signin`, {
@@ -46,26 +45,19 @@ export async function login(userData: LoginProps) {
       body: JSON.stringify(userData),
     });
 
-    if (res.ok) {
-      return res.json();
-    } else {
-      Swal.fire({
-        title: '¡Upps!',
-        text: 'Hubo un error al iniciar sesión.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        customClass: {
-          confirmButton:
-            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-        },
-      });
-      throw new Error('Error al iniciar sesión');
+    if (!res.ok) {
+      return handleResponseError(res, 'Error al iniciar sesión');
     }
+
+    return await res.json();
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(
+      error.message || 'Ocurrió un error inesperado durante el inicio de sesión'
+    );
   }
 }
 
+// Función para solicitar restauración de contraseña
 export async function requestRestorePassword(email: { email: string }) {
   try {
     const res = await fetch(`${env.backUrl}/users/request-restore-password`, {
@@ -77,27 +69,23 @@ export async function requestRestorePassword(email: { email: string }) {
       body: JSON.stringify(email),
     });
 
-    if (res.ok) {
-      return res.json();
-    } else {
-      Swal.fire({
-        title: '¡Upps!',
-        text: 'Hubo un error al iniciar sesión.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        customClass: {
-          confirmButton:
-            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-        },
-      });
-      throw new Error('Error al iniciar sesión');
+    if (!res.ok) {
+      return handleResponseError(
+        res,
+        'Error al solicitar la restauración de la contraseña'
+      );
     }
+
+    return await res.json();
   } catch (error: any) {
-    
-    throw new Error(error);
+    throw new Error(
+      error.message ||
+        'Ocurrió un error inesperado al solicitar restauración de contraseña'
+    );
   }
 }
 
+// Función para restaurar la contraseña
 export async function restorePassword(
   newPassInfo: RestorePassProps,
   token: string
@@ -112,22 +100,14 @@ export async function restorePassword(
       body: JSON.stringify(newPassInfo),
     });
 
-    if (res.ok) {
-      return res.json();
-    } else {
-      Swal.fire({
-        title: '¡Upps!',
-        text: 'Hubo un error al iniciar sesión.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        customClass: {
-          confirmButton:
-            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-        },
-      });
-      throw new Error('Error al iniciar sesión');
+    if (!res.ok) {
+      return handleResponseError(res, 'Error al restaurar la contraseña');
     }
+
+    return await res.json();
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(
+      error.message || 'Ocurrió un error inesperado al restaurar la contraseña'
+    );
   }
 }
