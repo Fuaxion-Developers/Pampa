@@ -105,26 +105,34 @@ const RestorePasswordInfo = () => {
   };
 
   return (
-    <div className="bg-[#1A2228] rounded-lg p-6 text-white space-y-4 flex flex-col justify-center items-center">
-      <h2 className="text-center text-xl font-semibold">Restaurar contraseña</h2>
+    <div className="bg-brownD-200 mt-8 p-4 text-white space-y-4 flex flex-col justify-center items-center">
+      <h2 className="text-center text-xl font-semibold">
+        Restaurar contraseña
+      </h2>
       <div className="flex items-center justify-center w-[80%]">
-        <div className="m-2 w-[60%]">
-          <p>Ingresa la nueva contraseña, recuerda que debe cumplir las siguientes características:</p>
+        <div className=" w-[60%]">
+          <p className="font-semibold">
+            Ingresa la nueva contraseña, recuerda que debe cumplir las
+            siguientes características:
+          </p>
           <ul>
-              <li>- Como mínimo 8 carcácteres</li>
-              <li>- Como mínimo una letra mayúscula</li>
-              <li>- Como mínimo una letra minúscula</li>
-              <li>- Como mínimo un número</li>
-              <li>- Como mínimo un caracter especial</li>
+            <li>- Como mínimo 8 carcácteres</li>
+            <li>- Como mínimo una letra mayúscula</li>
+            <li>- Como mínimo una letra minúscula</li>
+            <li>- Como mínimo un número</li>
+            <li>- Como mínimo un caracter especial</li>
           </ul>
         </div>
-        <form onSubmit={handleSubmit} className="rounded-lg p-6 space-y-4 flex flex-col justify-center items-center w-[40%]">
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-lg p-6 space-y-4 flex flex-col justify-center items-center w-[40%]"
+        >
           <div className="flex flex-col">
             <div className="flex flex-col m-2">
               <label> Nueva contraseña:</label>
               <PasswordInput
                 id="newPass"
-                className="text-black rounded"
+                className="text-black rounded p-2"
                 name="newPass"
                 value={passInfo.newPass}
                 onChange={handleInputChange}
@@ -135,7 +143,7 @@ const RestorePasswordInfo = () => {
               <label> Confirnar nueva contraseña:</label>
               <PasswordInput
                 id="confirmNewPass"
-                className="text-black rounded"
+                className="text-black rounded p-2"
                 name="confirmNewPass"
                 value={passInfo.confirmNewPass}
                 onChange={handleInputChange}
@@ -144,7 +152,7 @@ const RestorePasswordInfo = () => {
             </div>
           </div>
           <button
-            className="rounded block px-4 py-2 text-l w-fit text-black bg-greenD-500 cursor-pointer"
+            className="rounded block px-4 py-2 text-l w-fit  bg-brownD-100 cursor-pointer"
             type="submit"
           >
             Restaurar contraseña

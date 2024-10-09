@@ -2,12 +2,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/components/Home/Navbar/Navbar.module.css';
+import LogoutButton from '@/components/Logout/Logout';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Estado para el menú hamburguesa
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado para el usuario autenticado
   const pathname = usePathname();
+
+  useEffect(() => {
+    // Comprobar si el usuario está autenticado
+    const user = localStorage.getItem('userSession');
+    if (user) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -39,7 +51,17 @@ const Navbar = () => {
             height={200}
           />
         </div>
-        <div className="mb-20">
+    
+        <div className="mb-20 flex gap-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="35px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#6B432E"
+          >
+            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+          </svg>
           <Link href="/cart">
             <Image
               src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727981367/shopping_bag_24dp_6B432E_FILL0_wght400_GRAD0_opsz24_1_mdej5y.svg"
@@ -48,16 +70,9 @@ const Navbar = () => {
               height={30}
             />
           </Link>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#6B432E"
-          >
-            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-          </svg>
+          <LogoutButton />
         </div>
+       
       </div>
 
       {/* Menú de navegación (visible en móvil solo si el menú está abierto) */}
@@ -94,19 +109,21 @@ const Navbar = () => {
           <p>Nosotros</p>
         </Link>
 
-        {/* Botones de iniciar sesión y registrarse en móvil */}
-        <div className="flex justify-center items-center gap-4 w-full">
-          <Link href="#">
-            <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md w-full">
-              Iniciar sesión
-            </div>
-          </Link>
-          <Link href="#">
-            <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md w-full">
-              Registrarse
-            </div>
-          </Link>
-        </div>
+        {/* Mostrar botones de autenticación solo si el usuario NO está autenticado */}
+        {!isAuthenticated && (
+          <div className="flex justify-center items-center gap-4 w-full">
+            <Link href="/login">
+              <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md w-full">
+                Iniciar sesión
+              </div>
+            </Link>
+            <Link href="/register">
+              <div className="bg-brownD-100 text-whiteD-100 text-center p-2 rounded-md w-full">
+                Registrarse
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Menú de navegación para escritorio */}
@@ -137,23 +154,25 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Botones de sesión y registro para escritorio */}
-      <div className="hidden md:flex gap-4 justify-center items-center">
-        <div className="w-[10%]">
-          <Link href="/login">
-            <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
-              Iniciar sesión
-            </div>
-          </Link>
+      {/* Mostrar botones de autenticación solo si el usuario NO está autenticado */}
+      {!isAuthenticated && (
+        <div className="hidden md:flex gap-4 justify-center items-center">
+          <div className="w-[10%]">
+            <Link href="/login">
+              <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
+                Iniciar sesión
+              </div>
+            </Link>
+          </div>
+          <div className="w-[10%]">
+            <Link href="/register">
+              <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
+                Registrarse
+              </div>
+            </Link>
+          </div>
         </div>
-        <div className="w-[10%]">
-          <Link href="/register">
-            <div className="bg-brownD-100 text-whiteD-100 text-center p-4 rounded-[10px]">
-              Registrarse
-            </div>
-          </Link>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

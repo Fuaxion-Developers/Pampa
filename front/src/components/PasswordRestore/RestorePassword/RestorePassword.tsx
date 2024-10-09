@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from '../Modal/Modal';
+import Modal from '../../Modal/Modal';
 
 import Swal from 'sweetalert2';
 import { requestRestorePassword } from '@/helpers/auth.helper';
@@ -18,7 +18,6 @@ const RestorePasswordModal = ({
   });
 
   const handleInputChange = (e: any) => {
-  
     const { name, value } = e.target;
     setEmailInfo({
       email: value,
@@ -27,7 +26,7 @@ const RestorePasswordModal = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
+
     const response = await requestRestorePassword(emailInfo);
     onClose();
     await Swal.fire({
@@ -47,17 +46,17 @@ const RestorePasswordModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-[#1A2228] rounded-lg p-6 text-white space-y-4">
+      <div className=" rounded-lg p-6 text-white space-y-4">
         <h2 className="text-center text-xl font-semibold">
           Restaurar contraseña
         </h2>
         <form className="rounded-lg p-6 space-y-4 flex flex-col justify-center items-center">
           <div className="flex flex-col w-[80%]">
-            <label> Correo electrónico:</label>
+            <label> Por favor ingresa tu correo electrónico:</label>
             <input
               type="text"
               id="email"
-              className="text-black rounded"
+              className="text-black rounded p-2"
               name="email"
               placeholder="example@mail.com"
               value={emailInfo.email}
@@ -65,8 +64,9 @@ const RestorePasswordModal = ({
               required
             />
           </div>
+          <p>Te enviaremos un mail para restaurar tu contraseña...</p>
           <button
-            className="rounded block px-4 py-2 text-l w-fit text-center text-black bg-greenD-500 cursor-pointer"
+            className="bg-brownD-200 rounded block px-4 py-2 text-l w-fit text-center  bg-greenD-500 cursor-pointer"
             type="submit"
             onClick={handleSubmit}
           >

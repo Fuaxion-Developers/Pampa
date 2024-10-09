@@ -1,4 +1,4 @@
-import RestorePasswordSuspense from "@/components/RestorePasswordInfo/RestorePasswordInfo";
+import RestorePasswordSuspense from "@/components/PasswordRestore/RestorePasswordInfo/RestorePasswordInfo";
 
 const page = () => {
   return <RestorePasswordSuspense />;
