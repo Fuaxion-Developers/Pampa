@@ -1,10 +1,11 @@
 import { env } from '@/config/evnCon';
-import { LoginProps, RegisterProps, RestorePassProps } from '@/types';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import {  LoginProps, RegisterProps, RestorePassProps } from '@/types';
+
+
 
 // Función auxiliar para manejar errores de respuestas de fetch
 function handleResponseError(res: Response, defaultMessage: string) {
-  return res.text().then(message => {
+  return res.text().then((message) => {
     throw new Error(message || defaultMessage);
   });
 }
@@ -27,9 +28,7 @@ export async function register(userData: RegisterProps) {
 
     return await res.json();
   } catch (error: any) {
-    throw new Error(
-      error.message || 'Ocurrió un error inesperado durante el registro'
-    );
+    throw new Error(error.message || 'Ocurrió un error inesperado durante el registro');
   }
 }
 
@@ -51,9 +50,7 @@ export async function login(userData: LoginProps) {
 
     return await res.json();
   } catch (error: any) {
-    throw new Error(
-      error.message || 'Ocurrió un error inesperado durante el inicio de sesión'
-    );
+    throw new Error(error.message || 'Ocurrió un error inesperado durante el inicio de sesión');
   }
 }
 
@@ -70,26 +67,17 @@ export async function requestRestorePassword(email: { email: string }) {
     });
 
     if (!res.ok) {
-      return handleResponseError(
-        res,
-        'Error al solicitar la restauración de la contraseña'
-      );
+      return handleResponseError(res, 'Error al solicitar la restauración de la contraseña');
     }
 
     return await res.json();
   } catch (error: any) {
-    throw new Error(
-      error.message ||
-        'Ocurrió un error inesperado al solicitar restauración de contraseña'
-    );
+    throw new Error(error.message || 'Ocurrió un error inesperado al solicitar restauración de contraseña');
   }
 }
 
 // Función para restaurar la contraseña
-export async function restorePassword(
-  newPassInfo: RestorePassProps,
-  token: string
-) {
+export async function restorePassword(newPassInfo: RestorePassProps, token: string) {
   try {
     const res = await fetch(`${env.backUrl}/users/restore-password/${token}`, {
       method: 'POST',
@@ -106,8 +94,6 @@ export async function restorePassword(
 
     return await res.json();
   } catch (error: any) {
-    throw new Error(
-      error.message || 'Ocurrió un error inesperado al restaurar la contraseña'
-    );
+    throw new Error(error.message || 'Ocurrió un error inesperado al restaurar la contraseña');
   }
 }
