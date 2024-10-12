@@ -7,17 +7,7 @@ interface LogoutButtonProps {
 
 const LogoutButton: FC<LogoutButtonProps> = ({ className }) => {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    // Verificar si el usuario está autenticado (comprobar el localStorage)
-    const userSession = localStorage.getItem('userSession');
-    if (userSession) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
 
   const handleLogout = async () => {
     // Lógica de logout
@@ -33,15 +23,12 @@ const LogoutButton: FC<LogoutButtonProps> = ({ className }) => {
     }
   };
 
-  // Solo mostrar el botón si el usuario está autenticado
-  if (!isAuthenticated) return null;
-
   return (
     <button
+      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-500 hover:text-gray-100"
       onClick={handleLogout}
-      className={`px-4 py-2 bg-brownD-200 text-white rounded hover:bg-brownD-100 transition-colors duration-300 ${className}`}
     >
-      Logout
+      Cerrar Sesión
     </button>
   );
 };
