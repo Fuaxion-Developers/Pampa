@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import styles from '@/components/Home/Navbar/Navbar.module.css';
 import LogoutButton from '@/components/Logout/Logout';
+import PopupButton from '../popup/Popup';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Estado para el menú hamburguesa
@@ -51,28 +52,10 @@ const Navbar = () => {
             height={200}
           />
         </div>
-    
-        <div className="mb-20 flex gap-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="35px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#6B432E"
-          >
-            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-          </svg>
-          <Link href="/cart">
-            <Image
-              src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727981367/shopping_bag_24dp_6B432E_FILL0_wght400_GRAD0_opsz24_1_mdej5y.svg"
-              alt="Cart"
-              width={30}
-              height={30}
-            />
-          </Link>
-          <LogoutButton />
+
+        <div className="mb-20 absolute right-4">
+          <PopupButton />
         </div>
-       
       </div>
 
       {/* Menú de navegación (visible en móvil solo si el menú está abierto) */}
