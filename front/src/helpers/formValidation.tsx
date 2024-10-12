@@ -1,8 +1,6 @@
 import {
   LoginErrorProps,
   LoginProps,
-  NewServiceErrorProps,
-  NewServiceProps,
   RegisterErrorProps,
   RegisterProps,
 } from "@/types";
@@ -16,11 +14,13 @@ const regexValidations = {
   apellido: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$/,
   fechaNacimiento: /^\d{1,2}[-\/.]\d{1,2}[-\/.]\d{4}$/,
   dni: /^\d{7,8}$/,
-  telefono: /^[\d\s\-()]{10,15}$/,
+  telefono: /^[\d\s\-()]{11,15}$/,
   direccion: /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.-]{5,100}$/,
   localidad: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$/,
   nacionalidad: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$/,
   precio: /^\d+(.\d{1,2})?$/,
+  cuit_cuil: /^\d{11}$/,
+  zipCode: /^[a-zA-Z0-9]{4,8}$/,
 };
 
 
@@ -96,15 +96,11 @@ export function validateRegisterForm(
       "Surname must be between 2 and 50 characters and only contain letters and spaces";
   }
 
-
-
-  
-
   if (!values.phone) {
     errors.phone = "Phone is required";
   } else if (!regexValidations.telefono.test(values.phone)) {
     errors.phone =
-      "Phone number must be between 10 and 15 characters and can contain numbers, spaces, parentheses, and hyphens";
+      "Phone number must be between 11 and 15 characters and can contain numbers, spaces, parentheses, and hyphens";
   }
 
   if (!values.address) {
@@ -121,7 +117,16 @@ export function validateRegisterForm(
       "City must be between 2 and 50 characters and only contain letters and spaces";
   }
 
-
+if (!values.cuit_cuil) {
+  errors.cuit_cuil = 'CUIL/CUIT is required';
+} else if (!regexValidations.cuit_cuil.test(values.cuit_cuil)) {
+  errors.cuit_cuil = 'CUIL/CUIT must be exactly 11 numeric characters';
+}
+if (!values.zipCode) {
+  errors.zipCode = 'El Código Postal es requerido';
+} else if (!regexValidations.zipCode.test(values.zipCode)) {
+  errors.cuit_cuil = 'Debe tener entre ';
+}
   return errors;
 }
 

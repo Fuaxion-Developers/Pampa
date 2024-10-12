@@ -56,7 +56,6 @@ export async function login(userData: LoginProps) {
 
 // Función para solicitar restauración de contraseña
 export async function requestRestorePassword(email: { email: string }) {
-  try {
     const res = await fetch(`${env.backUrl}/users/request-restore-password`, {
       method: 'POST',
       headers: {
@@ -65,15 +64,8 @@ export async function requestRestorePassword(email: { email: string }) {
       },
       body: JSON.stringify(email),
     });
-
-    if (!res.ok) {
-      return handleResponseError(res, 'Error al solicitar la restauración de la contraseña');
-    }
-
     return await res.json();
-  } catch (error: any) {
-    throw new Error(error.message || 'Ocurrió un error inesperado al solicitar restauración de contraseña');
-  }
+
 }
 
 // Función para restaurar la contraseña
