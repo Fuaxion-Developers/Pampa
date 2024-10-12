@@ -83,7 +83,7 @@ export interface IProduct {
   description: string;
   price: number;
   stock: number;
-  image: string;
+  image_url: string;
   categoryId: number;
 }
 

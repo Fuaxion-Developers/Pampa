@@ -71,9 +71,10 @@ const RestorePasswordInfo = () => {
     try {
       const token = searchParams.split('=')[1];
       const response = await restorePassword(passInfo, token);
+
       await Swal.fire({
         title: "¡Excelente!",
-        text: response.data,
+        text: response.message,
         icon: "success",
         confirmButtonText: "Aceptar",
         background: "#1D1D1D", // Cambia este valor al color de fondo que prefieras
@@ -85,9 +86,10 @@ const RestorePasswordInfo = () => {
         },
       });
     } catch (error: any) {
+     
       await Swal.fire({
         title: "¡Error!",
-        text: error.response.data.message,
+        text: 'Error al restaurar contraseña',
         icon: "error",
         confirmButtonText: "Aceptar",
         background: "#1D1D1D", // Cambia este valor al color de fondo que prefieras

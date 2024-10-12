@@ -203,7 +203,7 @@ export class UsersService {
       }
     });
 
-    return 'Verifique su buzón de correo electrónico.'
+    return {success:'Verifique su buzón de correo electrónico.'}
   }
 
   async restorePassword(token: string, newPasswordInfo: { newPass: string, confirmNewPass: string }) {

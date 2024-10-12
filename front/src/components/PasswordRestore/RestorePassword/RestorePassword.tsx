@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Modal from '../../Modal/Modal';
-
 import Swal from 'sweetalert2';
 import { requestRestorePassword } from '@/helpers/auth.helper';
 
@@ -23,48 +22,48 @@ const RestorePasswordModal = ({
       email: value,
     });
   };
-const handleSubmit = async (e: any) => {
-  e.preventDefault();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-  try {
-    const response = await requestRestorePassword(emailInfo);
-    onClose();
-
-    // Aquí se puede verificar el éxito de la respuesta
-    if (response.success) {
+    try {
+      const response = await requestRestorePassword(emailInfo);
+      onClose();
+      console.log(response);
+      // Aquí se puede verificar el éxito de la respuesta
+      if (response.success) {
+        await Swal.fire({
+          title: '¡Solicitud creada!',
+          text: response.success,
+          icon: 'warning',
+          confirmButtonText: 'Aceptar',
+          background: '#1D1D1D',
+          customClass: {
+            confirmButton:
+              'hover:scale-110 bg-greenD-500 text-black font-bold py-2 px-4 rounded',
+            title: 'text-greenD-500',
+            popup: 'text-white',
+          },
+        });
+      } else {
+        throw new Error('Error en la solicitud');
+      }
+    } catch (error) {
+      console.error(error);
       await Swal.fire({
-        title: '¡Solicitud creada!',
-        text: 'Revise su buzón de correo electrónico',
-        icon: 'warning',
+        title: 'Error',
+        text: 'Ocurrió un error al intentar restaurar la contraseña.',
+        icon: 'error',
         confirmButtonText: 'Aceptar',
         background: '#1D1D1D',
         customClass: {
           confirmButton:
-            'hover:scale-110 bg-greenD-500 text-black font-bold py-2 px-4 rounded',
-          title: 'text-greenD-500',
+            'hover:scale-110 bg-red-500 text-black font-bold py-2 px-4 rounded',
+          title: 'text-red-500',
           popup: 'text-white',
         },
       });
-    } else {
-      throw new Error('Error en la solicitud');
     }
-  } catch (error) {
-    console.error(error);
-    await Swal.fire({
-      title: 'Error',
-      text: 'Ocurrió un error al intentar restaurar la contraseña.',
-      icon: 'error',
-      confirmButtonText: 'Aceptar',
-      background: '#1D1D1D',
-      customClass: {
-        confirmButton:
-          'hover:scale-110 bg-red-500 text-black font-bold py-2 px-4 rounded',
-        title: 'text-red-500',
-        popup: 'text-white',
-      },
-    });
-  }
-};
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
