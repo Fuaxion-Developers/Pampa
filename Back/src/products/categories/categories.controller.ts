@@ -37,6 +37,15 @@ export class CategoriesController {
     return await this.CategoriesService.getAll(options);
   }
 
+  @Get('name')
+  @ApiOperation({ summary: 'Get category by name' })
+  @ApiResponse({ status: 200, type: CategoriesDto })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiParam({ name: 'name', type: String })
+  async getByName(@Query('name') name: string) {
+    return await this.CategoriesService.getByName(name);
+  }
+
   @ApiOperation({ summary: 'Get category by id' })
   @ApiResponse({ status: 200, type: CategoriesDto })
   @ApiBadRequestResponse({ description: 'Bad request' })
@@ -44,15 +53,6 @@ export class CategoriesController {
   @Get(':id')
   async getById(@Param('id', ParseUUIDPipe) id: UUID) {
     return await this.CategoriesService.getById(id);
-  }
-
-  @ApiOperation({ summary: 'Get category by name' })
-  @ApiResponse({ status: 200, type: CategoriesDto })
-  @ApiBadRequestResponse({ description: 'Bad request' })
-  @ApiParam({ name: 'name', type: String })
-  @Get('name/:name')
-  async getByName(@Param('name') name: string) {
-    return await this.CategoriesService.getByName(name);
   }
 
   @ApiOperation({ summary: 'Create category' })

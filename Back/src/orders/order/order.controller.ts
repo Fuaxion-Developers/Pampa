@@ -35,6 +35,16 @@ export class OrderController {
     return await this.orderService.getAll(options);
   }
 
+  @ApiOperation({ summary: 'Get orders by user id' })
+  @ApiResponse({ status: 200, type: [OrderDto] })
+  @ApiBadRequestResponse({ status: 400, description: 'Bad Request' })
+  @ApiBadRequestResponse({ status: 404, description: 'Not Found' })
+  @ApiParam({ name: 'id', type: String })
+  @Get('user/:id')
+  async getByUserId(@Param('cuil') cuil: string) {
+    return await this.orderService.getByUserId(cuil);
+  }
+
   @ApiOperation({ summary: 'Get order by id' })
   @ApiResponse({ status: 200, type: OrderDto })
   @ApiBadRequestResponse({ status: 400, description: 'Bad Request' })
@@ -43,16 +53,6 @@ export class OrderController {
   @Get(':id')
   async getById(@Param('id', ParseUUIDPipe) id: string) {
     return await this.orderService.getById(id);
-  }
-
-  @ApiOperation({ summary: 'Get orders by user id' })
-  @ApiResponse({ status: 200, type: [OrderDto] })
-  @ApiBadRequestResponse({ status: 400, description: 'Bad Request' })
-  @ApiBadRequestResponse({ status: 404, description: 'Not Found' })
-  @ApiParam({ name: 'id', type: String })
-  @Get('user/:id')
-  async getByUserId(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.orderService.getByUserId(id);
   }
 
   @ApiOperation({ summary: 'Create order' })

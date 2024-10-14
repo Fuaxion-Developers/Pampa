@@ -15,6 +15,7 @@ import {
   productWithTypePatchDto,
   productWhitTypeDto,
   getProductsOptions,
+  productWhitoutTypePatchDto,
 } from './product.dto';
 import {
   ApiBadGatewayResponse,
@@ -41,29 +42,21 @@ export class ProductsController {
     return await this.productsService.getAll(options);
   }
 
-  @ApiOperation({ summary: 'Get product by id' })
-  @ApiResponse({ status: 200, type: Products })
-  @ApiBadGatewayResponse({ description: 'Can not get product' })
-  @ApiParam({ name: 'id', type: 'uuid' })
-  @Get(':id')
-  async getById(@Param('id', ParseUUIDPipe) id: uuidv4) {
-    return await this.productsService.getById(id);
-  }
+  @Get('name')
   @ApiOperation({ summary: 'Get product by name' })
   @ApiResponse({ status: 200, type: Products })
   @ApiBadGatewayResponse({ description: 'Can not get product' })
   @ApiParam({ name: 'name', type: 'string' })
-  @Get('name/:name')
-  async getByName(@Param('name') name: string) {
+  async getByName(@Query('name') name: string) {
     return await this.productsService.getByName(name);
   }
 
+  @Get('category')
   @ApiOperation({ summary: 'Get product by category name' })
   @ApiResponse({ status: 200, type: Products })
   @ApiBadGatewayResponse({ description: 'Can not get product' })
   @ApiParam({ name: 'categoryName', type: 'string' })
-  @Get('category/:categoryName')
-  async getByCategoryName(@Param('categoryName') categoryName: string) {
+  async getByCategoryName(@Query('categoryName') categoryName: string) {
     return await this.productsService.getByCategoryName(categoryName);
   }
 
@@ -84,7 +77,7 @@ export class ProductsController {
   @Patch('update/:id')
   async update(
     @Param('id', ParseUUIDPipe) id: uuidv4,
-    @Body() newProduct: productWithTypePatchDto,
+    @Body() newProduct: productWhitoutTypePatchDto,
   ) {
     return await this.productsService.update(id, newProduct);
   }

@@ -39,15 +39,6 @@ export class OrderDetailController {
     return await this.orderDetailService.getAll(options);
   }
 
-  @ApiOperation({ summary: 'Get order detail by id' })
-  @ApiParam({ name: 'id', type: String })
-  @ApiResponse({ status: 200, type: OrderDetails })
-  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
-  @Get(':id')
-  async getById(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.orderDetailService.getById(id);
-  }
-
   @ApiOperation({ summary: 'Get order detail by order id' })
   @ApiParam({ name: 'id', type: String })
   @ApiResponse({ status: 200, type: [OrderDetails] })
@@ -60,6 +51,15 @@ export class OrderDetailController {
     if (!options.page || options.page < 0) options.page = 0;
     if (!options.limit || options.limit < 0) options.limit = 10;
     return await this.orderDetailService.getByOrder(id, options);
+  }
+
+  @ApiOperation({ summary: 'Get order detail by id' })
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({ status: 200, type: OrderDetails })
+  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
+  @Get(':id')
+  async getById(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.orderDetailService.getById(id);
   }
 
   @ApiOperation({ summary: 'Create order detail' })

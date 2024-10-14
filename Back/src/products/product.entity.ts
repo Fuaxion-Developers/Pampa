@@ -24,8 +24,8 @@ export class Products {
   description: string;
 
   @ManyToOne(() => Categories, (categorie) => categorie.id, { eager: true })
-  @JoinColumn({ name: 'category' })
-  category: UUID;
+  @JoinColumn({ name: 'category', referencedColumnName: 'id' })
+  category: Categories;
 
   @Column({ type: 'float' })
   price: number;

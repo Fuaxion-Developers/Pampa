@@ -9,10 +9,13 @@ import {
   productWithTypePatchDto,
   productWhitTypeDto,
   getProductsOptions,
+  productWhitoutTypeDto,
+  productWhitoutTypePatchDto,
 } from './product.dto';
 import { CategoriesService } from './categories/categories.service';
 import { instanceToPlain } from 'class-transformer';
 import { getAllProductDto } from './product.dto';
+import { Products } from './product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -46,9 +49,17 @@ export class ProductsService {
     if (!product.category) {
       throw new BadRequestException('Category must be defined');
     }
+    const newProduct = new Products();
+    newProduct.name = product.name;
+    newProduct.image_url = product.image_url;
+    newProduct.description = product.description;
+    newProduct.price = product.price;
+    newProduct.stock = product.stock;
     const category = await this.CategoriesService.getByName(product.category);
     if (!category) {
       throw new BadRequestException('Category not found');
+    } else {
+      newProduct.category = category;
     }
     const existingProduct = await this.productsRepository.getByName(
       product.name,
@@ -56,12 +67,11 @@ export class ProductsService {
     if (existingProduct) {
       throw new ConflictException('Product already exists');
     }
-    product.category = category.id;
-    await this.productsRepository.create(product);
+    await this.productsRepository.create(newProduct);
     return 'Product created';
   }
 
-  async update(id: uuidv4, product: productWithTypePatchDto) {
+  async update(id: uuidv4, product: productWhitoutTypePatchDto) {
     return await this.productsRepository.update(id, product);
   }
 
@@ -69,12 +79,14 @@ export class ProductsService {
     return await this.productsRepository.delete(id);
   }
 
-  async getByCategoryName(categoryName: string) {
-    const category = await this.CategoriesService.getByName(categoryName);
+  async getByCategoryName(categoryName: uuidv4) {
+    console.log('entra aca');
+    const category = await this.CategoriesService.getById(categoryName);
     if (!category) {
       throw new BadRequestException('Category not found');
     }
-
-    return await this.productsRepository.getByCategory(categoryName);
+    console.log('entra aca2');
+    console.log(category);
+    return await this.productsRepository.getByCategory(category.name);
   }
 }
