@@ -1,6 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UUID } from 'crypto';
 import { Exclude } from 'class-transformer';
+import { Products } from '../product.entity';
 
 @Entity()
 export class Categories {
@@ -10,4 +17,7 @@ export class Categories {
 
   @Column({ type: 'varchar' })
   name: string;
+
+  @OneToOne(() => Products, (product) => product.category)
+  products: Products;
 }
