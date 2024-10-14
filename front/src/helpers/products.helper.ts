@@ -83,6 +83,7 @@ export async function getProductById(id: UUID) {
   }
 }
 
+
 export async function getProductsByCategory(category: string) {
   try {
     const queryParams = new URLSearchParams({ category }); // Convertir el objeto en parámetros de consulta
@@ -111,6 +112,21 @@ export async function getProductsByCategory(category: string) {
     throw new Error(error);
   }
 }
+// Función para convertir texto a un formato de slug
+const slugify = (text: string) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-') // Reemplazar espacios con guiones
+    .replace(/[^\w\-]+/g, '') // Eliminar caracteres no alfanuméricos
+    .replace(/\-\-+/g, '-') // Reemplazar múltiples guiones con uno solo
+    .replace(/^-+/, '') // Eliminar guiones al inicio
+    .replace(/-+$/, ''); // Eliminar guiones al final
+};
+
+
+
 export async function getCategoryByName(category: string) {
   try {
     if (category.includes('%20')) {
