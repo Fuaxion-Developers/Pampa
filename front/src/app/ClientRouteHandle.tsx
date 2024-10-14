@@ -17,6 +17,7 @@ export default function ClientRouteHandler({
   const isRegisterLayout = pathname?.startsWith('/register');
   const isLoginLayout = pathname?.startsWith('/login');
   const isProductsLayout = pathname?.startsWith('/products');
+  const isCategoriesLayout = pathname?.startsWith('/categories');
   const isAdminLayout = pathname?.startsWith('/admin');
 
   // Lógica para rutas de admin
@@ -35,6 +36,15 @@ export default function ClientRouteHandler({
 
   // Lógica para rutas de productos y sus subrutas
   if (isProductsLayout) {
+    return (
+      <DefaultLayout>
+        <BanerCategories />
+        <Categories />
+        {children}
+      </DefaultLayout>
+    );
+  }
+  if (isCategoriesLayout) {
     return (
       <DefaultLayout>
         <BanerCategories />
