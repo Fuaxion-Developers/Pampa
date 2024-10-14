@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import styles from '@/components/Home/Navbar/Navbar.module.css';
 import LogoutButton from '@/components/Logout/Logout';
-import PopupButton from '../popup/Popup';
+import PopupButton from '../../popup/Popup';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Estado para el menú hamburguesa
