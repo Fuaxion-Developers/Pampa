@@ -41,12 +41,12 @@ export class CategoriesService {
   }
 
   async createProductType(productType: CategoriesDto) {
-    const categorie = await this.CategoriesRepository.getByName(
-      productType.name,
-    );
-    if (categorie) {
-      throw new ConflictException('Category already exists');
-    }
+    // const categorie = await this.CategoriesRepository.getByName(
+    //   productType.name,
+    // );
+    // if (categorie) {
+    //   throw new ConflictException('Category already exists');
+    // }
     await this.CategoriesRepository.create(productType);
     return 'Product type created';
   }
