@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IProduct } from '@/types';
 import { useEffect, useState } from 'react';
-import { getAllProducts } from '@/helpers/Categories.helper';
+import { getAllProducts } from '@/helpers/products.helper';
 
 interface ProductListProps {
   products: IProduct[];
