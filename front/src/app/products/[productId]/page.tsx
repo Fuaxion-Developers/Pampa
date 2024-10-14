@@ -1,22 +1,16 @@
 // app/products/[productId]/page.tsx
-import productsToPreLoad from '@/helpers/products'; // Asegúrate de tener la ruta correcta
 import ProductDetail from '@/components/Productos/ProductDetail/ProductDetail'; // Asegúrate de que esta ruta es correcta
+import { getProductById } from '@/helpers/products.helper';
+import { UUID } from 'crypto';
 
 interface ProductPageProps {
   params: {
-    productId: string;
+    productId: UUID;
   };
 }
 
-export async function generateStaticParams() {
-  return productsToPreLoad.map(product => ({
-    productId: product.id.toString(),
-  }));
-}
-
-const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
-  const productId = parseInt(params.productId);
-  const product = productsToPreLoad.find(p => p.id === productId);
+const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
+  const product = await getProductById(params.productId);
 
   return (
     <div>
