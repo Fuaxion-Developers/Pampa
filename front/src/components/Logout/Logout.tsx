@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
@@ -25,9 +26,15 @@ const LogoutButton: FC<LogoutButtonProps> = ({ className }) => {
 
   return (
     <button
-      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-500 hover:text-gray-100"
+      className="w-full text-left gap-1 flex px-4 py-2 text-gray-700 hover:bg-red-500 hover:text-gray-100"
       onClick={handleLogout}
     >
+      <Image
+        src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1728909574/logout_24dp_6B432E_FILL0_wght400_GRAD0_opsz24_yka5de.svg"
+        alt="Cart"
+        width={20}
+        height={20}
+      />
       Cerrar Sesión
     </button>
   );
