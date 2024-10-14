@@ -79,14 +79,11 @@ export class ProductsService {
     return await this.productsRepository.delete(id);
   }
 
-  async getByCategoryName(categoryName: uuidv4) {
-    console.log('entra aca');
-    const category = await this.CategoriesService.getById(categoryName);
+  async getByCategoryName(categoryName: string) {
+    const category = await this.CategoriesService.getByName(categoryName);
     if (!category) {
       throw new BadRequestException('Category not found');
     }
-    console.log('entra aca2');
-    console.log(category);
     return await this.productsRepository.getByCategory(category.name);
   }
 }
