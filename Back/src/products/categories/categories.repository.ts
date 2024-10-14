@@ -27,7 +27,6 @@ export class CategoriesRepository {
   }
 
   async getByName(name: string) {
-    console.log('entra aca' + name);
     return await this.productType.findOneBy({ name });
   }
 
