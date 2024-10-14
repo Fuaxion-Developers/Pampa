@@ -1,8 +1,9 @@
 // app/categories/[categorySlug]/page.tsx
-import { IProduct } from '@/types';
-import productsToPreLoad from '@/helpers/products';
-import ProductCategory from '@/components/Productos/Categories/productCategory';
-import categories from '@/helpers/categories';
+import ProductCategory from '@/components/Categories/productCategory';
+import {
+  getCategoryByName,
+  getProductsByCategory,
+} from '@/helpers/products.helper';
 
 interface CategoryPageProps {
   params: {
@@ -10,27 +11,22 @@ interface CategoryPageProps {
   };
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
+const CategoryPage: React.FC<CategoryPageProps> = async ({ params }) => {
   const { categorySlug } = params;
 
   // Obtener la categoría correspondiente al slug
-  const category = categories.find(cat => cat.slug === categorySlug);
+  const category = await getCategoryByName(categorySlug);
+  console.log(category);
 
   if (!category) {
     return <div>Categoría no encontrada</div>; // Manejo de error
   }
 
-  const categoryId = category.id; // Usamos el ID de la categoría
-
-  // Filtrar productos según la categoría
-  const filteredProducts: IProduct[] = productsToPreLoad.filter(
-    product => product.categoryId.toString() === categoryId
-  );
-
+  const products = await getProductsByCategory(category.name);
   return (
     <div>
       <h1>Categoría: {category.name}</h1>
-      <ProductCategory productos={filteredProducts} />
+      <ProductCategory productos={products} />
     </div>
   );
 };
