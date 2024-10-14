@@ -5,7 +5,8 @@ import RegisterLayout from '@/app/register/RegisterLayout';
 import LoginLayout from './login/LoginLayout';
 import '@/app/globals.css';
 import BanerCategories from '@/components/Productos/BanerCategories/BanerCategories';
-import Categories from '@/components/Productos/Categories/Categories';
+import Categories from '@/components/Categories/Categories';
+import AdminLayout from './admin/AdminLayout';
 
 export default function ClientRouteHandler({
   children,
@@ -16,9 +17,12 @@ export default function ClientRouteHandler({
   const isRegisterLayout = pathname?.startsWith('/register');
   const isLoginLayout = pathname?.startsWith('/login');
   const isProductsLayout = pathname?.startsWith('/products');
+  const isAdminLayout = pathname?.startsWith('/admin');
 
- 
-
+  // Lógica para rutas de admin
+  if (isAdminLayout) {
+    return <AdminLayout>{children}</AdminLayout>;
+  }
   // Lógica para rutas de registro
   if (isRegisterLayout) {
     return <RegisterLayout>{children}</RegisterLayout>;

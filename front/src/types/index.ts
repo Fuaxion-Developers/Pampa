@@ -85,6 +85,7 @@ export interface IProduct {
   stock: number;
   image_url: string;
   categoryId: number;
+  quantity: number;
 }
 
 export interface PersonInterface {

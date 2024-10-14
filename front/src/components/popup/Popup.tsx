@@ -1,6 +1,7 @@
 import LogoutButton from '@/components/Logout/Logout';
 import RestorePasswordModal from '@/components/PasswordRestore/RestorePassword/RestorePassword';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
 const PopupButton = () => {
@@ -65,9 +66,10 @@ const PopupButton = () => {
         >
           <ul className="py-2">
             <li>
-              <button
+              <Link
+              href='/cart'>
+              <div
                 className="w-full gap-1 flex text-left px-4 py-2 text-gray-700 hover:bg-gray-300"
-                onClick={() => alert('Carrito de Compras')}
               >
                 <Image
                   src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727981367/shopping_bag_24dp_6B432E_FILL0_wght400_GRAD0_opsz24_1_mdej5y.svg"
@@ -76,13 +78,20 @@ const PopupButton = () => {
                   height={20}
                 />
                 Carrito de Compras
-              </button>
+              </div>
+              </Link>
             </li>
             <li>
               <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-300"
+                className="w-full gap-1  flex text-left px-4 py-2 text-gray-700 hover:bg-gray-300"
                 onClick={() => setIsModalOpen(true)}
               >
+                <Image
+                  src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1728909578/key_24dp_6B432E_FILL0_wght400_GRAD0_opsz24_acf6cy.svg"
+                  alt="Cart"
+                  width={20}
+                  height={20}
+                />
                 Cambiar Contraseña
               </button>
               <RestorePasswordModal
@@ -92,9 +101,15 @@ const PopupButton = () => {
             </li>
             <li>
               <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-300 "
+                className="w-full gap-1  flex text-left px-4 py-2 text-gray-700 hover:bg-gray-300 "
                 onClick={() => alert('Ver Órdenes')}
               >
+                <Image
+                  src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1728909524/manage_search_24dp_6B432E_FILL0_wght400_GRAD0_opsz24_yvpci5.svg"
+                  alt="Cart"
+                  width={20}
+                  height={20}
+                />
                 Ver Órdenes
               </button>
             </li>

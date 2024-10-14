@@ -1,4 +1,5 @@
 'use client'
+import CreateOrderModal from '@/components/Order/CreateOrder';
 import { IProduct, userSession } from '@/types'; // Asegúrate de tener el tipo `Product` definido
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,6 +19,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const router = useRouter();
 //   const [product, setProduct] = useState<IProduct>();
   const [userData, setUserData] = useState<userSession>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
@@ -25,115 +27,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
       setUserData(JSON.parse(userData!));
     }
 
-    // const fetchData = async () => {
-    //   const product = await getProductById(params.productId);
-    //   setProduct(product);
-    // };
-    // fetchData();
   }, []);
 
-  const handleAddToCart = (e: any) => {
-    if (!userData?.token) {
-          Swal.fire({
-            title: "¡Ups!",
-            text: "Debes iniciar sesíon para agregar productos al carrito.",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-            customClass: {
-              confirmButton:
-                "hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded",
-            },
-          });
-    } else {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const productExist = cart.some((product: IProduct) => {
-        if (product.id === Number(e?.target?.id)) return true;
-        return false;
-      });
-      if (productExist) {
-          Swal.fire({
-            title: "¡Ups!",
-            text: "El producto ya existe en tu carrito.",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-            customClass: {
-              confirmButton:
-                "hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded",
-            },
-          });
-        // router.push("/cart");
-      } else {
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-            Swal.fire({
-              title: "¡Excelente!",
-              text: "El producto ha sido añadido al carrito.",
-              icon: "success",
-              confirmButtonText: "Aceptar",
-              customClass: {
-                confirmButton:
-                  "hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded",
-              },
-            });
-        router.push("/cart");
-      }
-    }
-  };
-
-  const handleAddToFavorites = (e: any) => {
-    if (!userData?.token) {
-        Swal.fire({
-          title: "¡Ups!",
-          text: "Debes iniciar sesíon para agregar productos a favoritos.",
-          icon: "error",
-          confirmButtonText: "Aceptar",
-          customClass: {
-            confirmButton:
-              "hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded",
-          },
-        });
-    } else {
-      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-      const productExist = favorites.some((product: IProduct) => {
-        if (product.id === Number(e?.target?.id)) return true;
-        return false;
-      });
-      if (productExist) {
-          Swal.fire({
-            title: "¡Ups!",
-            text: "El producto ya existe en favoritos.",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-            customClass: {
-              confirmButton:
-                "hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded",
-              
-            },
-          });
-      } else {
-        favorites.push(product);
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        Swal.fire({
-          title: "¡Excelente!",
-          text: "El producto ha sido añadido a favoritos.",
-          icon: "success",
-          confirmButtonText: "Aceptar",
-          customClass: {
-            confirmButton:
-              "hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded",
-          },
-        });
-        router.push("/dashboard/favorites");
-      }
-    }
-  };
 
   return (
     <div className="p-8 flex gap-8 justify-center ">
       <div>
-        {product?.image && (
+        {product?.image_url && (
           <Image
-            src={product.image}
+            src={product.image_url}
             alt={product.name}
             width={300}
             height={300}
@@ -153,11 +55,16 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           </Link>
           <button
             id={product?.id.toString()}
-            onClick={handleAddToCart}
+            onClick={() => setIsModalOpen(true)}
             className="rounded-xl w-full max-w-[150px] h-auto bg-brownD-100 text-whiteD-100 p-2"
           >
-            Añadir al carrito
+            Crear Orden
           </button>
+          <CreateOrderModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            selectedProduct={product}
+          />
         </div>
       </div>
     </div>

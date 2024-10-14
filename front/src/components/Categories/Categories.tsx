@@ -5,18 +5,18 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import styles from './Categories.module.css';
 import Link from 'next/link';
-import { getCategories } from '@/helpers/Categories.helper';
+import { getCategories } from '@/helpers/products.helper';
 import { ICategory } from '@/types';
 
-const settings = {
+var settings = {
   dots: true,
   infinite: false,
-  slidesToShow: 5,
-  slidesToScroll: 5,
-  autoplay: false,
-  autoplaySpeed: 1500,
-  pauseOnHover: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
   responsive: [
     {
       breakpoint: 1024,
@@ -58,9 +58,9 @@ const Categories = () => {
   }, []);
 
   return (
-    <div>
+    <div className="slider-container">
       <h2 className="ml-12 font-semibold text-xl">CATEGORÍAS</h2>
-      <div className="m-8">
+      <div className="m-8 ">
         <Slider {...settings}>
           {categories.map((category, index) => (
             <div
