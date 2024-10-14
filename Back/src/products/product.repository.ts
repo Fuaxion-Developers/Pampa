@@ -8,6 +8,8 @@ import {
   productWhitTypeDto,
   getAllProductDto,
   getProductsOptions,
+  productWhitoutTypeDto,
+  productWhitoutTypePatchDto,
 } from './product.dto';
 import { instanceToPlain } from 'class-transformer';
 
@@ -29,11 +31,11 @@ export class ProductsRepository {
     return await this.product.findOneBy({ name });
   }
 
-  async create(product: productWhitTypeDto) {
+  async create(product: productWhitoutTypeDto) {
     return instanceToPlain(await this.product.save(product));
   }
 
-  async update(id: uuidv4, product: productWithTypePatchDto) {
+  async update(id: uuidv4, product: productWhitoutTypePatchDto) {
     return await this.product.update(id, product);
   }
 
@@ -41,7 +43,14 @@ export class ProductsRepository {
     return await this.product.delete(id);
   }
 
-  async getByCategory(category: uuidv4) {
-    return await this.product.find({ where: { category } });
+  async getByCategory(categoryName: string) {
+    return await this.product.find({
+      where: {
+        category: {
+          name: categoryName,
+        },
+      },
+      relations: ['category'],
+    });
   }
 }
