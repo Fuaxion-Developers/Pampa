@@ -74,12 +74,12 @@ export class CreateUserDto {
   })
   state: string;
 
-  @Length(2, 10, {
-    message: 'El código postal debe tener una longitud máxima de 10 carácteres.'
+  @Length(4, 8, {
+    message: 'El código postal debe tener una longitud entre 4 y 8 carácteres.'
   })
   @ApiProperty({
     description: 'El código postal debe tener una longitud máxima de 10 carácteres.',
-    example: '1234567890',
+    example: '1234',
   })
   zipCode: string;
 
