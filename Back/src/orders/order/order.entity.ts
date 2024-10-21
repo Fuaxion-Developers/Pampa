@@ -12,6 +12,7 @@ import {
 import { InfoUser } from 'src/infoUsers/infoUsers.entity';
 import { OrderStatus } from 'src/order-status/order-status.entity';
 import { ModeShipment } from 'src/mode-shipment/mode-shipment.entity';
+import { Payments } from 'src/payments/payments.entity';
 
 @Entity()
 export class Orders {
@@ -36,6 +37,7 @@ export class Orders {
   @JoinColumn({ name: 'order_status', referencedColumnName: 'id' })
   order_status: uuid;
 
-  // @OneToOne(() => paymentStatus, (paymentStatus) => paymentStatus.order)
-  // payment_status: UUID;
+  @OneToOne(() => Payments, (payments) => payments.id, { eager: true })
+  @JoinColumn({ name: 'payment_status', referencedColumnName: 'id' })
+  payment_status: uuid;
 }
