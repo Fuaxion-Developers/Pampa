@@ -1,18 +1,19 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderRepository } from './order.repository';
 import { getAllOrdersOptionsDto, OrderDto, OrderDtoPartial } from './order.dto';
-import { InfoUsersService } from '../../infoUsers/infoUsers.service';
-import { OrderDetailService } from 'src/order-detail/order-detail.service';
 import { OrderStatusService } from '../../order-status/order-status.service';
 import { instanceToPlain } from 'class-transformer';
 import { EnumOrderStatus } from 'src/users/enums/order-status.enum';
 import { ModeShipmentService } from 'src/mode-shipment/mode-shipment.service';
+import { UsersService } from 'src/users/users.service';
+import { v4 as uuid } from 'uuid';
+import { Payments } from 'src/payments/payments.entity';
 
 @Injectable()
 export class OrderService {
   constructor(
     private orderRepository: OrderRepository,
-    private InfoUsersService: InfoUsersService,
+    private usersService: UsersService,
     private OrderStatusService: OrderStatusService,
     private ModeShipmentService: ModeShipmentService,
   ) {}
@@ -31,9 +32,7 @@ export class OrderService {
 
   async create(order: OrderDto) {
     try {
-      const user = await this.InfoUsersService.getInfoUserByCUITL(
-        order.user_id,
-      );
+      const user = await this.usersService.getUserByCuitl(order.user_id);
       if (!user) throw new BadRequestException('User not found');
 
       const orderStatus = await this.OrderStatusService.getStatusByName(
@@ -49,6 +48,8 @@ export class OrderService {
       if (!modeShipment)
         throw new BadRequestException('Mode shipment not found');
 
+      order.payment_status = new Payments().id;
+
       return instanceToPlain(await this.orderRepository.create(order));
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -57,7 +58,7 @@ export class OrderService {
 
   async update(id: string, order: OrderDtoPartial) {
     const updatedOrder = await this.orderRepository.update(id, order);
-    if (updatedOrder) return updatedOrder;
+    if (updatedOrder) return 'actualizado';
     else return 'Error updating order';
   }
 
@@ -68,7 +69,7 @@ export class OrderService {
   }
 
   async getByUserId(id: string) {
-    const user = await this.InfoUsersService.getInfoUserByCUITL(id);
+    const user = await this.usersService.getUserByCuitl(id);
     if (!user) throw new BadRequestException('User not found');
     return await this.orderRepository.getAllByUserId(id);
   }

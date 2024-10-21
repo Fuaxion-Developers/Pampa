@@ -24,6 +24,10 @@ export class OrderDetailService {
     return await this.orderDetailRepository.getById(id);
   }
 
+  async getAllByOrder(id: string) {
+    return await this.orderDetailRepository.getAllByOrder(id);
+  }
+
   async getByOrder(id: string, options: getAllOrderDetailsOptionsDto) {
     const orderDetail = await this.orderDetailRepository.getByOrder(
       id,

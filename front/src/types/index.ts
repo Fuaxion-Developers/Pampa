@@ -78,7 +78,7 @@ export interface Service {
 }
 
 export interface IProduct {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -109,7 +109,6 @@ export interface PersonInterface {
     description: string;
   }[];
 }
-
 
 export interface ICategory {
   id: string;
