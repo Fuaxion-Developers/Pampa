@@ -17,6 +17,8 @@ import { OrderStatusModule } from './order-status/order-status.module';
 import { ModeShipmentModule } from './mode-shipment/mode-shipment.module';
 import { MailModule } from './mail/mail.module';
 import { FilesModule } from './files/files.module';
+import { MpModule } from './MercadoPago/mp.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -38,7 +40,8 @@ import { FilesModule } from './files/files.module';
     OrderStatusModule,
     MailModule,
     FilesModule,
-
+    MpModule,
+    PaymentsModule,
     JwtModule.register({
       global: true,
       secret: env.jwt_secret,
