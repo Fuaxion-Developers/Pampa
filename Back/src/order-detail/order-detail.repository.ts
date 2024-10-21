@@ -16,7 +16,6 @@ export class OrderDetailRepository {
 
   async getAll(options: getAllOrderDetailsOptionsDto) {
     return await this.order.find({
-      relations: ['order', 'product'],
       skip: options.page,
       take: options.limit,
     });
@@ -25,16 +24,20 @@ export class OrderDetailRepository {
   async getById(id: string) {
     return await this.order.findOne({
       where: { id },
-      relations: ['order', 'product'],
     });
   }
 
   async getByOrder(id: string, options: getAllOrderDetailsOptionsDto) {
     return await this.order.find({
       where: { order: { id } },
-      relations: ['product'],
       skip: options.page,
       take: options.limit,
+    });
+  }
+
+  async getAllByOrder(id: string) {
+    return await this.order.find({
+      where: { order: { id } },
     });
   }
 
