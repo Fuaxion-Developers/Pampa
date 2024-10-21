@@ -53,6 +53,20 @@ export class OrderDetailController {
     return await this.orderDetailService.getByOrder(id, options);
   }
 
+  @ApiOperation({
+    summary: 'Get all order details by orders, withouth pagination',
+  })
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({ status: 200, type: [OrderDetails] })
+  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
+  @Get('order/all/:id')
+  async getByProduct(
+    @Query() options: getAllOrderDetailsOptionsDto,
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return await this.orderDetailService.getAllByOrder(id);
+  }
+
   @ApiOperation({ summary: 'Get order detail by id' })
   @ApiParam({ name: 'id', type: String })
   @ApiResponse({ status: 200, type: OrderDetails })
