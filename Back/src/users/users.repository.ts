@@ -29,6 +29,25 @@ export class UsersRepository {
     return await queryBuilder.getMany();
   }
 
+  async getUserById(id: string) {
+    const user: User = await this.usersRepository
+    .createQueryBuilder('users')
+    .withDeleted()
+    .where('users.id = :id', { id })
+    .select([
+      'users.id',
+      'users.email',
+      'users.password',
+      'users.deleteDate',
+      'users.role',
+      'users.info_user',
+    ])
+    .leftJoinAndSelect('users.info_user', 'info_user')
+    .getOne();
+
+    return user;
+  }
+
   async getUserByToken(token: string) {
     const user: User = await this.usersRepository.findOne({
       where: {
@@ -41,7 +60,7 @@ export class UsersRepository {
   }
 
   async getUserByEmail(email: string): Promise<User> {
-    const userByEmail = this.usersRepository
+    const userByEmail = await this.usersRepository
       .createQueryBuilder('users')
       .withDeleted()
       .where('users.email = :email', { email })
@@ -60,7 +79,7 @@ export class UsersRepository {
   }
 
   async getUserByCuitl(cuitl: string): Promise<User> {
-    const userByCuitl = this.usersRepository
+    const userByCuitl = await this.usersRepository
       .createQueryBuilder('users')
       .withDeleted()
       .select([
