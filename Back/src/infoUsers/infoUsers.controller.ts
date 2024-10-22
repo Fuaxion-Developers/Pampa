@@ -21,7 +21,7 @@ export class InfoUsersController {
   @ApiResponse({ status: 201, description: 'Información actualizada.' })
   @ApiBadRequestResponse({ status: 400, description: 'Error en solicitud.' })
   updateInfoUser(@Body() infoUserToUpdate: UpdateInfoUserDto) {
-    let infoUser: InfoUser;
+    let infoUser: Omit<InfoUser, 'comments'>;
     if(!infoUserToUpdate.company) {
         infoUser = { company: null, ...infoUserToUpdate};
     } else {

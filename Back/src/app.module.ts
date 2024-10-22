@@ -19,6 +19,7 @@ import { MailModule } from './mail/mail.module';
 import { FilesModule } from './files/files.module';
 import { MpModule } from './MercadoPago/mp.module';
 import { PaymentsModule } from './payments/payments.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { PaymentsModule } from './payments/payments.module';
     FilesModule,
     MpModule,
     PaymentsModule,
+    CommentsModule,
     JwtModule.register({
       global: true,
       secret: env.jwt_secret,

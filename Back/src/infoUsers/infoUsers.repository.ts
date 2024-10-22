@@ -20,12 +20,12 @@ export class InfoUsersRepository {
     return infoUser;
   }
 
-  async createInfoUser(infoUser: Omit<InfoUser, 'id'>): Promise<InfoUser> {
+  async createInfoUser(infoUser: Omit<InfoUser, 'id' | 'comments'>): Promise<InfoUser> {
     const newInfoUser: InfoUser = await this.infoUsersRepository.save(infoUser)
     return newInfoUser;
   }
 
-  async updateInfoUser(infoUser: InfoUser): Promise<InfoUser> {
+  async updateInfoUser(infoUser: Omit<InfoUser, 'comments'>): Promise<InfoUser> {
     const updatedInfoUser: InfoUser = await this.infoUsersRepository.save(infoUser)
     return updatedInfoUser;
   }
