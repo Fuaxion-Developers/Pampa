@@ -10,12 +10,12 @@ export class InfoUsersService {
     return await this.infoUsersRepository.getInfoUserByCUITL(cuitl);
   }
 
-  async createInfoUser(infoUser: Omit<InfoUser, 'id'>): Promise<InfoUser> {
+  async createInfoUser(infoUser: Omit<InfoUser, 'id' | 'comments'>): Promise<InfoUser> {
     const newInfoUser: InfoUser = await this.infoUsersRepository.createInfoUser(infoUser);
     return newInfoUser;
   }
 
-  async updateInfoUser(infoUser: InfoUser): Promise<InfoUser> {
+  async updateInfoUser(infoUser: Omit<InfoUser, 'comments'>): Promise<InfoUser> {
     const updatedInfoUser: InfoUser = await this.infoUsersRepository.updateInfoUser(infoUser);
     return updatedInfoUser;
   }
