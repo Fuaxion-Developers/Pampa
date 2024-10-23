@@ -14,10 +14,10 @@ export class OrderDetails {
   @PrimaryGeneratedColumn('uuid')
   id: uuid;
 
-  @ManyToOne(() => Orders, (order) => order.id)
+  @ManyToOne(() => Orders, (order) => order.id, { eager: true })
   order: uuid;
 
-  @ManyToOne(() => Products, (product) => product.id)
+  @ManyToOne(() => Products, (product) => product.id, { eager: true })
   product: uuid;
 
   @Column()

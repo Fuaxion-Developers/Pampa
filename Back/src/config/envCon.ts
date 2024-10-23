@@ -21,15 +21,17 @@ export const env = {
       clientId: process.env.MAILER_CLIENT_ID,
       clientSecret: process.env.MAILER_CLIENT_SECRET,
       refreshToken: process.env.MAILER_REFRESH_TOKEN,
-    }
+    },
   },
   frontUrl: process.env.FRONT_URL,
+  backUrl: process.env.BACK_URL,
   cloudinary: {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
   },
-  mercadopago: {
-    access_token: process.env.MERCADOPAGO_ACCESS_TOKEN,
-  }
+  MP: {
+    MP_ACCESS_TOKEN: process.env.MP_ACCESS_TOKEN,
+    MP_PUBLIC_KEY: process.env.MP_PUBLIC_KEY,
+  },
 };

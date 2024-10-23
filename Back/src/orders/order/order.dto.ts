@@ -35,6 +35,9 @@ export class OrderDto {
     example: uuid(),
   })
   mode_shipment: string;
+
+  @IsEmpty()
+  payment_status: number;
 }
 
 export class OrderDtoPartial extends PartialType(OrderDto) {}

@@ -35,6 +35,10 @@ export class UsersService {
     return limitUsers;
   }
 
+  async getUserById(id: string): Promise<User> {
+    return this.usersRepository.getUserById(id);
+  }
+
   async getUserByEmail(email: string): Promise<User> {
     return this.usersRepository.getUserByEmail(email);
   }
@@ -54,7 +58,7 @@ export class UsersService {
       | 'status'
       | 'info_user'
     >,
-    infoUser: Omit<InfoUser, 'id'>,
+    infoUser: Omit<InfoUser, 'id' | 'comments' >,
   ) {
     const userByEmailExist: User = await this.getUserByEmail(user.email);
     if (userByEmailExist)

@@ -18,6 +18,6 @@ export class Categories {
   @Column({ type: 'varchar' })
   name: string;
 
-  @OneToOne(() => Products, (product) => product.category)
-  products: Products;
+  @OneToMany(() => Products, (product) => product.category)
+  products: Products[];
 }
