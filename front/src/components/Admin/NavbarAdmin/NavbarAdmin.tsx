@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react'
 
-const Navbar = () => {
+const NavbarAdmin = () => {
   return (
-    <div className="border-b-2 p-4 border-black">
+    <div className="border-b-2 p-4 border-black fixed z-10 w-[80%] right-0 bg-whiteD-200">
       <div className="flex justify-end gap-4">
         Bienvenido/a Admin
         <Image
@@ -17,4 +17,4 @@ const Navbar = () => {
   );
 }
 
-export default Navbar
+export default NavbarAdmin

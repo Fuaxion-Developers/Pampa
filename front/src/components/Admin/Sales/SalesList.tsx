@@ -7,7 +7,7 @@ interface Venta {
   fecha: string;
 }
 
-const Ventas = () => {
+const SalesList = () => {
   const ventas: Venta[] = [
     { id: 1, cliente: 'Juan Perez', producto: 'Laptop', fecha: '2024-01-15' },
     { id: 2, cliente: 'Ana Lopez', producto: 'Camiseta', fecha: '2024-02-20' },
@@ -40,4 +40,4 @@ const Ventas = () => {
   );
 };
 
-export default Ventas;
+export default SalesList;

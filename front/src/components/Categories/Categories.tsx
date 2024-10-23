@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './Categories.module.css';
 import Link from 'next/link';
-import { getCategories } from '@/helpers/products.helper';
+import { getCategories } from '@/helpers/categories.helper';
 import { ICategory } from '@/types';
 
 var settings = {

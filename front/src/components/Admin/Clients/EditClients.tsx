@@ -8,7 +8,7 @@ interface Cliente {
   email: string;
 }
 
-const Clientes = () => {
+const EditClients = () => {
   const [clientes, setClientes] = useState<Cliente[]>([
     { id: 1, nombre: 'Juan Perez', email: 'juan@example.com' },
     { id: 2, nombre: 'Ana Lopez', email: 'ana@example.com' },
@@ -52,4 +52,4 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;
+export default EditClients;

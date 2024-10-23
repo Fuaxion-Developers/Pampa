@@ -1,10 +1,10 @@
-import Dashboard from '@/components/Admin/Dashboard';
+import ProductList from '@/components/Admin/Products/ProductsList';
 import React from 'react';
 
 const page = () => {
   return (
     <div className="w-[70%] ml-[25%] mt-[10%]">
-     <Dashboard/>
+      <ProductList></ProductList>
     </div>
   );
 };
