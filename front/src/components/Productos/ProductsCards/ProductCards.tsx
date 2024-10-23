@@ -8,7 +8,7 @@ interface ProductListProps {
   products: IProduct[];
 }
 
-const ProductList = () => {
+const ProductCards = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
@@ -42,4 +42,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductCards;
