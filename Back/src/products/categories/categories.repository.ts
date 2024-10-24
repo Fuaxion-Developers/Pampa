@@ -12,14 +12,8 @@ export class CategoriesRepository {
     private productType: Repository<Categories>,
   ) {}
 
-  async getAll(options: getAllCategoriesPartialDto) {
-    if (options == undefined) {
-      return await this.productType.find();
-    }
-    return await this.productType.find({
-      skip: options.page,
-      take: options.limit,
-    });
+  async getAll() {
+    return await this.productType.find();
   }
 
   async getById(id: UUID) {

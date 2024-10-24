@@ -29,12 +29,10 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Get all categories' })
   @ApiResponse({ status: 200, type: [CategoriesDto] })
-  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiBadRequestResponse({ description: 'There are no categories' })
   @Get()
-  async getAll(@Query() options: getCategoriesOptionsDto) {
-    if (!options.limit) options.limit = 10;
-    if (!options.page) options.page = 1;
-    return await this.CategoriesService.getAll(options);
+  async getAll() {
+    return await this.CategoriesService.getAll();
   }
 
   @Get('name')

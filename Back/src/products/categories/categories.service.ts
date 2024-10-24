@@ -19,15 +19,11 @@ export class CategoriesService {
     private En: EntityManager,
   ) {}
 
-  async getAll(options: getAllCategoriesPartialDto) {
-    if (options == undefined) {
-      return await this.CategoriesRepository.getAll(options);
-    }
-    if (options.limit == undefined || !options.limit || options.limit < 0)
-      options.limit = 10;
-    if (options.page == undefined || !options.page || options.page < 0)
-      options.page = 1;
-    return await this.CategoriesRepository.getAll(options);
+  async getAll() {
+    const categoies = await this.CategoriesRepository.getAll();
+    if (!categoies || categoies.length == 0)
+      throw new BadRequestException('There are no categories');
+    return categoies;
   }
 
   async getById(id: UUID) {
