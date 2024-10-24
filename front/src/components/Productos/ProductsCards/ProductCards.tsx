@@ -13,7 +13,7 @@ const ProductCards = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      const products: IProduct[] = await getAllProducts();
+      const products: IProduct[] = await getAllProducts(1);
       setProducts(products);
     };
 

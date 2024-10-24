@@ -82,10 +82,10 @@ export interface IProduct {
   name: string;
   description: string;
   price: number;
-  stock: number;
   image_url: string;
-  categoryId: number;
-  quantity: number;
+  category: string;
+  height: number;
+  width: number;
 }
 
 export interface PersonInterface {

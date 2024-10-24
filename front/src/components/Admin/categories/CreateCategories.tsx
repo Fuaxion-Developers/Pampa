@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { getCreateCategory } from '@/helpers/categories.helper'; // Ajusta la ruta
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 import { ICategory } from '@/types';
 
 const CreateCategories = ({
@@ -12,19 +13,42 @@ const CreateCategories = ({
 
   const agregarCategoria = async () => {
     if (newCategory.trim() === '') {
-      alert('El nombre de la categoría no puede estar vacío');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El nombre de la categoría no puede estar vacío',
+      });
       return;
     }
 
     try {
-      const nuevaCategoria = await getCreateCategory(newCategory);
+      const response = await getCreateCategory(newCategory); // El backend devuelve un string
+      console.log(response); // Puedes ver el mensaje de éxito si es necesario
 
-      // Ejecuta el callback para añadir la nueva categoría a la lista en CategoriesList
-      onCategoryAdded(nuevaCategoria);
-      setNewCategory('');
+      // Llama a onCategoryAdded con la nueva categoría creada manualmente
+      const newCategoryObject: ICategory = {
+        id: '',
+        name: newCategory,
+      };
+      onCategoryAdded(newCategoryObject);
+
+      // Alerta de éxito con SweetAlert2
+      Swal.fire({
+        icon: 'success',
+        title: 'Categoría creada',
+        text: 'La categoría se ha creado correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      setNewCategory(''); // Limpia el campo después de agregar
     } catch (error) {
       console.error('Error al agregar la categoría:', error);
-      alert('Ocurrió un error al agregar la categoría.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ocurrió un error al agregar la categoría',
+      });
     }
   };
 

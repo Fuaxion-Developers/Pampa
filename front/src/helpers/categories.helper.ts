@@ -92,27 +92,24 @@ export async function getProductsByCategory(category: string) {
 
 export async function getCreateCategory(newCategoryName: string) {
   try {
-    const response = await fetch(`${env.backUrl}/categories/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': 'true',
-      },
-      body: JSON.stringify({ name: newCategoryName }),
-    });
+    const response = await fetch(
+      `${env.backUrl}/categories/create`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+        },
+        body: JSON.stringify({ name: newCategoryName }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error('Error en la solicitud: ' + response.status);
     }
 
-    const data = await response.json();
-
-    // Verificar que data tenga la categoría creada
-    if (!data || !data.id || !data.name) {
-      throw new Error('Respuesta inesperada del servidor');
-    }
-
-    return data; // Retornar la categoría creada
+    
+    return response; // Retornar la categoría creada
   } catch (error: any) {
     console.error('Hubo un problema con la solicitud:', error);
     throw new Error(error);

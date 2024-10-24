@@ -5,6 +5,7 @@ import { getDellCategories } from '@/helpers/categories.helper'; // Importa la f
 import { ICategory } from '@/types';
 import Modal from '../../../components/Modal/Modal'; // Importa el componente Modal
 import CreateCategories from '@/components/Admin/categories/CreateCategories';
+
 const CategoriesList = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +20,7 @@ const CategoriesList = () => {
   }, []);
 
   const eliminarCategoria = async (id: string) => {
+    console.log(id)
     try {
       await getDellCategories(id);
       setCategories(categories.filter(category => category.id !== id));
@@ -27,8 +29,8 @@ const CategoriesList = () => {
     }
   };
 
-  const agregarCategoria = (nuevaCategoria: ICategory) => {
-    setCategories([...categories, nuevaCategoria]);
+  const agregarCategoria = async (nuevaCategoria: ICategory) => {
+   const newCategory = await getCategories()
     setIsModalOpen(false); // Cierra el modal después de agregar una categoría
   };
 
@@ -64,6 +66,5 @@ const CategoriesList = () => {
     </div>
   );
 };
-
 
 export default CategoriesList;
