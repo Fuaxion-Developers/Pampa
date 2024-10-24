@@ -37,6 +37,16 @@ export class productWhitTypeDto {
   @IsNotEmpty()
   @ApiProperty({ example: 'calendarios' })
   category: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ example: 1 })
+  height: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ example: 1 })
+  width: number;
 }
 
 export class productWithTypePatchDto extends PartialType(productWhitTypeDto) {}
