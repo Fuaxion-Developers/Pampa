@@ -28,7 +28,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894164/whatsapp-image-2024-09-26-at-07-00-32-1-db75edea35cdce1ac317273608926039-320-0_v27g8s.webp',
       category: 'Alto relieve',
-      stock: 10,
+      height: 10,
+      width: 10,
     },
     {
       name: 'NVD 62',
@@ -37,7 +38,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894172/whatsapp-image-2024-09-25-at-11-35-44-ccc2952de44c1c05b717272753504201-320-0_qbnk4g.webp',
       category: 'Alto relieve',
-      stock: 10,
+      height: 10,
+      width: 10,
     },
     {
       name: 'NVD 61',
@@ -46,7 +48,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894164/whatsapp-image-2024-09-25-at-11-35-42-453962c57076da7ff517272751644862-320-0_ushsql.webp',
       category: 'Alto relieve',
-      stock: 10,
+      height: 10,
+      width: 10,
     },
     {
       name: 'NVD 64',
@@ -55,7 +58,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894164/whatsapp-image-2024-09-25-at-11-35-43-40331840f898d0214e17272750219006-320-0_n5ocae.webp',
       category: 'Alto relieve',
-      stock: 10,
+      height: 10,
+      width: 10,
     },
     {
       name: 'AirPods Pro',
@@ -64,7 +68,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894172/whatsapp-image-2024-09-25-at-11-35-44-ccc2952de44c1c05b717272753504201-320-0_qbnk4g.webp',
       category: 'Accesorios',
-      stock: 10,
+      height: 10,
+      width: 10,
     },
     {
       name: 'HomePod mini',
@@ -73,7 +78,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894172/whatsapp-image-2024-09-25-at-11-35-44-ccc2952de44c1c05b717272753504201-320-0_qbnk4g.webp',
       category: 'Numerador',
-      stock: 10,
+      height: 10,
+      width: 10,
     },
     {
       name: 'iPhone 12 Pro',
@@ -82,7 +88,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894172/whatsapp-image-2024-09-25-at-11-35-44-ccc2952de44c1c05b717272753504201-320-0_qbnk4g.webp',
       category: 'Celebraciones',
-      stock: 15,
+      height: 10,
+      width: 10,
     },
     {
       name: 'iPad Air',
@@ -91,7 +98,8 @@ export const precargaProducts = async (app) => {
       image_url:
         'https://res.cloudinary.com/dkobjvdgn/image/upload/v1727894172/whatsapp-image-2024-09-25-at-11-35-44-ccc2952de44c1c05b717272753504201-320-0_qbnk4g.webp',
       category: 'Oron',
-      stock: 15,
+      height: 10,
+      width: 10,
     },
   ];
 
