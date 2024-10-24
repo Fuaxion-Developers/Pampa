@@ -27,7 +27,7 @@ const ProductList = () => {
     setIsModalOpen(false);
   };
 
-  const eliminarProducto = async (id: number) => {
+  const eliminarProducto = async (id: string) => {
     try {
       await getDellProducts(id.toString());
       setProducts(prevProducts =>
@@ -67,6 +67,7 @@ const ProductList = () => {
               <h2 className="font-semibold">{product.name}</h2>
               <p>{product.description}</p>
               <p className="font-bold">${product.price}</p>
+              <p>{product.height}x {product.width}</p>
             </div>
             <button
               onClick={e => {

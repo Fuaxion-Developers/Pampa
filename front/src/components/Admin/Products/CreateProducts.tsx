@@ -1,41 +1,49 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IProduct } from '@/types'; // Asegúrate de tener esta interfaz
 import { getCreateProducts } from '@/helpers/products.helper'; // Importamos la función de creación
+import { getCategories } from '@/helpers/categories.helper';
+import { ICategory } from '@/types';
 
 const CreateProducts = ({ onProductAdded }: { onProductAdded: () => void }) => {
-  const [newProducto, setNewProducto] = useState({
-    nombre: '',
-    precio: 0,
-    descripcion: '',
-    imageUrl: '',
-  });
+  const [newProducto, setNewProducto] = useState<IProduct | null>(null); // Uso correcto del tipado
+  const [categories, setCategories] = useState<ICategory[]>([]);
+
+  useEffect(() => {
+    const getCategory = async () => {
+      const categories: ICategory[] = await getCategories();
+      setCategories(categories);
+    };
+
+    getCategory();
+  }, []);
 
   const agregarProducto = async () => {
     if (
-      !newProducto.nombre ||
-      newProducto.precio <= 0 ||
-      !newProducto.imageUrl
+      !newProducto || // Aseguramos que el producto no sea nulo
+      !newProducto.name ||
+      newProducto.price <= 0 ||
+      !newProducto.image_url
     ) {
       alert('Por favor completa todos los campos correctamente.');
       return;
     }
 
-    const nuevoProducto = {
-      id: 0, // Este valor lo manejará el backend al crearlo
-      name: newProducto.nombre,
-      price: newProducto.precio,
-      description: newProducto.descripcion || 'Sin descripción',
-      stock: 10, // Valor por defecto
-      image_url: newProducto.imageUrl,
-      categoryId: 1, // Puedes ajustarlo según tus categorías
-      quantity: 1, // Valor por defecto
-    };
-
     try {
-      await getCreateProducts(nuevoProducto);
+      console.log(newProducto);
+      await getCreateProducts(newProducto); // `newProducto` en lugar de `nuevoProducto`
       onProductAdded(); // Notifica que se ha agregado un producto
-      setNewProducto({ nombre: '', precio: 0, descripcion: '', imageUrl: '' }); // Resetea el formulario
+      // Resetea el formulario con nombres de propiedades correctas
+      setNewProducto({
+        id: '', // Agrega un ID si es necesario
+        name: '',
+        description: '',
+        price: 0,
+        image_url: '',
+        category: '',
+        height: 0,
+        width: 0, // Establece un valor por defecto o cambia esto según tus necesidades
+      });
     } catch (error) {
       console.error('Error al agregar producto:', error);
       alert('Hubo un error al agregar el producto.');
@@ -48,40 +56,88 @@ const CreateProducts = ({ onProductAdded }: { onProductAdded: () => void }) => {
       <div className="mb-4">
         <input
           type="text"
-          value={newProducto.nombre}
+          value={newProducto?.name || ''}
           onChange={e =>
-            setNewProducto({ ...newProducto, nombre: e.target.value })
+            setNewProducto({ ...newProducto!, name: e.target.value })
           }
           className="border px-2 py-1 w-full mb-2"
           placeholder="Nombre del Producto"
         />
         <input
           type="number"
-          value={newProducto.precio}
+          value={newProducto?.price || 0}
           onChange={e =>
-            setNewProducto({ ...newProducto, precio: Number(e.target.value) })
+            setNewProducto({ ...newProducto!, price: Number(e.target.value) })
           }
           className="border px-2 py-1 w-full mb-2"
           placeholder="Precio"
         />
         <input
           type="text"
-          value={newProducto.descripcion}
+          value={newProducto?.description || ''}
           onChange={e =>
-            setNewProducto({ ...newProducto, descripcion: e.target.value })
+            setNewProducto({ ...newProducto!, description: e.target.value })
           }
           className="border px-2 py-1 w-full mb-2"
           placeholder="Descripción"
         />
         <input
           type="text"
-          value={newProducto.imageUrl}
+          value={newProducto?.image_url || ''}
           onChange={e =>
-            setNewProducto({ ...newProducto, imageUrl: e.target.value })
+            setNewProducto({ ...newProducto!, image_url: e.target.value })
           }
           className="border px-2 py-1 w-full mb-2"
           placeholder="URL de la imagen"
         />
+        {/* Agregamos el campo select para las categorías */}
+        <select
+          value={newProducto?.category || ''} // Aseguramos que el valor por defecto sea una cadena vacía
+          onChange={e =>
+            setNewProducto({
+              ...newProducto!,
+              category: e.target.value,
+            })
+          }
+          className="border px-2 py-1 w-full mb-4"
+        >
+          <option value="" disabled>
+            {' '}
+            {/* Usamos value="" para que sea la opción por defecto */}
+            Selecciona una categoría
+          </option>
+          {categories.map(category => (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Inputs para heigt y width con una 'x' entre ellos */}
+        <div className="flex items-center mb-4">
+          <input
+            type="number"
+            value={newProducto?.height || 0}
+            onChange={e =>
+              setNewProducto({
+                ...newProducto!,
+                height: Number(e.target.value),
+              })
+            }
+            className="border px-2 py-1 w-1/3"
+            placeholder="Alto"
+          />
+          <span className="mx-2">x</span>
+          <input
+            type="number"
+            value={newProducto?.width || 0}
+            onChange={e =>
+              setNewProducto({ ...newProducto!, width: Number(e.target.value) })
+            }
+            className="border px-2 py-1 w-1/3"
+            placeholder="Ancho"
+          />
+        </div>
         <button
           onClick={agregarProducto}
           className="bg-green-500 text-white px-4 py-1 rounded"

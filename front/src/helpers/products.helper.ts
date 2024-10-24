@@ -3,9 +3,9 @@ import { IProduct } from '@/types';
 import { UUID } from 'crypto';
 
 
-export async function getAllProducts() {
+export async function getAllProducts(page: number) {
   try {
-    const res = await fetch(`${env.backUrl}/products?page=1&limit=10`, {
+    const res = await fetch(`${env.backUrl}/products?page=${page}&limit=10`, {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
@@ -77,9 +77,9 @@ export async function getCreateProducts(product: IProduct) {
       throw new Error('Error en la solicitud: ' + res.status);
     }
 
-    const data = await res.json(); // Convertir la respuesta a JSON
-    return data; // Retorna los datos recibidos del servidor
+    return res; // Retorna los datos recibidos del servidor
   } catch (error: any) {
+    console.log(error.message)
     console.error('Hubo un problema con la solicitud:', error);
     throw new Error(error);
   }
