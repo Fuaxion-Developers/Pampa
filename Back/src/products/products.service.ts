@@ -54,6 +54,8 @@ export class ProductsService {
     newProduct.image_url = product.image_url;
     newProduct.description = product.description;
     newProduct.price = product.price;
+    newProduct.height = product.height;
+    newProduct.width = product.width;
     const category = await this.CategoriesService.getByName(product.category);
     if (!category) {
       throw new BadRequestException('Category not found');

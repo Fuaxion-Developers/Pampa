@@ -29,4 +29,10 @@ export class Products {
 
   @Column({ type: 'float' })
   price: number;
+
+  @Column({ type: 'float' })
+  height: number;
+
+  @Column({ type: 'float' })
+  width: number;
 }
