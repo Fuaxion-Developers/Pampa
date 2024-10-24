@@ -40,11 +40,7 @@ export class OrderDetailService {
   async create(order: OrderDetailDto) {
     const product = await this.productRepo.getById(order.product);
     if (!product) throw new BadRequestException('Product not found');
-    if (product.stock >= order.quantity) {
-      await this.productRepo.update(order.product, {
-        stock: product.stock - order.quantity,
-      });
-    } else throw new BadRequestException('Not enough stock');
+
     await this.orderDetailRepository.create(order);
     return 'Order detail created';
   }

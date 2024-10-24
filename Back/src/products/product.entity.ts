@@ -29,7 +29,4 @@ export class Products {
 
   @Column({ type: 'float' })
   price: number;
-
-  @Column({ type: 'int' })
-  stock: number;
 }
