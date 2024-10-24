@@ -23,11 +23,6 @@ export class productWhitTypeDto {
   price: number;
 
   @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty({ example: 10 })
-  stock: number;
-
-  @IsNotEmpty()
   @IsString()
   @ApiProperty({ example: 'Calendario Pequeño' })
   description: string;
@@ -55,11 +50,6 @@ export class productWhitoutTypeDto {
   @IsNumber({ maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false })
   @ApiProperty({ example: 10.5 })
   price: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty({ example: 10 })
-  stock: number;
 
   @IsNotEmpty()
   @IsString()
