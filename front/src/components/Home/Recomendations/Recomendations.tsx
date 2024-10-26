@@ -1,15 +1,14 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import styles from '@/components/prueba.module.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const clients = [
   {
-    text: 'Excelente calidad',
-    author: 'Manuel Ochoa',
+    text: 'Excelente calidad, puntual el envio',
+    author: 'Manuel Ochoa ',
     ranking:
       'https://res.cloudinary.com/dkobjvdgn/image/upload/v1726846247/star_24dp_927363_FILL0_wght400_GRAD0_opsz24_yx8q9v.svg',
     ranking_repeat: 4,
@@ -47,10 +46,10 @@ const clients = [
 
 const settings = {
   dots: true,
-  infinite: true,
+  infinite: false,
   slidesToShow: 4,
   slidesToScroll: 1,
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 1500,
   pauseOnHover: true,
   responsive: [
@@ -83,16 +82,16 @@ const settings = {
 
 const Recomendations = () => {
   return (
-    <div>
-      <h2 className="m-8 mb-16 font-semibold text-xl border-b border-black">
+    <div className="m-8 p-4 bg-black/50 backdrop-blur-sm border rounded-xl">
+      <h2 className="m-8 mb-16 font-semibold text-2xl text-center  border-black">
         Nuestros clientes nos recomiendan
       </h2>
       <div className="m-8">
         <Slider {...settings}>
           {clients.map((client, index) => (
             <div key={index} className="flex gap-8 justify-center p-4">
-              <div className="bg-whiteD-200 p-3 relative">
-                <div className="border-4 border-white p-8 space-y-3">
+              <div className="bg-brownD-200 p-3 relative">
+                <div className="border-4 border-whiteD-200 p-8 space-y-3">
                   <p className="text-center font-semibold text-xl">
                     {client.author}
                   </p>

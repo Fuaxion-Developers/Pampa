@@ -2,7 +2,7 @@
 .navLink {
   position: relative;
   text-decoration: none;
-  color: black; /* Color por defecto */
+   color: #e4d6c9;
   display: inline-block;
   transition: color 0.3s ease;
 }

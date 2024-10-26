@@ -1,6 +1,6 @@
 'use client'
 import Pagination from '@/components/Pagination/Pagination';
-import ProductList from '@/components/Productos/ProductsCards/ProductCards';
+import ProductList from '@/components/Products/ProductsCards/ProductCards';
 import React, { useEffect, useState } from 'react';
 const page = () => {
    const [currentPage, setCurrentPage] = useState(1);

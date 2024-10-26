@@ -4,7 +4,7 @@ import DefaultLayout from './Defaultlayout';
 import RegisterLayout from '@/app/register/RegisterLayout';
 import LoginLayout from './login/LoginLayout';
 import '@/app/globals.css';
-import BanerCategories from '@/components/Productos/BanerCategories/BanerCategories';
+import BanerCategories from '@/components/Products/BanerCategories/BanerCategories';
 import Categories from '@/components/Categories/Categories';
 import AdminLayout from './admin/AdminLayout';
 
