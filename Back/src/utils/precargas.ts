@@ -136,7 +136,10 @@ export const precargaCategories = async (app) => {
   ];
 
   const categoriesService = app.get(CategoriesService);
-  if ((await categoriesService.getAll()).length === 0) {
+  try {
+    await categoriesService.getAll();
+    Logger.warn('Categories already created');
+  } catch (error) {
     for (const category of categoriesToPreload) {
       const categoryExistente = await categoriesService.getByName(category);
       if (categoryExistente) continue;
@@ -145,9 +148,7 @@ export const precargaCategories = async (app) => {
       });
       categoriesIds.push(categorie.id);
     }
-
     Logger.verbose('Categories created');
-  } else {
-    Logger.warn('Categories already created');
+    console.log(categoriesService.getAll());
   }
 };
