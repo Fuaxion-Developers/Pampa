@@ -4,11 +4,11 @@ import React from 'react';
 
 const BanerCategories = () => {
   return (
-    <div className="bg-brownD-100 flex justify-between p-4 text-whiteD-100 my-4">
+    <div className="backdrop-blur-sm bg-black/50  flex justify-between m-4 rounded-xl border text-white my-4">
       <div className="flex justify-center items-center m-8">
         <h2 className="text-[50px] font-semibold ">PRODUCTOS</h2>
       </div>
-      <div className='flex'>
+      <div className="flex p-4">
         <Image
           alt="Imagen"
           src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1727721484/Rectangle_9605_mp9jx6.png"

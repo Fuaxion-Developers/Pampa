@@ -41,6 +41,10 @@ const config: Config = {
           100: '#fcffeb',
           200: '#e4d6c9',
         },
+        yellowD: {
+          100: '#FBD910',
+          
+        },
       },
     },
   },

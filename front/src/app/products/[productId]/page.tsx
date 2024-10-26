@@ -1,5 +1,5 @@
 // app/products/[productId]/page.tsx
-import ProductDetail from '@/components/Productos/ProductDetail/ProductDetail'; // Asegúrate de que esta ruta es correcta
+import ProductDetail from '@/components/Products/ProductDetail/ProductDetail'; // Asegúrate de que esta ruta es correcta
 import { getProductById } from '@/helpers/products.helper';
 import { UUID } from 'crypto';
 

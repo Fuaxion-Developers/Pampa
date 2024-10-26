@@ -23,17 +23,21 @@ const ProductCards = () => {
     <div className="grid grid-cols-4 p-12 m-auto gap-4 my-8">
       {products.map(product => (
         <Link key={product.id} href={`/products/${product.id}`}>
-          <div className="border rounded p-4 space-y-4 cursor-pointer hover:shadow-lg transition-shadow">
+          <div className="border bg-black/50 backdrop-blur-sm rounded-xl  p-4 space-y-4 cursor-pointer hover:shadow-lg transition-shadow">
             <Image
               src={product.image_url}
               alt={product.name}
               width={300}
               height={200}
+              className="rounded"
             />
             <div className="text-center">
               <h2 className="font-semibold">{product.name}</h2>
               <p>{product.description}</p>
               <p className="font-bold">${product.price}</p>
+              <p>
+                {product.width} x {product.height}
+              </p>
             </div>
           </div>
         </Link>

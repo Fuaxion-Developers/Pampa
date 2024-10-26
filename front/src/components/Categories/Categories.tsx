@@ -68,7 +68,7 @@ const Categories = () => {
               className="flex gap-8 justify-center p-4 text-whiteD-100"
             >
               <Link href={`/categories/${category.name}`}>
-                <div className="bg-brownD-200 p-3 relative rounded">
+                <div className="bg-yellowD-100 text-black p-2 relative rounded-full">
                   <p className="text-center font-semibold text-xl">
                     {category.name}
                   </p>

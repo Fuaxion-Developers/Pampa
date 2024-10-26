@@ -1,6 +1,6 @@
 import "./globals.css";
-import Navbar from "../components/Home/Navbar/Navbar";
-import Footer from "../components/Home/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
 
 import React from "react";
 import Whatsapp from "@/components/Whatsapp/Whatsapp";

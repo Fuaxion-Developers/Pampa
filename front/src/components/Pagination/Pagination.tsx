@@ -28,7 +28,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className={`px-4 py-2 bg-brownD-200 rounded text-white ${
+        className={`border px-4 py-2 bg-brownD-200 rounded text-white ${
           currentPage === 1
             ? 'cursor-not-allowed opacity-50'
             : 'hover:bg-brownD-100 '
@@ -43,10 +43,10 @@ const Pagination: React.FC<PaginationProps> = ({
           <button
             key={page}
             onClick={() => onPageChange(page)}
-            className={`px-4 py-2 rounded ${
+            className={`border px-4 py-2 rounded ${
               page === currentPage
                 ? 'bg-brownD-100 text-white'
-                : 'bg-whiteD-200 hover:bg-brownD-200'
+                : 'bg-black/50  hover:bg-brownD-200'
             }`}
           >
             {page}
@@ -57,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 bg-brownD-200 rounded text-white ${
+        className={` border px-4 py-2 bg-brownD-200 rounded text-white ${
           currentPage === totalPages
             ? 'cursor-not-allowed opacity-50'
             : 'hover:bg-brownD-100'
