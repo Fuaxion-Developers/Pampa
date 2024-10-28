@@ -8,6 +8,7 @@ import {
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 import { Categories } from './categories/categories.entity';
 import { execArgv } from 'process';
+import { SubCategories } from 'src/subcategories/subcategory.entity';
 
 @Entity()
 export class Products {
@@ -26,6 +27,13 @@ export class Products {
   @ManyToOne(() => Categories, (categorie) => categorie.id, { eager: true })
   @JoinColumn({ name: 'category', referencedColumnName: 'id' })
   category: Categories;
+
+  @ManyToOne(() => SubCategories, (subCategories) => subCategories.id, {
+    eager: true,
+    nullable: true,
+  })
+  @JoinColumn({ name: 'subcategory', referencedColumnName: 'id' })
+  subCategory: SubCategories;
 
   @Column({ type: 'float' })
   price: number;

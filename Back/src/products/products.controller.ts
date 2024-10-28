@@ -60,6 +60,15 @@ export class ProductsController {
     return await this.productsService.getByCategoryName(categoryName);
   }
 
+  @Get('category/subCategory/:id')
+  @ApiOperation({ summary: 'Get product by subCategory name' })
+  @ApiResponse({ status: 200, type: Products })
+  @ApiBadGatewayResponse({ description: 'Can not get product' })
+  @ApiParam({ name: 'subCategoryName', type: 'string' })
+  async getBySubCategoryName(@Param('id') id: uuidv4) {
+    return await this.productsService.getBySubCategory(id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get product by id' })
   @ApiResponse({ status: 200, type: Products })

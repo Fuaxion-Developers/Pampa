@@ -53,4 +53,14 @@ export class ProductsRepository {
       relations: ['category'],
     });
   }
+
+  async getBySubCategory(subCategoryId: uuidv4) {
+    return await this.product.find({
+      where: {
+        subCategory: {
+          id: subCategoryId,
+        },
+      },
+    });
+  }
 }
