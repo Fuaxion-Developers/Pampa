@@ -2,12 +2,12 @@ import {
   IsDecimal,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsUrl,
   IsUUID,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { URL } from 'url';
 import { v4 as uuid } from 'uuid';
 import { Categories } from './categories/categories.entity';
 
@@ -47,6 +47,11 @@ export class productWhitTypeDto {
   @IsNotEmpty()
   @ApiProperty({ example: 1 })
   width: number;
+
+  @IsOptional()
+  @IsUUID()
+  @ApiProperty({ example: uuid() })
+  subCategory?: uuid;
 }
 
 export class productWithTypePatchDto extends PartialType(productWhitTypeDto) {}
@@ -76,6 +81,21 @@ export class productWhitoutTypeDto {
   @IsNotEmpty()
   @ApiProperty({ example: 'calendarios' })
   category: Categories;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ example: 1 })
+  height: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({ example: 1 })
+  width: number;
+
+  @IsOptional()
+  @IsUUID()
+  @ApiProperty({ example: uuid() })
+  subCategory?: uuid;
 }
 
 export class productWhitoutTypePatchDto extends PartialType(
