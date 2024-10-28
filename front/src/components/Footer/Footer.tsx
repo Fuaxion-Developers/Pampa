@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="bg-brownD-100 text-whiteD-100">
+    <div className="backdrop-blur-sm bg-black/50 text-whiteD-100">
       <div className="p-6 md:p-12 flex flex-col md:flex-row justify-between">
         <div className="flex flex-col md:flex-row gap-6 md:gap-12">
           <div>
@@ -27,7 +27,12 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className="flex justify-center md:justify-end gap-4 mt-6 md:mt-0 mr-0 md:mr-[6%] mb-4">
+      <div className="border-t-2 p-6 md:p-12 flex flex-col md:flex-row justify-center md:justify-between items-center">
+        <p className="mt-2 md:mt-0">
+          <Link href="/">PAMPA </Link>
+          &copy; 2024 - <Link href="#">Hecho por Fuaxion</Link>
+        </p>
+      <div className="flex justify-center md:justify-end gap-4 mt-6 md:mt-0 mr-0 md:mr-[6%]">
         <Link href="#" rel="noopener noreferrer" target="_blank">
           <Image
             src="https://res.cloudinary.com/dkobjvdgn/image/upload/v1726677834/icons8-facebook_fnzvbg.svg"
@@ -57,11 +62,6 @@ const Footer = () => {
           />
         </Link>
       </div>
-      <div className="border-t-2 p-6 md:p-12 flex flex-col md:flex-row justify-center md:justify-between items-center">
-        <p className="mt-2 md:mt-0">
-          <Link href="/">PAMPA </Link>
-          &copy; 2024 - <Link href="#">Hecho por Fuaxion</Link>
-        </p>
       </div>
     </div>
   );
