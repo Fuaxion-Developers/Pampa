@@ -16,12 +16,14 @@ import { CategoriesService } from './categories/categories.service';
 import { instanceToPlain } from 'class-transformer';
 import { getAllProductDto } from './product.dto';
 import { Products } from './product.entity';
+import { SubCategoriesService } from 'src/subcategories/subcategories.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     private productsRepository: ProductsRepository,
     private CategoriesService: CategoriesService,
+    private SubCategorie: SubCategoriesService,
   ) {}
 
   async getAll(options: getProductsOptions) {
@@ -35,6 +37,16 @@ export class ProductsService {
     const products = await this.productsRepository.getAll(options);
     if (products.length === 0) return 'No products found';
     else return instanceToPlain(products);
+  }
+
+  async getBySubCategory(subCategoryId: uuidv4) {
+    const Products =
+      await this.productsRepository.getBySubCategory(subCategoryId);
+    if (Products.length === 0) {
+      throw new BadRequestException('SubCategory not found');
+    } else {
+      return Products;
+    }
   }
 
   async getById(id: uuidv4) {
@@ -61,6 +73,10 @@ export class ProductsService {
       throw new BadRequestException('Category not found');
     } else {
       newProduct.category = category;
+    }
+    const subCategory = await this.SubCategorie.getById(product.subCategory);
+    if (subCategory) {
+      newProduct.subCategory = subCategory;
     }
     const existingProduct = await this.productsRepository.getByName(
       product.name,
