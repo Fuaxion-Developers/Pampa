@@ -20,7 +20,7 @@ import { FilesModule } from './files/files.module';
 import { MpModule } from './MercadoPago/mp.module';
 import { PaymentsModule } from './payments/payments.module';
 import { CommentsModule } from './comments/comments.module';
-import { SubcategoriesModule } from './subcategories/subcategories.module';
+import { SubcategoriesModule } from './subcategories/subcategory.module';
 
 @Module({
   imports: [

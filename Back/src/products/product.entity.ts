@@ -8,7 +8,7 @@ import {
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 import { Categories } from './categories/categories.entity';
 import { execArgv } from 'process';
-import { SubCategories } from 'src/subcategories/subcategorie.entity';
+import { SubCategories } from 'src/subcategories/subcategory.entity';
 
 @Entity()
 export class Products {

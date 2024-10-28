@@ -16,7 +16,7 @@ import { CategoriesService } from './categories/categories.service';
 import { instanceToPlain } from 'class-transformer';
 import { getAllProductDto } from './product.dto';
 import { Products } from './product.entity';
-import { SubCategoriesService } from 'src/subcategories/subcategories.service';
+import { SubCategoriesService } from 'src/subcategories/subcategory.service';
 
 @Injectable()
 export class ProductsService {
