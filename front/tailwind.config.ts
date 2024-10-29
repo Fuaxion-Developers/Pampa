@@ -8,6 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      scrollbar: ['rounded'],
       animation: {
         orbit: 'orbit calc(var(--duration)*1s) linear infinite',
       },
@@ -43,11 +44,10 @@ const config: Config = {
         },
         yellowD: {
           100: '#FBD910',
-          
         },
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')({ nocompatible: true })],
 };
 export default config;

@@ -53,7 +53,7 @@ const PopupButton = () => {
       <button
         ref={buttonRef}
         onClick={toggleMenu}
-        className="px-4 py-2 bg-brownD-200 text-white rounded hover:bg-brownD-100 focus:outline-none"
+        className="px-4 py-1 text-black bg-yellowD-100  rounded-full hover:bg-brownD-200 focus:outline-none"
       >
         Abrir Menú
       </button>
@@ -62,7 +62,7 @@ const PopupButton = () => {
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute right-0 mt-2 w-[200%] bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+          className="absolute right-0 mt-2 w-[200%] bg-white border border-gray-200 rounded-lg shadow-lg  z-50"
         >
           <ul className="py-2">
             <li>

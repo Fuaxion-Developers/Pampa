@@ -16,11 +16,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-   
-        <body>
-          <ClientRouteHandler>{children}</ClientRouteHandler>
-        </body>
-     
+      <body className='relative z-0'>
+      
+              <ClientRouteHandler>
+                
+                {children}
+                
+                </ClientRouteHandler>
+        
+      </body>
     </html>
   );
 }
