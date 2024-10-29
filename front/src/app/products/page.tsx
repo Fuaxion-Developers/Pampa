@@ -1,15 +1,15 @@
-'use client'
+'use client';
 import Pagination from '@/components/Pagination/Pagination';
 import ProductList from '@/components/Products/ProductsCards/ProductCards';
 import React, { useEffect, useState } from 'react';
 const page = () => {
-   const [currentPage, setCurrentPage] = useState(1);
-   const totalPages = 10; // Total de páginas a paginar, ajusta según tus necesidades
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10; // Total de páginas a paginar, ajusta según tus necesidades
 
-   const handlePageChange = (page: number) => {
-     setCurrentPage(page);
-     // Lógica adicional para cargar datos correspondientes a la página
-   };
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Lógica adicional para cargar datos correspondientes a la página
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

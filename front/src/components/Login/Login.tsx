@@ -99,7 +99,7 @@ const Login = () => {
   const labelClass = 'text-[15px] font-medium leading-normal';
 
   return (
-    <div className="flex justify-center items-center h-[100vh] m-8 mb-8">
+    <div className="flex justify-center items-center h-[100vh] ">
       <div className="flex w-full h-full max-h-[1024px]">
         <a
           href="/"
