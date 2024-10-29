@@ -15,12 +15,14 @@ export const env = {
   jwt_secret: process.env.JWT_SECRET || 'clavesecreta',
   mailer: {
     service: process.env.MAILER_SERVICE,
+    host: process.env.MAILER_HOST,
     auth: {
       type: process.env.MAILER_TYPE,
       user: process.env.MAILER_USER,
       clientId: process.env.MAILER_CLIENT_ID,
       clientSecret: process.env.MAILER_CLIENT_SECRET,
       refreshToken: process.env.MAILER_REFRESH_TOKEN,
+      pass: process.env.MAILER_PASS,
     },
   },
   frontUrl: process.env.FRONT_URL,

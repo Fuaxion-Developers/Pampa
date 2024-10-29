@@ -15,17 +15,27 @@ export class MailProvider {
 
   async sendEmail(subjectEmail, sendTo, html) {
     try {
-      const accessToken = await oAuth2Client.getAccessToken();
+      // const accessToken = await oAuth2Client.getAccessToken();
 
+      // const transport = nodemailer.createTransport({
+      //   service: env.mailer.service,
+      //   auth: {
+      //     type: env.mailer.auth.type,
+      //     user: env.mailer.auth.user,
+      //     clientId: env.mailer.auth.clientId,
+      //     clientSecret: env.mailer.auth.clientSecret,
+      //     refreshToken: env.mailer.auth.refreshToken,
+      //     accessToken,
+      //   }
+      // });
+      
       const transport = nodemailer.createTransport({
-        service: env.mailer.service,
+        host: env.mailer.host,
+        port: 465,
+        secure: true,
         auth: {
-          type: env.mailer.auth.type,
           user: env.mailer.auth.user,
-          clientId: env.mailer.auth.clientId,
-          clientSecret: env.mailer.auth.clientSecret,
-          refreshToken: env.mailer.auth.refreshToken,
-          accessToken,
+          pass: env.mailer.auth.pass,
         }
       });
 

@@ -12,8 +12,7 @@ const config = {
   port: env.db.port,
   username: env.db.username,
   password: env.db.pass,
-  
-  //dropSchema: true,
+  // dropSchema: true,
   synchronize: true,
   // logging: true,
   // ssl: true,
