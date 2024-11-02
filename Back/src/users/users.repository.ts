@@ -96,6 +96,21 @@ export class UsersRepository {
     return userByCuitl;
   }
 
+  async clientsQuantity() {
+    const activeClientsQuantity: number = await this.usersRepository
+      .createQueryBuilder('users')
+      .where('users.deleteDate IS NULL')
+      .andWhere('users.role = :role', { role: 'Cliente'})
+      .getCount();
+
+    const clientsQuantity: number = await this.usersRepository
+      .createQueryBuilder('users')
+      .where('users.role = :role', { role: 'Cliente'})
+      .getCount();
+
+    return { total: clientsQuantity, active: activeClientsQuantity, inactive: clientsQuantity-activeClientsQuantity };
+  }
+
   async signUp(
     user: Omit<
       User,
