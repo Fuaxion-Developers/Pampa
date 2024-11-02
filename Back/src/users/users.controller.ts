@@ -92,6 +92,22 @@ export class UsersController {
     return this.usersService.getUserByCuitl(cuitl.cuitl);
   }
 
+  @ApiBearerAuth()
+  @Get('clients-quantity')
+  @DRoles(Roles.ADMIN)
+  @UseGuards(UsersGuard, RolesGuard)
+  @ApiOperation({
+    summary:
+      'Obtener la cantidad de clientes.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Devuelve la cantidad de clientes.',
+  })
+  clientsQuantity() {
+    return this.usersService.clientsQuantity()
+  }
+
   @Post('signup')
   @ApiOperation({
     summary:

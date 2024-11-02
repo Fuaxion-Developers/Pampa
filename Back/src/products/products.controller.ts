@@ -51,12 +51,13 @@ export class ProductsController {
     return await this.productsService.getByName(name);
   }
 
-  @Get('category')
+  @Get('category/:categoryName')
   @ApiOperation({ summary: 'Get product by category name' })
   @ApiResponse({ status: 200, type: Products })
   @ApiBadGatewayResponse({ description: 'Can not get product' })
   @ApiParam({ name: 'categoryName', type: 'string' })
-  async getByCategoryName(@Query('categoryName') categoryName: string) {
+  async getByCategoryName(@Param('categoryName') categoryName: string) {
+    console.log(categoryName);
     return await this.productsService.getByCategoryName(categoryName);
   }
 
