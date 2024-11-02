@@ -47,6 +47,10 @@ export class UsersService {
     return this.usersRepository.getUserByCuitl(cuitl);
   }
 
+  async clientsQuantity() {
+    return this.usersRepository.clientsQuantity();
+  }
+
   async signUp(
     user: Omit<
       User,
