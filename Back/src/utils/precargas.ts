@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import { OrderStatusService } from 'src/order-status/order-status.service';
 import { CategoriesService } from 'src/products/categories/categories.service';
 import { ProductsService } from 'src/products/products.service';
+import { SubCategoriesService } from 'src/subcategories/subcategory.service';
 import { EnumOrderStatus } from 'src/users/enums/order-status.enum';
 
 export const precargasOrderStatus = async (app) => {
@@ -121,20 +122,55 @@ export const precargaProducts = async (app) => {
 
 export const precargaCategories = async (app) => {
   const categoriesToPreload = [
-    'Alto relieve',
-    'Bajo relieve',
-    'Accesorios',
-    'Navidad 24/25',
-    'Vegetales (VG)',
-    'Verduras (VD)',
-    'Sets',
-    'Sin Stock',
-    'Palafrases',
-    'Numerador',
-    'Celebraciones',
-    'Oron',
+    {
+      name: 'Alto relieve',
+      image: 'https://example.com/images/alto-relieve.jpg',
+    },
+    {
+      name: 'Bajo relieve',
+      image: 'https://example.com/images/bajo-relieve.jpg',
+    },
+    {
+      name: 'Accesorios',
+      image: 'https://example.com/images/accesorios.jpg',
+    },
+    {
+      name: 'Navidad 24/25',
+      image: 'https://example.com/images/navidad-24-25.jpg',
+    },
+    {
+      name: 'Vegetales (VG)',
+      image: 'https://example.com/images/vegetales-vg.jpg',
+    },
+    {
+      name: 'Verduras (VD)',
+      image: 'https://example.com/images/verduras-vd.jpg',
+    },
+    {
+      name: 'Sets',
+      image: 'https://example.com/images/sets.jpg',
+    },
+    {
+      name: 'Sin Stock',
+      image: 'https://example.com/images/sin-stock.jpg',
+    },
+    {
+      name: 'Palafrases',
+      image: 'https://example.com/images/palafrases.jpg',
+    },
+    {
+      name: 'Numerador',
+      image: 'https://example.com/images/numerador.jpg',
+    },
+    {
+      name: 'Celebraciones',
+      image: 'https://example.com/images/celebraciones.jpg',
+    },
+    {
+      name: 'Oron',
+      image: 'https://example.com/images/oron.jpg',
+    },
   ];
-
   const categoriesService = app.get(CategoriesService);
   try {
     await categoriesService.getAll();
@@ -143,12 +179,90 @@ export const precargaCategories = async (app) => {
     for (const category of categoriesToPreload) {
       const categoryExistente = await categoriesService.getByName(category);
       if (categoryExistente) continue;
-      const categorie = await categoriesService.createProductType({
-        name: category,
-      });
+      const categorie = await categoriesService.createProductType(category);
       categoriesIds.push(categorie.id);
     }
     Logger.verbose('Categories created');
     console.log(categoriesService.getAll());
+  }
+};
+
+export const SubCategoriesPreLoad = async (app) => {
+  const categories = {
+    'Alto Relieve': [
+      'Línea Roja (RJ)',
+      'Línea Verde (VE)',
+      'Línea Azul (AZ)',
+      'Línea Violeta (VI)',
+      'Línea Amarilla (AM)',
+      'Línea Naranja (NJ)',
+      'Línea Patrones (PTR)',
+      'Línea Oro (ORO)',
+      'Línea Botánica (BTG)',
+      'Línea Botánica Gigante (BTGG)',
+      'Línea Botánica Pequeña (BT)',
+      'Pintalunas',
+      'Calendario',
+      'Scrap (SC)',
+      'Línea Gatitos (GT)',
+    ],
+    'Bajo Relieve': [
+      'Bajo Relieve Amarillo (BRAM)',
+      'Bajo Relieve Naranja (BRNJ)',
+      'Línea Puntilla (PTL)',
+      '- PTL 1',
+      '- PTL 2',
+      '- PTL 3',
+      'Oro Bajo Relieve (OROBR)',
+      'Etiqueta Bajo Relieve Grande (ETQG)',
+      'Etiqueta Bajo Relieve Pequeña (ETQP)',
+    ],
+    Accesorios: ['Metacadores', 'Capafácil', 'Pintalunas'],
+    'Navidad 24/25': [],
+    'Vegetales (VG)': ['LO NUEVO'],
+    'Verduras (VD)': [],
+    Sets: [
+      'Textura Fácil Grande (TFG)',
+      'Textura Fácil Pequeña (TFP)',
+      'Etiquetas desmontables (ETD)',
+      'Etiquetas Recambio (ETR)',
+    ],
+    'Sin Stock': [
+      'Plantillas Navidad (NVDP)',
+      'Plantillas (Stencil)',
+      'Plantillas Naranja (NJP)',
+      'Plantillas Amarillas (AMP)',
+      'Plantillas Violeta (VIP)',
+      'Plantillas Azules (AZP)',
+      'Plantillas Verdes (VEP)',
+      'Plantillas Rojas (RJP)',
+      'Plantillas Azules (AZP)',
+      'Plantillas Violeta (VIP)',
+      'Plantillas Amarillas (AMP)',
+      'Plantillas Naranja (NJP)',
+    ],
+    Palafrases: ['Palafrases M (PFM)', 'Palafrases S (PFS)', 'Palafrases Mini'],
+    Numerador: ['Números 03 Alto', 'Números 03 Bajo'],
+    Celebraciones: ['PASCUAL (PSC)', '- PSC 01', '- PSC 02', '- PSC 03'],
+    Oron: [],
+  };
+  const subCategoriesService = app.get(SubCategoriesService);
+  try {
+    await subCategoriesService.getAll();
+    Logger.warn('SubCategories already created');
+  } catch (error) {
+    for (const category in categories) {
+      for (const subCategory of categories[category]) {
+        const subCategoryExistente =
+          await subCategoriesService.getByCategorieName(subCategory);
+        if (subCategoryExistente) continue;
+        const subCategorie = await subCategoriesService.create({
+          name: subCategory,
+          category: category,
+        });
+        categoriesIds.push(subCategorie.id);
+      }
+    }
+    Logger.verbose('SubCategories created');
   }
 };
