@@ -2,6 +2,7 @@ import {
   IsDecimal,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   IsUrl,
@@ -10,6 +11,7 @@ import {
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { v4 as uuid } from 'uuid';
 import { Categories } from './categories/categories.entity';
+import { FileUploadDto } from 'src/files/dtos/files.dto';
 
 export class productWhitTypeDto {
   @IsString()
@@ -28,10 +30,8 @@ export class productWhitTypeDto {
   description: string;
 
   @IsNotEmpty()
-  @IsString()
-  @IsUrl()
   @ApiProperty({ example: 'https://example.com' })
-  image_url: string;
+  path: string;
 
   @IsString()
   @IsNotEmpty()
@@ -52,6 +52,10 @@ export class productWhitTypeDto {
   @IsUUID()
   @ApiProperty({ example: uuid() })
   subCategory?: uuid;
+
+  @IsOptional()
+  @ApiProperty({ example: 'https://example.com' })
+  image_url: string;
 }
 
 export class productWithTypePatchDto extends PartialType(productWhitTypeDto) {}

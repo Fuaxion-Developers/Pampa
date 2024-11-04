@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UUID } from 'crypto';
-import { CategoriesDto, getAllCategoriesPartialDto } from './categories.dto';
+import {
+  CategoriesDto,
+  CategoriesWhitoutPathDto,
+  getAllCategoriesPartialDto,
+} from './categories.dto';
 import { Categories } from './categories.entity';
 
 @Injectable()
@@ -24,7 +28,7 @@ export class CategoriesRepository {
     return await this.productType.findOneBy({ name });
   }
 
-  async create(productType: CategoriesDto) {
+  async create(productType: CategoriesWhitoutPathDto) {
     return await this.productType.save(productType);
   }
 

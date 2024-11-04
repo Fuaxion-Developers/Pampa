@@ -9,6 +9,7 @@ import {
   precargaCategories,
   precargaProducts,
   precargasOrderStatus,
+  SubCategoriesPreLoad,
 } from './utils/precargas';
 
 const version = require('../package.json').version;
@@ -47,6 +48,7 @@ async function bootstrap() {
 
   precargasOrderStatus(app);
   await precargaCategories(app);
+  await SubCategoriesPreLoad(app);
   await precargaProducts(app);
 
   await app.listen(env.port);
