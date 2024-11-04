@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { UUID } from 'crypto';
@@ -16,11 +18,14 @@ import { v4 as uuid } from 'uuid';
 import {
   ApiBadRequestResponse,
   ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ValidationFile } from 'src/files/pipes/validationFiles.pipe';
 
 @Controller('categories')
 @ApiTags('Categories')
@@ -55,11 +60,16 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Create category' })
   @ApiResponse({ status: 201, type: CategoriesDto })
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file'))
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiBody({ type: CategoriesDto })
   @Post('create')
-  async create(@Body() newProductType: CategoriesDto) {
-    return await this.CategoriesService.createProductType(newProductType);
+  async create(
+    @Body() newProductType: CategoriesDto,
+    @UploadedFile(ValidationFile) file: Express.Multer.File,
+  ) {
+    return await this.CategoriesService.createProductType(newProductType, file);
   }
 
   @ApiOperation({ summary: 'Update category' })
@@ -71,8 +81,9 @@ export class CategoriesController {
   async update(
     @Body() newProductType: CategoriesDto,
     @Param('id', ParseUUIDPipe) id: UUID,
+    @UploadedFile(ValidationFile) file: Express.Multer.File,
   ) {
-    return await this.CategoriesService.update(id, newProductType);
+    return await this.CategoriesService.update(id, file, newProductType);
   }
 
   @ApiOperation({ summary: 'Delete category' })
