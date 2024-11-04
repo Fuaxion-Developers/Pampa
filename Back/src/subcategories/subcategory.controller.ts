@@ -19,9 +19,14 @@ export class SubcategoriesController {
     return await this.SubCategoriesService.getAll();
   }
 
+  @Get('/categories/name/:name')
+  async getByCategorieName(@Param('name') name: string) {
+    return await this.SubCategoriesService.getByCategorieName(name);
+  }
+
   @Get('/categories/:id')
   async getByCategorie(@Param('id') id: string) {
-    return await this.SubCategoriesService.getByCategorie(id);
+    return await this.SubCategoriesService.getByCategorieId(id);
   }
 
   @Get('/:id')
