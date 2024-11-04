@@ -20,9 +20,21 @@ export class SubcategoriesRepository {
     return await this.subcategoriesRepository.findOneBy({ id });
   }
 
-  async getByCategorie(id: uuidv4) {
+  async getByCategorieId(id: uuidv4) {
     return await this.subcategoriesRepository.find({
       where: { category: { id } },
+    });
+  }
+
+  async getByCategorieName(categoryName: string) {
+    return await this.subcategoriesRepository.findOne({
+      where: { category: { name: categoryName } },
+    });
+  }
+
+  async getByName(categoryName: string) {
+    return await this.subcategoriesRepository.findOne({
+      where: { name: categoryName },
     });
   }
 
