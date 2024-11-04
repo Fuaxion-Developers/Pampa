@@ -3,7 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
@@ -16,7 +16,7 @@ export class SubCategories {
   @Column()
   name: string;
 
-  @OneToOne(() => Categories, (categories) => categories.id, {
+  @ManyToOne(() => Categories, (categories) => categories.id, {
     eager: true,
     nullable: true,
   })
