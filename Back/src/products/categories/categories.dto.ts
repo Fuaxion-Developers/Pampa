@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  IsUrl,
 } from 'class-validator';
 
 export class CategoriesDto {
@@ -14,6 +15,36 @@ export class CategoriesDto {
     example: 'Calendarios',
   })
   name: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    example: 'https://example.com',
+  })
+  path: any;
+
+  @IsOptional()
+  @IsUrl()
+  @ApiProperty({
+    example: 'https://example.com',
+  })
+  image: string;
+}
+
+export class CategoriesWhitoutPathDto {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: 'Calendarios',
+  })
+  name: string;
+
+  @IsOptional()
+  @IsUrl()
+  @ApiProperty({
+    example: 'https://example.com',
+  })
+  image: string;
 }
 
 export class getCategoriesOptionsDto {
