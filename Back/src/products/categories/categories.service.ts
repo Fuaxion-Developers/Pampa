@@ -24,6 +24,10 @@ export class CategoriesService {
     return categoies;
   }
 
+  async categoriesQuantity() {
+    return this.CategoriesRepository.categoriesQuantity();
+  }
+
   async getById(id: UUID) {
     if (id == null || id.length == 0)
       throw new BadRequestException('Id must be defined');

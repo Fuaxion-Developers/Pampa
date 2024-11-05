@@ -28,6 +28,14 @@ export class ProductsRepository {
     return await this.product.findOneBy({ name });
   }
 
+  async productsQuantity() {
+    const productsQuantity: number = await this.product
+      .createQueryBuilder('products')
+      .getCount();
+
+    return { total: productsQuantity };
+  }
+
   async create(product: productWhitoutTypeDto) {
     return instanceToPlain(await this.product.save(product));
   }

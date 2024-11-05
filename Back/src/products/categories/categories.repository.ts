@@ -20,6 +20,14 @@ export class CategoriesRepository {
     return await this.productType.find();
   }
 
+  async categoriesQuantity() {
+    const categoriesQuantity: number = await this.productType
+      .createQueryBuilder('categories')
+      .getCount();
+
+    return { total: categoriesQuantity };
+  }
+
   async getById(id: UUID) {
     return await this.productType.findOneBy({ id });
   }

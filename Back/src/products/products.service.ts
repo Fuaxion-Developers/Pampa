@@ -58,6 +58,11 @@ export class ProductsService {
     return await this.productsRepository.getByName(name);
   }
 
+  async productsQuantity() {
+    return await this.productsRepository.productsQuantity();
+  }
+
+
   async create(product: productWhitTypeDto, file: Express.Multer.File) {
     console.log('entra aca');
     if (!product.category) {

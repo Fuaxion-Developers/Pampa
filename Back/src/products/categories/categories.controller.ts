@@ -49,6 +49,14 @@ export class CategoriesController {
     return await this.CategoriesService.getByName(name);
   }
 
+  @Get('quantity')
+  @ApiOperation({ summary: 'Get categories quantity' })
+  @ApiResponse({ status: 200, type: Number })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  async categiriesQuantity() {
+    return this.CategoriesService.categoriesQuantity();
+  }
+
   @ApiOperation({ summary: 'Get category by id' })
   @ApiResponse({ status: 200, type: CategoriesDto })
   @ApiBadRequestResponse({ description: 'Bad request' })
