@@ -9,5 +9,8 @@ export class Categories {
   id: UUID;
 
   @Column({ type: 'varchar' })
+  image: string;
+
+  @Column({ type: 'varchar' })
   name: string;
 }

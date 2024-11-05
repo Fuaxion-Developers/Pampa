@@ -2,11 +2,13 @@ import { Controller, Injectable, NotFoundException } from '@nestjs/common';
 import { SubcategoriesRepository } from './subcategory.repository';
 import { v4 as uuidv4 } from 'uuid';
 import { SubcategoriesDto, SubcategoriesUpdateDto } from './subcategory.dto';
+import { CategoriesService } from 'src/products/categories/categories.service';
 
 @Injectable()
 export class SubCategoriesService {
   constructor(
     private readonly subcategoriesRepository: SubcategoriesRepository,
+    private readonly cate: CategoriesService,
   ) {}
 
   async getAll() {
@@ -25,18 +27,36 @@ export class SubCategoriesService {
     return subCategorie;
   }
 
-  async getByCategorie(id: uuidv4) {
-    console.log(id);
-
-    const subCategories = await this.subcategoriesRepository.getByCategorie(id);
+  async getByCategorieId(id: uuidv4) {
+    const subCategories =
+      await this.subcategoriesRepository.getByCategorieId(id);
     if (subCategories.length === 0) {
       throw new NotFoundException('There are no subcategories');
     }
     return subCategories;
   }
 
+  async getByCategorieName(categoryName: string) {
+    const category = await this.subcategoriesRepository.getByName(categoryName);
+  }
+
   async create(subcategory: SubcategoriesDto) {
-    console.log(subcategory);
+    const subcategorie = await this.subcategoriesRepository.getByCategorieName(
+      subcategory.name,
+    );
+    if (subcategorie) {
+      throw new NotFoundException(
+        `There is already a subcategory with the name of ${subcategorie.name}`,
+      );
+    }
+
+    const category = await this.cate.getByName(subcategory.category.name);
+
+    if (!category) {
+      throw new NotFoundException('There is no category with this name');
+    } else {
+      subcategory.category = category.id;
+    }
     return await this.subcategoriesRepository.create(subcategory);
   }
 

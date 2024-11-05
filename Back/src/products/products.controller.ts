@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -20,12 +22,16 @@ import {
 import {
   ApiBadGatewayResponse,
   ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { Products } from './product.entity';
+import { FileUploadDto } from 'src/files/dtos/files.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ValidationFile } from 'src/files/pipes/validationFiles.pipe';
 
 @ApiTags('Products')
 @Controller('products')
@@ -89,10 +95,15 @@ export class ProductsController {
   @ApiOperation({ summary: 'Create new product' })
   @ApiResponse({ status: 200, type: Products })
   @ApiBadGatewayResponse({ description: 'Can not create product' })
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file'))
   @ApiBody({ type: productWhitTypeDto })
   @Post('create')
-  async create(@Body() newProduct: productWhitTypeDto) {
-    return await this.productsService.create(newProduct);
+  async create(
+    @Body() newProduct: productWhitTypeDto,
+    @UploadedFile(ValidationFile) file: Express.Multer.File,
+  ) {
+    return await this.productsService.create(newProduct, file);
   }
 
   @ApiOperation({ summary: 'Update product' })
@@ -103,9 +114,10 @@ export class ProductsController {
   @Patch('update/:id')
   async update(
     @Param('id', ParseUUIDPipe) id: uuidv4,
-    @Body() newProduct: productWhitoutTypePatchDto,
+    @Body() newProduct: productWithTypePatchDto,
+    @UploadedFile(ValidationFile) file: Express.Multer.File,
   ) {
-    return await this.productsService.update(id, newProduct);
+    return await this.productsService.update(id, newProduct, file);
   }
 
   @ApiOperation({ summary: 'Delete product' })

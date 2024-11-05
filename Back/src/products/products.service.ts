@@ -6,17 +6,17 @@ import {
 import { ProductsRepository } from './product.repository';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  productWithTypePatchDto,
   productWhitTypeDto,
   getProductsOptions,
-  productWhitoutTypeDto,
   productWhitoutTypePatchDto,
+  productWithTypePatchDto,
 } from './product.dto';
 import { CategoriesService } from './categories/categories.service';
 import { instanceToPlain } from 'class-transformer';
 import { getAllProductDto } from './product.dto';
 import { Products } from './product.entity';
 import { SubCategoriesService } from 'src/subcategories/subcategory.service';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class ProductsService {
@@ -24,6 +24,7 @@ export class ProductsService {
     private productsRepository: ProductsRepository,
     private CategoriesService: CategoriesService,
     private SubCategorie: SubCategoriesService,
+    private filesUpload: FilesService,
   ) {}
 
   async getAll(options: getProductsOptions) {
@@ -61,13 +62,28 @@ export class ProductsService {
     return await this.productsRepository.productsQuantity();
   }
 
-  async create(product: productWhitTypeDto) {
+
+  async create(product: productWhitTypeDto, file: Express.Multer.File) {
+    console.log('entra aca');
     if (!product.category) {
       throw new BadRequestException('Category must be defined');
     }
     const newProduct = new Products();
+
+    if (file) {
+      const image = await this.filesUpload.uploadFile({
+        file,
+        path: product.path,
+      });
+      if (!image) {
+        throw new BadRequestException('Image not found');
+      }
+      newProduct.image_url = image.secure_url;
+    } else {
+      newProduct.image_url = product.image_url;
+    }
+
     newProduct.name = product.name;
-    newProduct.image_url = product.image_url;
     newProduct.description = product.description;
     newProduct.price = product.price;
     newProduct.height = product.height;
@@ -92,8 +108,23 @@ export class ProductsService {
     return 'Product created';
   }
 
-  async update(id: uuidv4, product: productWhitoutTypePatchDto) {
-    return await this.productsRepository.update(id, product);
+  async update(
+    id: uuidv4,
+    product: productWithTypePatchDto,
+    file: Express.Multer.File,
+  ) {
+    const productToUpdate = await this.productsRepository.getById(id);
+    if (file) {
+      const image = await this.filesUpload.uploadFile({
+        file,
+        path: product.path,
+      });
+      if (!image) {
+        throw new BadRequestException('Image not found');
+      }
+      productToUpdate.image_url = image.secure_url;
+    }
+    return await this.productsRepository.update(id, productToUpdate);
   }
 
   async delete(id: uuidv4) {

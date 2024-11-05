@@ -14,7 +14,7 @@ export class FilesService {
     return new Promise((resolve, reject) => {
       log('Uploading file to Cloudinary2');
       const upload = v2.uploader.upload_stream(
-        { resource_type: 'auto', folder: path },
+        { resource_type: 'auto', folder: 'pampa/images/' + path },
 
         (error, result) => {
           console.log('Uploading file to Cloudinary3');

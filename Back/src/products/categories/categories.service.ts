@@ -5,18 +5,16 @@ import {
 } from '@nestjs/common';
 import { CategoriesRepository } from './categories.repository';
 import { UUID } from 'crypto';
-import { EntityManager } from 'typeorm';
-import {
-  CategoriesDto,
-  getAllCategoriesPartialDto,
-  getCategoriesOptionsDto,
-} from './categories.dto';
+import { FilesService } from '../../files/files.service';
+import { v4 as uuid } from 'uuid';
+import { CategoriesDto } from './categories.dto';
+import { Categories } from './categories.entity';
 
 @Injectable()
 export class CategoriesService {
   constructor(
     private CategoriesRepository: CategoriesRepository,
-    private En: EntityManager,
+    private FilesService: FilesService,
   ) {}
 
   async getAll() {
@@ -40,19 +38,51 @@ export class CategoriesService {
     return this.CategoriesRepository.getByName(name);
   }
 
-  async createProductType(productType: CategoriesDto) {
+  async createProductType(
+    productType: CategoriesDto,
+    file: Express.Multer.File,
+  ) {
     const categorie = await this.CategoriesRepository.getByName(
       productType.name,
     );
     if (categorie) {
       throw new ConflictException('Category already exists');
     }
-    await this.CategoriesRepository.create(productType);
+
+    const newCategory = new Categories();
+    newCategory.name = productType.name;
+    if (file) {
+      const image = await this.FilesService.uploadFile({
+        file,
+        path: productType.path,
+      });
+      if (!image) {
+        throw new BadRequestException('Image can not be uploaded');
+      }
+      productType.image = image.secure_url;
+    } else {
+      newCategory.image = productType.image;
+    }
+    await this.CategoriesRepository.create(newCategory);
     return 'Product type created';
   }
 
-  async update(id: UUID, productType: CategoriesDto) {
+  async update(
+    id: uuid,
+    file: Express.Multer.File,
+    productType: CategoriesDto,
+  ) {
     try {
+      if (file) {
+        const image = await this.FilesService.uploadFile({
+          file,
+          path: productType.path,
+        });
+        if (!image) {
+          throw new BadRequestException('Image can not be uploaded');
+        }
+        productType.image = image.secure_url;
+      }
       return await this.CategoriesRepository.update(id, productType);
     } catch (error) {
       throw new BadRequestException("Can't update product type");

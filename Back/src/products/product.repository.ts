@@ -4,9 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  productWithTypePatchDto,
-  productWhitTypeDto,
-  getAllProductDto,
   getProductsOptions,
   productWhitoutTypeDto,
   productWhitoutTypePatchDto,
