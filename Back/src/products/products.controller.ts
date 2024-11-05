@@ -57,7 +57,6 @@ export class ProductsController {
   @ApiBadGatewayResponse({ description: 'Can not get product' })
   @ApiParam({ name: 'categoryName', type: 'string' })
   async getByCategoryName(@Param('categoryName') categoryName: string) {
-    console.log(categoryName);
     return await this.productsService.getByCategoryName(categoryName);
   }
 
@@ -68,6 +67,14 @@ export class ProductsController {
   @ApiParam({ name: 'subCategoryName', type: 'string' })
   async getBySubCategoryName(@Param('id') id: uuidv4) {
     return await this.productsService.getBySubCategory(id);
+  }
+
+  @Get('quantity')
+  @ApiOperation({ summary: 'Get quantity products' })
+  @ApiResponse({ status: 200, type: Number })
+  @ApiBadGatewayResponse({ description: 'Can not get the quantity products' })
+  async productsQuantity() {
+    return await this.productsService.productsQuantity();
   }
 
   @Get(':id')
