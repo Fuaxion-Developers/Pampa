@@ -57,6 +57,10 @@ export class ProductsService {
     return await this.productsRepository.getByName(name);
   }
 
+  async productsQuantity() {
+    return await this.productsRepository.productsQuantity();
+  }
+
   async create(product: productWhitTypeDto) {
     if (!product.category) {
       throw new BadRequestException('Category must be defined');
