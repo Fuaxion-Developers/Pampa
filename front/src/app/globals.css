@@ -20,14 +20,12 @@
 }
 
 body {
-  background-image: url('https://res.cloudinary.com/dkobjvdgn/image/upload/v1730075868/PortadaPampa_gfsegd.png');
-  background-size: 100% 100%; /* La imagen cubre todo el contenedor */
-  background-position: center; /* Centrada en el contenedor */
-  background-repeat: no-repeat; /* Repite el patrón */
-  color: white;
-  position: relative;
-  z-index: 0;
+} 
+
+body{
+  background-color: black;
 }
+
 
 /* globals.css */
 ::-webkit-scrollbar {
