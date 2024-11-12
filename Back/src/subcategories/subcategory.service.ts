@@ -38,6 +38,10 @@ export class SubCategoriesService {
 
   async getByCategorieName(categoryName: string) {
     const category = await this.subcategoriesRepository.getByName(categoryName);
+    if (!category) {
+      throw new NotFoundException('There are no subcategories');
+    }
+    return category;
   }
 
   async create(subcategory: SubcategoriesDto) {
@@ -49,11 +53,9 @@ export class SubCategoriesService {
         `There is already a subcategory with the name of ${subcategorie.name}`,
       );
     }
-
-    const category = await this.cate.getByName(subcategory.category.name);
-
+    const category = await this.cate.getById(subcategory.category);
     if (!category) {
-      throw new NotFoundException('There is no category with this name');
+      throw new NotFoundException('Category not found');
     } else {
       subcategory.category = category.id;
     }
