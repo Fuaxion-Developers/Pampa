@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { OrderStatusService } from 'src/order-status/order-status.service';
+import { Categories } from 'src/products/categories/categories.entity';
 import { CategoriesService } from 'src/products/categories/categories.service';
 import { ProductsService } from 'src/products/products.service';
 import { SubCategoriesService } from 'src/subcategories/subcategory.service';
@@ -183,13 +184,12 @@ export const precargaCategories = async (app) => {
       categoriesIds.push(categorie.id);
     }
     Logger.verbose('Categories created');
-    console.log(categoriesService.getAll());
   }
 };
 
 export const SubCategoriesPreLoad = async (app) => {
-  const categories = {
-    'Alto Relieve': [
+  const subCategories = {
+    'Alto relieve': [
       'Línea Roja (RJ)',
       'Línea Verde (VE)',
       'Línea Azul (AZ)',
@@ -206,7 +206,7 @@ export const SubCategoriesPreLoad = async (app) => {
       'Scrap (SC)',
       'Línea Gatitos (GT)',
     ],
-    'Bajo Relieve': [
+    'Bajo relieve': [
       'Bajo Relieve Amarillo (BRAM)',
       'Bajo Relieve Naranja (BRNJ)',
       'Línea Puntilla (PTL)',
@@ -246,23 +246,34 @@ export const SubCategoriesPreLoad = async (app) => {
     Celebraciones: ['PASCUAL (PSC)', '- PSC 01', '- PSC 02', '- PSC 03'],
     Oron: [],
   };
+
   const subCategoriesService = app.get(SubCategoriesService);
+  const categoryService = app.get(CategoriesService);
   try {
     await subCategoriesService.getAll();
     Logger.warn('SubCategories already created');
   } catch (error) {
-    for (const category in categories) {
-      for (const subCategory of categories[category]) {
-        const subCategoryExistente =
-          await subCategoriesService.getByCategorieName(subCategory);
-        if (subCategoryExistente) continue;
-        const subCategorie = await subCategoriesService.create({
-          name: subCategory,
-          category: category,
-        });
-        categoriesIds.push(subCategorie.id);
+    for (const categories in subCategories) {
+      try {
+        const existingCategory = await categoryService.getByName(categories);
+        if (!existingCategory) {
+          continue;
+        }
+
+        for (const subCategory of subCategories[categories]) {
+          const subCategoryExistente =
+            await subCategoriesService.getByCategorieName(subCategory);
+
+          await subCategoriesService.create({
+            name: subCategory,
+            category: existingCategory.id,
+          });
+        }
+      } catch (error) {
+        Logger.error(
+          `Error processing category "${categories}": ${error.message}`,
+        );
       }
     }
-    Logger.verbose('SubCategories created');
   }
 };
