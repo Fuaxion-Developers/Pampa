@@ -62,9 +62,7 @@ export class ProductsService {
     return await this.productsRepository.productsQuantity();
   }
 
-
   async create(product: productWhitTypeDto, file: Express.Multer.File) {
-    console.log('entra aca');
     if (!product.category) {
       throw new BadRequestException('Category must be defined');
     }
@@ -94,8 +92,8 @@ export class ProductsService {
     } else {
       newProduct.category = category;
     }
-    const subCategory = await this.SubCategorie.getById(product.subCategory);
-    if (subCategory) {
+    if (product.subCategory) {
+      const subCategory = await this.SubCategorie.getById(product.subCategory);
       newProduct.subCategory = subCategory;
     }
     const existingProduct = await this.productsRepository.getByName(
