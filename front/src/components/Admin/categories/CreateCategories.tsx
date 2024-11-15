@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { getCreateCategory } from '@/helpers/categories.helper'; // Ajusta la ruta
 import Swal from 'sweetalert2'; // Importa SweetAlert2
 import { ICategory } from '@/types';
+import { useRouter } from "next/navigation";
 
 const CreateCategories = ({
   onCategoryAdded,
@@ -10,6 +11,7 @@ const CreateCategories = ({
   onCategoryAdded: (category: ICategory) => void;
 }) => {
   const [newCategory, setNewCategory] = useState('');
+   const router = useRouter();
 
   const agregarCategoria = async () => {
     if (newCategory.trim() === '') {
@@ -37,11 +39,15 @@ const CreateCategories = ({
         icon: 'success',
         title: 'Categoría creada',
         text: 'La categoría se ha creado correctamente',
-        showConfirmButton: false,
+        showConfirmButton: true,
         timer: 1500,
-      });
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setNewCategory(''); // Limpia el campo después de agregar
+          router.push('/admin/categories');
+        }
+      })
 
-      setNewCategory(''); // Limpia el campo después de agregar
     } catch (error) {
       console.error('Error al agregar la categoría:', error);
       Swal.fire({
