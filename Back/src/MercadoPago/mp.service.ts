@@ -30,7 +30,7 @@ export class MpService {
       }
       console.log('order', order);
       const orderDetails: OrderDetails[] | string =
-        await this.ordersService.getAllByOrder(order.id);
+        (await this.ordersService.getAllByOrder(order.id)).orderDetails;
 
       console.log(orderDetails);
       const user = await this.InfoUserService.getInfoUserByCUITL(

@@ -25,16 +25,40 @@ export class OrderDetailService {
   }
 
   async getAllByOrder(id: string) {
-    return await this.orderDetailRepository.getAllByOrder(id);
+    const orderDetails = await this.orderDetailRepository.getAllByOrder(id);
+    let totalOrder: number = 0;
+    orderDetails.map((oD) => {
+      totalOrder += oD.quantity*oD.product.price;
+    });
+
+    return { orderDetails, totalOrder }
   }
 
-  async getByOrder(id: string, options: getAllOrderDetailsOptionsDto) {
-    const orderDetail = await this.orderDetailRepository.getByOrder(
+  async getAllByProductId(productId: string) {
+    const orderDetails = await this.orderDetailRepository.getAllByProductId(productId);
+    let totalOrder: number = 0;
+    orderDetails.map((oD) => {
+      totalOrder += oD.quantity*oD.product.price;
+    });
+
+    return { orderDetails, totalOrder }
+  }
+
+  async getAllByOrderPaged(id: string, options: getAllOrderDetailsOptionsDto) {
+    const orderDetail = await this.orderDetailRepository.getAllByOrderPaged(
       id,
       options,
     );
     if (orderDetail.length > 0) return orderDetail;
     else return 'No order detail found';
+  }
+
+  async getLowestSixQuantity() {
+    return this.orderDetailRepository.getLowestSixQuantity();
+  }
+
+  async getLowestSixSales() {
+    return this.orderDetailRepository.getLowestSixSales();
   }
 
   async create(order: OrderDetailDto) {
