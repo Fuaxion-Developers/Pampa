@@ -15,7 +15,7 @@ export class OrderDto {
   @IsNumberString({ no_symbols: true })
   @IsNotEmpty()
   @ApiProperty({
-    example: uuid(),
+    example: "12345678901",
   })
   user_id: string;
 
