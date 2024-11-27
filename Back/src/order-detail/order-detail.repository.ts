@@ -27,10 +27,10 @@ export class OrderDetailRepository {
     });
   }
 
-  async getByOrder(id: string, options: getAllOrderDetailsOptionsDto) {
+  async getAllByOrderPaged(id: string, options: getAllOrderDetailsOptionsDto) {
     return await this.order.find({
       where: { order: { id } },
-      skip: options.page,
+      skip: (options.page-1)*options.limit,
       take: options.limit,
     });
   }
@@ -39,6 +39,40 @@ export class OrderDetailRepository {
     return await this.order.find({
       where: { order: { id } },
     });
+  }
+
+  async getAllByProductId(id: string) {
+    return await this.order.find({
+      where: { product: { id } },
+    });
+  }
+
+  async getLowestSixQuantity() {
+    const betterSixQuantity = await this.order
+      .createQueryBuilder('order_details')
+      .innerJoin('order_details.product', 'product')
+      .select('product.*')
+      .addSelect('SUM(order_details.quantity)', 'totalQuantity')
+      .groupBy('product.id')
+      .orderBy('SUM(order_details.quantity)', 'ASC')
+      .limit(6)
+      .getRawMany()
+
+    return betterSixQuantity;
+  }
+
+  async getLowestSixSales() {
+    const betterSixSales = await this.order
+      .createQueryBuilder('order_details')
+      .innerJoin('order_details.product', 'product')
+      .select('product.*')
+      .addSelect('SUM(product.price * order_details.quantity)', 'totalSales')
+      .groupBy('product.id')
+      .orderBy('SUM(product.price * order_details.quantity)', 'ASC')
+      .limit(6)
+      .getRawMany()
+
+    return betterSixSales;
   }
 
   async create(order: OrderDetailDto) {
