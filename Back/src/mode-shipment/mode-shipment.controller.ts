@@ -14,11 +14,13 @@ import {
   ApiBadRequestResponse,
   ApiOperation,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { ModeShipmentDto, ModeShipmentParcialDto } from './mode-shipment.dto';
 import { v4 as uuid } from 'uuid';
 
 @Controller('mode-shipment')
+@ApiTags('Mode shipment')
 export class ModeShipmentController {
   constructor(private modeShipmentService: ModeShipmentService) {}
 
