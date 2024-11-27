@@ -44,13 +44,13 @@ export class OrderDetailController {
   @ApiResponse({ status: 200, type: [OrderDetails] })
   @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
   @Get('order/:id')
-  async getByOrder(
+  async getAllByOrderPaged(
     @Query() options: getAllOrderDetailsOptionsDto,
     @Param('id', ParseUUIDPipe) id: string,
   ) {
     if (!options.page || options.page < 0) options.page = 0;
     if (!options.limit || options.limit < 0) options.limit = 10;
-    return await this.orderDetailService.getByOrder(id, options);
+    return await this.orderDetailService.getAllByOrderPaged(id, options);
   }
 
   @ApiOperation({
@@ -60,11 +60,39 @@ export class OrderDetailController {
   @ApiResponse({ status: 200, type: [OrderDetails] })
   @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
   @Get('order/all/:id')
-  async getByProduct(
-    @Query() options: getAllOrderDetailsOptionsDto,
+  async getAllByOrder(
     @Param('id', ParseUUIDPipe) id: string,
   ) {
     return await this.orderDetailService.getAllByOrder(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all order details by product id',
+  })
+  @ApiParam({ name: 'productId', type: String })
+  @ApiResponse({ status: 200, type: [OrderDetails] })
+  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
+  @Get('product/all/:productId')
+  async getAllByProductId(
+    @Param('productId', ParseUUIDPipe) productId: string,
+  ) {
+    return await this.orderDetailService.getAllByProductId(productId);
+  }
+
+  @ApiOperation({ summary: 'Get lowest six products by quantity' })
+  @ApiResponse({ status: 200, type: OrderDetails })
+  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
+  @Get('products/lowestSixQuantity')
+  async getLowestSixQuantity() {
+    return await this.orderDetailService.getLowestSixQuantity();
+  }
+
+  @ApiOperation({ summary: 'Get lowest six products by sales' })
+  @ApiResponse({ status: 200, type: OrderDetails })
+  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
+  @Get('products/lowestSixSales')
+  async getLowestSixSales() {
+    return await this.orderDetailService.getLowestSixSales();
   }
 
   @ApiOperation({ summary: 'Get order detail by id' })
