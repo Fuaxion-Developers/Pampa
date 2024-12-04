@@ -16,7 +16,7 @@ export class OrderDetailRepository {
 
   async getAll(options: getAllOrderDetailsOptionsDto) {
     return await this.order.find({
-      skip: options.page,
+      skip: (options.page-1)*options.limit,
       take: options.limit,
     });
   }
@@ -45,6 +45,29 @@ export class OrderDetailRepository {
     return await this.order.find({
       where: { product: { id } },
     });
+  }
+
+  async getAllByDate(year: string, month: string, day: string) {
+    const allByDate = this.order
+      .createQueryBuilder('orders')
+      .innerJoinAndSelect('orders.order', 'order-details')
+
+    if(day) {
+      allByDate.andWhere('EXTRACT(DAY FROM order-details.date) = :day', { day })
+    }
+
+    if(month) {
+      allByDate.andWhere('EXTRACT(MONTH FROM order-details.date) = :month', { month })
+    }
+
+    if(year) {
+      allByDate.andWhere('EXTRACT(YEAR FROM order-details.date) = :year', { year })
+    }
+
+    const results = await allByDate.innerJoinAndSelect('orders.product', 'product')
+      .getMany();
+    
+    return results;
   }
 
   async getLowestSixQuantity() {
