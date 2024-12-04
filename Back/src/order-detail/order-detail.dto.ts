@@ -47,3 +47,26 @@ export class getAllOrderDetailsOptionsDto {
   })
   page: number;
 }
+
+export class getAllOrderDetailsByDateDto {
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    example: '2024',
+  })
+  year?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    example: '08',
+  })
+  month?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    example: '24',
+  })
+  day?: string;
+}
