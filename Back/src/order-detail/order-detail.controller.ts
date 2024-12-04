@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { OrderDetailService } from './order-detail.service';
 import {
+  getAllOrderDetailsByDateDto,
   getAllOrderDetailsOptionsDto,
   OrderDetailDto,
   OrderDetailDtoPartial,
@@ -77,6 +78,21 @@ export class OrderDetailController {
     @Param('productId', ParseUUIDPipe) productId: string,
   ) {
     return await this.orderDetailService.getAllByProductId(productId);
+  }
+
+  @ApiOperation({
+    summary: 'Get all order details by date',
+  })
+  @ApiResponse({ status: 200, type: [OrderDetails] })
+  @ApiBadRequestResponse({ status: 400, description: 'Order detail not found' })
+  @Get('product/allByDate')
+  async getAllByDate(
+    @Query() options: getAllOrderDetailsByDateDto,
+  ) {
+    const year = options.year || '';
+    const month = options.month || '';
+    const day = options.day || '';
+    return await this.orderDetailService.getAllByDate(year, month, day);
   }
 
   @ApiOperation({ summary: 'Get lowest six products by quantity' })
