@@ -53,6 +53,15 @@ export class OrderDetailService {
     else return 'No order detail found';
   }
 
+  async getAllByDate(year: string, month: string, day: string) {
+    const orderDetails = await this.orderDetailRepository.getAllByDate(year, month, day);
+    orderDetails.forEach((oD) => {
+      (oD as any).total = oD.quantity * oD.product.price 
+    });
+
+    return orderDetails;
+  }
+
   async getLowestSixQuantity() {
     return this.orderDetailRepository.getLowestSixQuantity();
   }
